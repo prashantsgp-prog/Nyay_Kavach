@@ -22,7 +22,7 @@
             background: radial-gradient(circle at 50% 0%, var(--upp-blue) 0%, var(--bg-dark) 70%);
             color: var(--text-main);
             min-height: 100vh;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
         }
 
         .top-header {
@@ -41,13 +41,12 @@
         .subtitle { font-size: 13px; color: var(--text-muted); font-weight: normal; }
         .status-badge { background: rgba(76, 175, 80, 0.2); color: #4CAF50; padding: 4px 10px; border-radius: 20px; font-size: 12px; border: 1px solid #4CAF50; }
 
-        /* 🖥️ डेस्कटॉप लेआउट */
         .dashboard-container { display: grid; grid-template-columns: 260px 1fr; gap: 20px; padding: 20px; max-width: 1400px; margin: 0 auto; }
 
-        .sidebar { background: rgba(10, 15, 29, 0.6); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; height: auto; }
-        .sidebar h3 { color: var(--text-muted); font-size: 13px; margin-bottom: 5px; text-transform: uppercase; }
-        .nav-btn { background: transparent; border: none; color: var(--text-main); padding: 12px; text-align: left; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 15px; }
-        .nav-btn:hover, .nav-btn.active { background: var(--upp-blue); color: white; }
+        .sidebar { background: rgba(10, 15, 29, 0.6); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .sidebar h3 { color: var(--text-muted); font-size: 13px; }
+        .nav-btn { background: transparent; border: none; color: var(--text-main); padding: 12px; text-align: left; border-radius: 8px; cursor: pointer; font-size: 15px; }
+        .nav-btn.active { background: var(--upp-blue); color: white; }
         .officer-info { margin-top: 15px; background: var(--glass-card); padding: 12px; border-radius: 8px; font-size: 13px; border-left: 3px solid var(--upp-red); }
 
         .main-content { display: flex; flex-direction: column; gap: 20px; }
@@ -57,16 +56,16 @@
         .desc { color: var(--text-muted); font-size: 14px; margin-bottom: 15px; }
 
         textarea, input { width: 100%; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--glass-border); border-radius: 8px; color: white; padding: 12px; font-size: 14px; }
-        textarea:focus, input:focus { border-color: var(--upp-blue); outline: none; }
+        
         .btn-group { display: flex; gap: 10px; margin-top: 15px; }
-        .btn { flex: 1; padding: 12px 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; transition: 0.2s; font-size: 14px; }
+        .btn { flex: 1; padding: 14px 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; font-size: 14px; text-align: center; }
         .btn-red { background: linear-gradient(135deg, var(--upp-red) 0%, #8A0000 100%); }
         .btn-blue { background: linear-gradient(135deg, var(--upp-blue) 0%, #082960 100%); }
         
-        .result-card { border-left-color: var(--upp-red); }
+        .result-card { border-left-color: var(--upp-red); margin-top: 10px; }
         .score-board { display: flex; gap: 15px; margin: 15px 0; }
-        .score-box { background: rgba(198, 40, 40, 0.15); border: 1px solid var(--upp-red); padding: 12px; border-radius: 8px; text-align: center; min-width: 100px; }
-        .score-box h2 { color: var(--upp-red); font-size: 26px; margin-top: 5px; }
+        .score-box { background: rgba(198, 40, 40, 0.2); border: 1px solid var(--upp-red); padding: 12px; border-radius: 8px; text-align: center; min-width: 100px; }
+        .score-box h2 { color: #ff5252; font-size: 26px; margin-top: 5px; }
         .status-box { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); padding: 12px; border-radius: 8px; flex: 1; }
         .status-box h3 { color: #FFB300; margin-top: 5px; font-size: 16px; }
         
@@ -80,23 +79,21 @@
         .timeline-desc { font-size: 13px; color: var(--text-muted); }
 
         .voice-assistant-widget { position: fixed; bottom: 15px; right: 15px; width: calc(100% - 30px); max-width: 340px; background: rgba(15, 23, 42, 0.98); border: 1px solid var(--glass-border); border-top: 3px solid var(--upp-red); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); z-index: 1000; overflow: hidden; }
-        .assistant-header { background: rgba(10, 15, 29, 1); padding: 12px 15px; cursor: pointer; display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; }
-        .assistant-body { height: 0; opacity: 0; transition: 0.3s ease; display: none; }
-        .voice-assistant-widget.open .assistant-body { height: 350px; opacity: 1; display: flex; flex-direction: column; }
+        .assistant-header { background: rgba(10, 15, 29, 1); padding: 14px 15px; cursor: pointer; display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; }
+        .assistant-body { height: 0; display: none; flex-direction: column; }
+        .voice-assistant-widget.open .assistant-body { height: 320px; display: flex; }
         .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .message { padding: 10px 12px; border-radius: 8px; font-size: 13px; max-width: 85%; line-height: 1.4; }
+        .message { padding: 10px 12px; border-radius: 8px; font-size: 13px; max-width: 85%; }
         .message.assistant { background: rgba(255,255,255,0.08); align-self: flex-start; }
         .message.user { background: var(--upp-blue); align-self: flex-end; }
         .chat-input-area { display: flex; padding: 10px; gap: 5px; border-top: 1px solid var(--glass-border); }
         .icon-btn { background: none; border: none; color: white; font-size: 18px; cursor: pointer; padding: 0 8px; }
-        .recording-status { display: none; text-align: center; color: var(--upp-red); font-size: 12px; padding-bottom: 5px; font-weight: bold; }
+        .recording-status { display: none; text-align: center; color: var(--upp-red); font-size: 12px; padding: 5px 0; font-weight: bold; }
 
-        /* 📱 📱 मोबाइल फोन के लिए स्पेशल रिस्पॉन्सिव रूल */
         @media (max-width: 768px) {
             .dashboard-container { grid-template-columns: 1fr; padding: 10px; gap: 15px; }
-            .sidebar { display: none; } /* मोबाइल पर साइडबार छुपाया ताकि स्क्रीन साफ दिखे */
+            .sidebar { display: none; }
             .btn-group { flex-direction: column; }
-            .score-board { flex-direction: column; }
         }
     </style>
 </head>
@@ -111,11 +108,9 @@
     </header>
 
     <div class="dashboard-container">
-        
         <aside class="sidebar">
             <h3>नेविगेशन</h3>
             <button class="nav-btn active">📊 डैशबोर्ड</button>
-            <button class="nav-btn">📝 नया केस</button>
             <div class="officer-info">
                 <p><strong>ऑफिसर:</strong> प्रशांत सर</p>
                 <p><strong>पद:</strong> वरिष्ठ जांच अधिकारी</p>
@@ -123,10 +118,9 @@
         </aside>
 
         <main class="main-content">
-            
             <div class="card">
                 <h3><span class="red-dot">●</span> Case Evidence & Diary Input</h3>
-                <p class="desc">यहाँ केस डायरी या बयान पेस्ट करें:</p>
+                <p class="desc">यहाँ केस डायरी या बयान पेस्ट करें (खाली छोड़ने पर डेमो रन होगा):</p>
                 
                 <textarea id="caseDataInput" rows="5" placeholder="उदाहरण: आरोपी रात 11:30 बजे घटना स्थल पर देखा गया, लेकिन मेडिकल रिपोर्ट में चोट का समय दोपहर 2:00 बजे का है..."></textarea>
                 
@@ -141,15 +135,15 @@
                 <div class="score-board">
                     <div class="score-box">
                         <span>RISK SCORE</span>
-                        <h2 id="riskScoreVal">0%</h2>
+                        <h2 id="riskScoreVal">85%</h2>
                     </div>
                     <div class="status-box">
                         <span>STATUS</span>
-                        <h3 id="complianceStatusVal">Processing...</h3>
+                        <h3 id="complianceStatusVal">CRITICAL LOOPHOLE DETECTED</h3>
                     </div>
                 </div>
                 <h4>Detected Loopholes:</h4>
-                <p id="loopholesOutput" style="margin-top: 8px;"></p>
+                <p id="loopholesOutput" style="margin-top: 8px; color: #E2E8F0; line-height: 1.5;"></p>
             </div>
 
             <div class="card" id="timelineCard" style="display: none;">
@@ -159,89 +153,147 @@
                     <div id="timelineEventsContainer"></div>
                 </div>
             </div>
-
         </main>
     </div>
 
     <div class="voice-assistant-widget" id="voiceAssistant">
         <div class="assistant-header" id="toggleChatBtn">
             <span>🟢 Nyaya-Kavach AI Assistant</span>
-            <span class="toggle-icon" id="toggleIcon">▲</span>
+            <span id="toggleIcon">▲</span>
         </div>
         <div class="assistant-body" id="assistantBody">
             <div class="chat-messages" id="chatMessages">
-                <div class="message assistant">जय हिंद ऑफिसर। मैं 'न्याय-कवच' AI हूँ। मैं इस केस में आपकी क्या मदद कर सकता हूँ?</div>
+                <div class="message assistant">जय हिंद ऑफिसर। मैं 'न्याय-कवच' AI हूँ। आज किस केस फाइल का ऑडिट करना है?</div>
             </div>
             <div class="chat-input-area">
                 <input type="text" id="chatInput" placeholder="टाइप करें या बोलें...">
                 <button class="icon-btn" id="micBtn">🎤</button>
-                <button class="icon-btn send-btn" id="sendBtn">➤</button>
+                <button class="icon-btn" id="sendBtn">➤</button>
             </div>
             <div id="recStatus" class="recording-status">Listening... बोलिए...</div>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        // 1. CHATBOT TOGGLE (बिना किसी देरी के तुरंत काम करेगा)
+        const toggleBtn = document.getElementById('toggleChatBtn');
+        const widget = document.getElementById('voiceAssistant');
+        const assistantBody = document.getElementById('assistantBody');
+        const toggleIcon = document.getElementById('toggleIcon');
+
+        toggleBtn.addEventListener('click', () => {
+            widget.classList.toggle('open');
+            if(widget.classList.contains('open')) {
+                assistantBody.style.display = 'flex';
+                toggleIcon.innerText = '▼';
+            } else {
+                assistantBody.style.display = 'none';
+                toggleIcon.innerText = '▲';
+            }
+        });
+
+        // 2. AI AUDIT LOGIC (खाली रहने पर ऑटो-फिल करेगा)
+        document.getElementById('runAuditBtn').addEventListener('click', () => {
+            let inputArea = document.getElementById('caseDataInput');
+            let rawText = inputArea.value.trim();
+
+            // अगर यूजर ने कुछ नहीं लिखा, तो खुद डेमो टेक्स्ट भर दो
+            if (!rawText) {
+                rawText = "आरोपी रात 11:30 बजे घटना स्थल पर देखा गया, लेकिन मेडिकल रिपोर्ट में चोट का समय दोपहर 2:00 बजे का है।";
+                inputArea.value = rawText;
+            }
+
+            const resultCard = document.getElementById('auditResultCard');
+            const loopholesOutput = document.getElementById('loopholesOutput');
             
-            // 1. AUDIT LOGIC
-            const runAuditBtn = document.getElementById('runAuditBtn');
-            runAuditBtn.addEventListener('click', () => {
-                const rawText = document.getElementById('caseDataInput').value.trim();
-                const resultCard = document.getElementById('auditResultCard');
-                const loopholesOutput = document.getElementById('loopholesOutput');
-                const riskScoreVal = document.getElementById('riskScoreVal');
-                const complianceStatusVal = document.getElementById('complianceStatusVal');
+            resultCard.style.display = "block";
+            loopholesOutput.innerHTML = `
+                <b style="color:#ff5252;">1. समय विरोधाभास (Timeline Mismatch):</b> गवाह के बयान (रात 11:30) और मेडिकल रिपोर्ट (दोपहर 2:00) के समय में गंभीर अंतर है। कोर्ट में जिरह के दौरान बचाव पक्ष इसका लाभ उठा सकता है।<br><br>
+                <b style="color:#ff5252;">2. BNSS अलर्ट:</b> धारा 161 के तहत दर्ज केस डायरी की क्रोनोलॉजी में विसंगति है। कृपया डिजिटल साक्ष्य का हैश सर्टिफिकेट चेक करें।
+            `;
+            
+            // स्क्रीन को स्मूथ स्क्रॉल करके नीचे ले जाएं
+            resultCard.scrollIntoView({ behavior: 'smooth' });
+        });
 
-                if (!rawText) {
-                    alert("कृपया पहले बॉक्स में केस का विवरण दर्ज करें।");
-                    return;
-                }
+        // 3. TIMELINE LOGIC
+        document.getElementById('generateTimelineBtn').addEventListener('click', () => {
+            let inputArea = document.getElementById('caseDataInput');
+            if (!inputArea.value.trim()) {
+                inputArea.value = "आरोपी रात 11:30 बजे घटना स्थल पर देखा गया, लेकिन मेडिकल रिपोर्ट में चोट का समय दोपहर 2:00 बजे का है।";
+            }
 
-                resultCard.style.display = "block";
-                loopholesOutput.innerHTML = "⏳ Gemini AI विश्लेषण कर रहा है...";
+            const timelineCard = document.getElementById('timelineCard');
+            const container = document.getElementById('timelineEventsContainer');
 
-                setTimeout(() => {
-                    let riskScore = 25;
-                    let status = "Safe - BNSS Compliant";
-                    let analysisHtml = "कोई बड़ा कानूनी विरोधाभास नहीं मिला। चार्जशीट के लिए केस तैयार है।";
+            timelineCard.style.display = "block";
+            container.innerHTML = `
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-time">रात 11:30 बजे</div>
+                    <h4 class="timeline-title">FIR के अनुसार घटना का समय</h4>
+                    <p class="timeline-desc">पीड़ित और चश्मदीद के अनुसार घटना इसी वक्त हुई।</p>
+                </div>
+                <div class="timeline-item conflict">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-time">दोपहर 02:00 बजे ⚠️</div>
+                    <h4 class="timeline-title" style="color:#ff5252;">मेडिकल रिपोर्ट (MLC) का समय</h4>
+                    <p class="timeline-desc">डॉक्टर के अनुसार चोटें 8 घंटे पुरानी हैं, जो FIR के समय से मेल नहीं खातीं।</p>
+                </div>
+            `;
+            
+            timelineCard.scrollIntoView({ behavior: 'smooth' });
+        });
 
-                    if (rawText.includes("समय") || rawText.includes("बजे") || rawText.includes("मेडिकल") || rawText.includes("time")) {
-                        riskScore = 85;
-                        status = "CRITICAL LOOPHOLE DETECTED";
-                        analysisHtml = `
-                            <b style="color:#ff5252;">1. समय विरोधाभास:</b> गवाह के बयान और मेडिकल रिपोर्ट के समय में स्पष्ट अंतर है। कोर्ट में इसका नुकसान हो सकता है।<br><br>
-                            <b style="color:#ff5252;">2. BNSS अलर्ट:</b> धारा 161 के बयानों की क्रोनोलॉजी मैच नहीं हो रही है।
-                        `;
-                    }
+        // 4. CHAT MESSAGE SEND LOGIC
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        
+        function sendReply() {
+            const text = chatInput.value.trim();
+            if(!text) return;
 
-                    riskScoreVal.innerText = `${riskScore}%`;
-                    riskScoreVal.style.color = riskScore > 50 ? "#C62828" : "#4CAF50";
-                    complianceStatusVal.innerText = status;
-                    loopholesOutput.innerHTML = analysisHtml;
-                }, 800);
-            });
+            const uDiv = document.createElement('div');
+            uDiv.className = 'message user';
+            uDiv.innerText = text;
+            chatMessages.appendChild(uDiv);
+            chatInput.value = '';
 
-            // 2. TIMELINE LOGIC
-            const generateTimelineBtn = document.getElementById('generateTimelineBtn');
-            generateTimelineBtn.addEventListener('click', () => {
-                const rawText = document.getElementById('caseDataInput').value.trim();
-                const timelineCard = document.getElementById('timelineCard');
-                const container = document.getElementById('timelineEventsContainer');
+            setTimeout(() => {
+                const aDiv = document.createElement('div');
+                aDiv.className = 'message assistant';
+                aDiv.innerText = "जय हिंद ऑफिसर! मैंने आपके केस इनपुट का विश्लेषण कर लिया है। मेडिकल और टाइमलाइन में विरोधाभास है, कृपया केस डायरी दोबारा जांचें।";
+                chatMessages.appendChild(aDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 600);
+        }
 
-                if (!rawText) {
-                    alert("कृपया पहले बॉक्स में केस का विवरण दर्ज करें।");
-                    return;
-                }
+        document.getElementById('sendBtn').addEventListener('click', sendReply);
+        chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendReply(); });
 
-                timelineCard.style.display = "block";
-                container.innerHTML = "";
+        // 5. SAFE MOBILE SPEECH IMPLEMENTATION
+        try {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                const recognition = new SpeechRecognition();
+                recognition.lang = 'hi-IN';
+                const micBtn = document.getElementById('micBtn');
+                const recStatus = document.getElementById('recStatus');
 
-                const events = [
-                    { time: "घटना का समय (FIR)", title: "अपराध कारित होने की सूचना", desc: "घटना रात में घटित हुई।", conflict: false },
-                    { time: "गवाह का बयान (Sec 161 BNSS)", title: "चश्मदीद की गवाही", desc: "गवाह ने आरोपी को किसी अन्य स्थान पर देखने का दावा किया।", conflict: true },
-                    { time: "मेडिकल रिपोर्ट (MLC)", title: "अस्पताल द्वारा परीक्षण", desc: "चोटों का समय गवाह के बयान से मेल नहीं खाता।", conflict: true }
-                ];
-
-                events.forEach((ev) => {
-                    const item = document.createElement('div
+                micBtn.addEventListener('click', () => {
+                    recognition.start();
+                });
+                recognition.onstart = () => { recStatus.style.display = 'block'; };
+                recognition.onend = () => { recStatus.style.display = 'none'; };
+                recognition.onresult = (event) => {
+                    chatInput.value = event.results[0][0].transcript;
+                };
+            } else {
+                document.getElementById('micBtn').style.display = 'none';
+            }
+        } catch(e) {
+            document.getElementById('micBtn').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
