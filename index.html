@@ -3,64 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nyaya-Kavach AI | UP Police</title>
+    <title>Nyaya-Kavach | UP Police Login</title>
     <style>
-        :root { --upp-red: #C62828; --upp-blue: #0D47A1; }
-        body { margin: 0; background: #0A0F1D; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        body { margin: 0; background: #0A0F1D; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; }
+        .logo-main { width: 80px; margin-bottom: 10px; }
+        .tagline { color: #FFB300; font-weight: bold; margin: 10px 0; font-size: 14px; }
         
-        /* Login Styles */
-        #login-page { display: flex; flex-direction: column; align-items: center; padding: 20px; text-align: center; }
-        .logo-main { width: 100px; margin-bottom: 10px; }
-        .vips { display: flex; gap: 15px; margin: 20px 0; }
-        .vip-img { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--upp-blue); object-fit: cover; }
-        .login-card { background: rgba(255,255,255,0.05); padding: 30px; border-radius: 15px; border: 1px solid var(--upp-blue); width: 300px; }
-        input { width: 90%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #444; color: white; border-radius: 5px; }
-        .btn-login { width: 100%; padding: 12px; background: var(--upp-red); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        /* VIP Photos Section */
+        .vip-container { display: flex; gap: 15px; margin: 20px 0; align-items: flex-end; justify-content: center; }
+        .vip-box { text-align: center; }
+        .vip-box img { border: 2px solid #0D47A1; border-radius: 10px; object-fit: cover; }
         
-        /* Dashboard Styles */
-        #dashboard-page { display: none; width: 100%; max-width: 800px; padding: 20px; }
-        .assistant-box { position: fixed; bottom: 20px; right: 20px; width: 320px; background: #1a2533; padding: 15px; border-radius: 15px; border: 2px solid var(--upp-blue); }
-        .avatar { width: 60px; border-radius: 50%; border: 2px solid white; display: block; margin: 0 auto; }
+        /* Sizes */
+        .size-pm { width: 100px; height: 100px; }
+        .size-cm { width: 85px; height: 85px; }
+        .size-dgp { width: 70px; height: 70px; }
+
+        /* Login Box */
+        .login-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; border: 1px solid #0D47A1; width: 280px; }
+        input { width: 90%; padding: 12px; margin: 8px 0; background: #000; border: 1px solid #444; color: white; border-radius: 5px; }
+        .btn-login { width: 100%; padding: 12px; background: #C62828; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="login-page">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo-main">
-        <h3>NYAYA-KAVACH AI</h3>
-        <p style="color:#FFB300;">सुरक्षा - सेवा - न्याय | उत्तर प्रदेश पुलिस</p>
-        <div class="vips">
-            <img src="https://www.pmindia.gov.in/wp-content/uploads/2014/06/PM-Modi.jpg" class="vip-img">
-            <img src="https://up.gov.in/site/writereaddata/Gallery/1_1_2023_13_43_58.jpg" class="vip-img" style="width: 90px; height: 90px;">
-            <img src="https://uppolice.gov.in/site/writereaddata/siteContent/dgp_sir.jpg" class="vip-img">
-        </div>
-        <div class="login-card">
-            <input type="text" placeholder="Officer ID">
-            <input type="password" placeholder="Password">
-            <button class="btn-login" onclick="showDashboard()">LOGIN</button>
-        </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo-main">
+    <h2 style="margin:5px;">NYAYA-KAVACH AI</h2>
+    <div class="tagline">सुरक्षा - सेवा - न्याय | उत्तर प्रदेश पुलिस</div>
+
+    <div class="vip-container">
+        <div class="vip-box"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg" class="size-pm"><br>PM</div>
+        <div class="vip-box"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg" class="size-cm"><br>CM</div>
+        <div class="vip-box"><img src="https://upload.wikimedia.org/wikipedia/commons/7/75/UP_Police_Logo.png" class="size-dgp"><br>DGP</div>
     </div>
 
-    <div id="dashboard-page">
-        <h1>Dashboard | UP Police</h1>
-        <div class="assistant-box">
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="avatar">
-            <p style="text-align: center; font-size: 14px;">जय हिंद! मैं न्याय-कवच असिस्टेंट हूँ। वर्दी के साथ मैं आपकी सेवा में तैयार हूँ।</p>
-            <button class="btn-login" onclick="speakAI()">🎤 Talk to AI</button>
-        </div>
+    <div class="login-card">
+        <input type="text" placeholder="Officer ID">
+        <input type="password" placeholder="Password">
+        <button class="btn-login" onclick="window.location.href='dashboard.html'">LOGIN</button>
     </div>
 
-    <script>
-        function showDashboard() {
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('dashboard-page').style.display = 'block';
-        }
-        function speakAI() {
-            const msg = new SpeechSynthesisUtterance("जय हिंद ऑफिसर, मैं आपकी कैसे मदद कर सकता हूँ?");
-            msg.lang = 'hi-IN';
-            window.speechSynthesis.speak(msg);
-            alert("AI असिस्टेंट सक्रिय है...");
-        }
-    </script>
 </body>
 </html>
