@@ -2,58 +2,43 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Nyaya-Kavach | UP Police</title>
+    <title>Nyaya-Kavach | UP Police Login</title>
     <style>
         :root { --up-blue: #002e6e; --up-gold: #ffb300; --up-red: #c62828; }
-        body { margin: 0; background: linear-gradient(135deg, #0A0F1D 0%, #001533 100%); color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+        body { margin: 0; background: linear-gradient(135deg, #0A0F1D 0%, #001533 100%); color: white; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
         
         .logo { width: 100px; margin-bottom: 10px; }
-        h1 { color: var(--up-gold); font-size: 20px; margin-bottom: 20px; text-transform: uppercase; }
+        h1 { color: var(--up-gold); font-size: 24px; margin: 0; }
+        .desc { color: #ccc; font-size: 14px; margin-bottom: 20px; text-align: center; max-width: 300px; }
+
+        .vip-container { display: flex; gap: 15px; margin-bottom: 20px; }
+        .vip-box img { width: 70px; height: 70px; border: 2px solid var(--up-gold); border-radius: 50%; background: #333; }
         
-        /* VIP Container */
-        .vip-container { display: flex; gap: 15px; margin-bottom: 25px; }
-        .vip-box img { width: 80px; height: 80px; border: 2px solid var(--up-gold); border-radius: 50%; object-fit: cover; }
-        
-        .login-card { background: rgba(0, 46, 110, 0.4); padding: 25px; border-radius: 15px; border: 2px solid var(--up-gold); width: 280px; text-align: center; }
-        input { width: 90%; padding: 10px; margin: 7px 0; background: rgba(0,0,0,0.3); border: 1px solid var(--up-gold); color: white; border-radius: 5px; }
-        button { width: 100%; padding: 10px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        #captcha-display { font-weight: bold; letter-spacing: 5px; color: var(--up-gold); background: #000; padding: 10px; border: 1px solid var(--up-gold); margin: 10px 0; display: block; }
+        .login-card { background: rgba(0, 46, 110, 0.4); padding: 25px; border-radius: 20px; border: 2px solid var(--up-gold); width: 320px; text-align: center; }
+        input { width: 90%; padding: 12px; margin: 8px 0; background: rgba(0,0,0,0.5); border: 1px solid var(--up-gold); color: white; border-radius: 5px; }
+        button { width: 100%; padding: 12px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        #captcha-display { font-size: 20px; font-weight: bold; letter-spacing: 4px; color: var(--up-gold); background: #000; padding: 10px; border: 1px solid var(--up-gold); margin: 10px 0; }
     </style>
 </head>
 <body>
 
-    <img src="logo.png" class="logo" alt="UP Police Logo">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo" onerror="this.style.display='none'">
     <h1>NYAYA-KAVACH AI</h1>
+    <p class="desc">A smart AI-driven portal for UP Police to analyze crime records, manage case files, and provide real-time investigation assistance.</p>
 
     <div class="vip-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo" alt="UP Police Logo">
-
-<div class="vip-container">
-    <div class="vip-box">
         <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg" alt="PM">
-        <div>PM</div>
-    </div>
-    <div class="vip-box">
         <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg" alt="CM">
-        <div>CM</div>
-    </div>
-    <div class="vip-box">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Rajeev_Krishna.jpg/300px-Rajeev_Krishna.jpg" alt="DGP">
-        <div>DGP</div>
-    </div>
-</div>
-
     </div>
 
     <div class="login-card">
         <input type="text" placeholder="Officer ID">
         <input type="password" placeholder="Password">
-        
         <div id="captcha-display">------</div>
-        <button style="background:var(--up-blue); margin-bottom:10px;" onclick="generateCaptcha()">Generate Captcha</button>
+        <button onclick="generateCaptcha()">Generate New Captcha</button>
         <input type="text" placeholder="Enter Captcha" id="user-captcha">
-        
-        <button onclick="checkLogin()">LOGIN</button>
+        <button style="background:var(--up-blue);" onclick="checkLogin()">LOGIN</button>
     </div>
 
     <script>
@@ -63,15 +48,11 @@
             for(let i=0; i<6; i++) captcha += chars.charAt(Math.floor(Math.random() * chars.length));
             document.getElementById('captcha-display').innerText = captcha;
         }
-        
         function checkLogin() {
-            const userCaptcha = document.getElementById('user-captcha').value;
-            const actualCaptcha = document.getElementById('captcha-display').innerText;
-            if(userCaptcha === actualCaptcha) {
-                window.location.href = 'dashboard.html';
-            } else {
-                alert("Invalid Captcha!");
-            }
+            const u = document.getElementById('user-captcha').value;
+            const a = document.getElementById('captcha-display').innerText;
+            if(u === a) { window.location.href = 'dashboard.html'; }
+            else { alert("Wrong Captcha!"); }
         }
         generateCaptcha();
     </script>
