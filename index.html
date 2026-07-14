@@ -5,45 +5,57 @@
     <title>Nyaya-Kavach | UP Police</title>
     <style>
         :root { --up-blue: #002e6e; --up-gold: #ffb300; --up-red: #c62828; }
-        body { margin: 0; background: linear-gradient(135deg, #0A0F1D 0%, #001533 100%); color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 10px; }
+        body { margin: 0; background: linear-gradient(135deg, #0A0F1D 0%, #001533 100%); color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
         
-        .logo { width: 80px; margin-bottom: 5px; }
-        h1 { color: var(--up-gold); font-size: 22px; margin: 0; text-transform: uppercase; }
-        .tagline { color: white; font-size: 13px; margin-bottom: 25px; border-bottom: 1px solid var(--up-gold); padding-bottom: 5px; }
-
-        /* VIP Photos - Strict Sizing */
-        .vip-container { display: flex; gap: 20px; margin-bottom: 25px; align-items: flex-end; }
-        .vip-box { text-align: center; }
-        .vip-box img { display: block; border: 3px solid var(--up-gold); border-radius: 50%; object-fit: cover; background: #333; }
-        .s-pm { width: 100px; height: 100px; }
-        .s-cm { width: 85px; height: 85px; }
-        .s-dgp { width: 70px; height: 70px; }
-        .label { font-size: 11px; margin-top: 5px; color: var(--up-gold); font-weight: bold; }
-
+        /* Logo */
+        .logo { width: 90px; margin-bottom: 10px; }
+        h1 { color: var(--up-gold); font-size: 22px; margin: 0; }
+        
         /* Login Card */
         .login-card { background: rgba(0, 46, 110, 0.4); padding: 25px; border-radius: 15px; border: 2px solid var(--up-gold); width: 280px; text-align: center; }
         input { width: 90%; padding: 10px; margin: 7px 0; background: rgba(0,0,0,0.3); border: 1px solid var(--up-gold); color: white; border-radius: 5px; }
-        button { width: 100%; padding: 10px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 5px; }
+        button { width: 100%; padding: 10px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        
+        /* Captcha Styling */
+        #captcha-display { font-weight: bold; letter-spacing: 5px; color: var(--up-gold); background: #000; padding: 10px; border: 1px solid var(--up-gold); margin-bottom: 5px; display: inline-block; width: 100%; }
     </style>
 </head>
 <body>
 
     <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo">
     <h1>NYAYA-KAVACH AI</h1>
-    <div class="tagline">उत्तर प्रदेश पुलिस | सुरक्षा - सेवा - न्याय</div>
-
-    <div class="vip-container">
-        <div class="vip-box"><img src="pm.jpg" class="s-pm"><div class="label">PM</div></div>
-        <div class="vip-box"><img src="cm.jpg" class="s-cm"><div class="label">CM</div></div>
-        <div class="vip-box"><img src="dgp.jpg" class="s-dgp"><div class="label">DGP</div></div>
-    </div>
 
     <div class="login-card">
         <input type="text" placeholder="Officer ID">
         <input type="password" placeholder="Password">
-        <div style="display:flex; gap:5px;"><input type="text" placeholder="Captcha" id="c-code"><button style="width:40%;" onclick="document.getElementById('c-code').value='UPP2026'">🔄</button></div>
-        <button onclick="window.location.href='dashboard.html'">LOGIN</button>
+        
+        <div id="captcha-display">------</div>
+        <button style="background:var(--up-blue);" onclick="generateCaptcha()">Generate Captcha</button>
+        <input type="text" placeholder="Enter Captcha" id="user-captcha">
+        
+        <button style="margin-top:10px;" onclick="checkLogin()">LOGIN</button>
     </div>
 
+    <script>
+        function generateCaptcha() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let captcha = "";
+            for(let i=0; i<6; i++) captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            document.getElementById('captcha-display').innerText = captcha;
+        }
+        
+        function checkLogin() {
+            const userCaptcha = document.getElementById('user-captcha').value;
+            const actualCaptcha = document.getElementById('captcha-display').innerText;
+            if(userCaptcha === actualCaptcha) {
+                window.location.href = 'dashboard.html';
+            } else {
+                alert("Invalid Captcha! Try again.");
+            }
+        }
+        
+        // Page load pe pehla captcha
+        generateCaptcha();
+    </script>
 </body>
 </html>
