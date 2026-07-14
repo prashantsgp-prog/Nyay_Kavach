@@ -1,169 +1,402 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>न्याय-कवच AI - लीगल विश्लेषण पोर्टल</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f1f5f9;
-            margin: 0;
-            padding: 20px;
-            color: #1e293b;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
-        }
-        .header h1 {
-            color: #1e3a8a;
-            margin: 0;
-            font-size: 28px;
-        }
-        .header p {
-            color: #64748b;
-            margin-top: 5px;
-            font-weight: bold;
-        }
-        .input-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #334155;
-        }
-        textarea {
-            width: 100%;
-            height: 100px;
-            padding: 12px;
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            font-size: 15px;
-            box-sizing: border-box;
-            resize: vertical;
-        }
-        textarea:focus {
-            border-color: #1e3a8a;
-            outline: none;
-        }
-        button {
-            background-color: #1e3a8a;
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s;
-        }
-        button:hover {
-            background-color: #1e40af;
-        }
-        #outputArea {
-            margin-top: 25px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Nyaya-Kavach AI | UP Police Innovation Challenge 2026</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+
+background:linear-gradient(135deg,#021B79,#0575E6);
+
+min-height:100vh;
+
+color:white;
+
+}
+
+header{
+
+padding:30px;
+
+text-align:center;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(12px);
+
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+
+}
+
+header h1{
+
+font-size:42px;
+
+font-weight:700;
+
+}
+
+header p{
+
+margin-top:10px;
+
+opacity:.9;
+
+}
+
+.container{
+
+width:92%;
+
+max-width:1300px;
+
+margin:auto;
+
+padding:35px 0;
+
+}
+
+.grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+gap:25px;
+
+}
+
+.card{
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(15px);
+
+padding:25px;
+
+border-radius:18px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-6px);
+
+}
+
+.card h2{
+
+margin-bottom:15px;
+
+color:#FFD54F;
+
+}
+
+input,textarea{
+
+width:100%;
+
+padding:12px;
+
+margin-top:10px;
+
+margin-bottom:15px;
+
+border:none;
+
+border-radius:10px;
+
+font-size:15px;
+
+}
+
+textarea{
+
+height:120px;
+
+resize:none;
+
+}
+
+button{
+
+background:#ff3b30;
+
+color:white;
+
+border:none;
+
+padding:14px 28px;
+
+border-radius:10px;
+
+font-size:18px;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+background:#c62828;
+
+transform:scale(1.05);
+
+}
+
+.result{
+
+margin-top:25px;
+
+padding:20px;
+
+border-radius:15px;
+
+display:none;
+
+}
+
+.alert{
+
+background:#ffebee;
+
+color:#b71c1c;
+
+padding:15px;
+
+margin-bottom:15px;
+
+border-left:6px solid red;
+
+border-radius:8px;
+
+}
+
+.success{
+
+background:#e8f5e9;
+
+color:#1b5e20;
+
+padding:15px;
+
+margin-bottom:15px;
+
+border-left:6px solid green;
+
+border-radius:8px;
+
+}
+
+.score{
+
+font-size:30px;
+
+font-weight:bold;
+
+color:#FFD54F;
+
+text-align:center;
+
+margin-top:20px;
+
+}
+
+footer{
+
+text-align:center;
+
+padding:20px;
+
+margin-top:40px;
+
+background:rgba(255,255,255,.08);
+
+}
+
+</style>
 </head>
 <body>
 
+<header>
+    <h1>🛡️ Nyaya-Kavach AI</h1>
+    <p>BNSS Case Diary Compliance & Evidence Loophole Auditor</p>
+    <p>UP Police Innovation Challenge 2026</p>
+</header>
+
 <div class="container">
-    <div class="header">
-        <h1>🛡️ न्याय-कवच AI</h1>
-        <p>भारतीय न्याय संहिता (BNS) एवं त्वरित कानूनी विश्लेषण पोर्टल</p>
-    </div>
 
-    <div class="input-group">
-        <label for="caseInput">केस का विवरण, धारा या घटना का संक्षिप्त वर्णन दर्ज करें:</label>
-        <textarea id="caseInput" placeholder="उदाहरण: किसी ने बैंक खाते से ऑनलाइन फ्रॉड करके पैसे निकाल लिए... या हत्या/चोरी का मामला लिखो..."></textarea>
-    </div>
+<div class="grid">
 
-    <button onclick="analyzeCase()">🚀 AI विश्लेषण शुरू करें (Analyze Case)</button>
+<div class="card">
+<h2>📂 Case Information</h2>
 
-    <div id="outputArea"></div>
+<input type="text" id="thana" value="Kalyanpur">
+
+<input type="text" id="district" value="Kanpur Nagar">
+
+<input type="text" id="case" value="Theft under Section 303(2) BNS">
+
+<input type="text" id="io" value="SI Ramesh Kumar">
+
 </div>
 
+<div class="card">
+
+<h2>📄 Case Diary</h2>
+
+<textarea id="cd">
+Police team reached at 02:00 PM and recovered stolen electronics.
+</textarea>
+
+</div>
+
+<div class="card">
+
+<h2>🎥 e-Sakshya Evidence</h2>
+
+<input type="time" id="videoTime" value="16:45">
+
+<p style="margin-top:10px;">
+Video Metadata Timestamp
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>👤 Witness Statement</h2>
+
+<textarea id="statement">
+Witness Suraj Yadav stated Police reached at 11:30 AM.
+</textarea>
+
+</div>
+
+<div class="card">
+
+<h2>📎 Upload Evidence (Demo)</h2>
+
+<input type="file">
+
+<p style="margin-top:15px;">
+Supported Formats:
+PDF, JPG, PNG, MP4
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>⚖️ BNSS Compliance</h2>
+
+<label><input type="checkbox" checked> Case Diary Attached</label><br><br>
+
+<label><input type="checkbox" checked> Section 161 Statements</label><br><br>
+
+<label><input type="checkbox"> Medical Report</label><br><br>
+
+<label><input type="checkbox" checked> e-Sakshya Video</label><br><br>
+
+<label><input type="checkbox"> FSL Report</label>
+
+</div>
+
+</div>
+
+<div style="text-align:center;margin-top:35px;">
+
+<button onclick="runAudit()">
+🚀 Run AI Audit
+</button>
+
+</div>
+
+<div id="output" class="result"></div>
 <script>
-function analyzeCase() {
-    const caseText = document.getElementById('caseInput').value;
-    const outputDiv = document.getElementById('outputArea');
-    
-    if (!caseText.trim()) {
-        alert('कृपया केस का विवरण, धारा या घटना दर्ज करें।');
-        return;
-    }
-    
-    outputDiv.innerHTML = `
-        <div style="text-align: center; color: #1e3a8a; font-weight: bold; padding: 20px;">
-            ⏳ न्याय-कवच AI डेटाबेस से कनेक्ट हो रहा है...<br>
-            <span style="font-size: 13px; color: #64748b; font-weight: normal;">[क्रॉस-रेफरेंसिंग भारतीय न्याय संहिता (BNS) एवं IPC...]</span>
-        </div>
-    `;
-    
-    setTimeout(() => {
-        let sections = "धारा 115 (BNS) / पुराना IPC 323 (सामान्य मारपीट एवं चोट)";
-        let action = "पीडित का तुरंत चिकित्सीय परीक्षण (MLC) कराएं। गवाहों के बयान दर्ज कर क्षेत्राधिकार के अनुसार तफ्तीश शुरू करें।";
-        let classification = "गैर-संज्ञेय (Non-Cognizable) / जमानती (Bailable)";
 
-        const text = caseText.toLowerCase();
-        
-        if (text.includes("मर्डर") || text.includes("हत्या") || text.includes("murder") || text.includes("302")) {
-            sections = "धारा 103 (BNS) / पुराना IPC 302 (हत्या के लिए दंड)";
-            action = "घटनास्थल को तुरंत सील करें। फॉरेंसिक टीम (FSL) को साक्ष्य जुटाने के लिए बुलाएं, पंचनामा भरकर शव को पोस्टमार्टम के लिए भेजें और संदिग्धों को तुरंत हिरासत में लें।";
-            classification = "संज्ञेय (Cognizable) / गैर-जमानती (Non-Bailable)";
-        } else if (text.includes("चोरी") || text.includes("theft") || text.includes("379") || text.includes("लूट") || text.includes("robbery")) {
-            sections = "धारा 303/305 (BNS) / पुराना IPC 379/392 (चोरी एवं लूट)";
-            action = "आसपास के सीसीटीवी (CCTV) फुटेज खंगालें। स्थानीय मुखबिरों को सक्रिय करें और चोरी की गई संपत्ति की बरामदगी के लिए संदिग्ध ठिकानों पर दबिश दें।";
-            classification = "संज्ञेय (Cognizable) / जमानती (शर्तों के अधीन)";
-        } else if (text.includes("धोखा") || text.includes("420") || text.includes("fraud") || text.includes("online") || text.includes("upi") || text.includes("cyber")) {
-            sections = "धारा 318 (BNS) / पुराना IPC 420 (धोखाधड़ी एवं चीटिंग)";
-            action = "संबंधित बैंक और साइबर नोडल अधिकारी को तुरंत अलर्ट भेजकर फ्रॉड की राशि को फ्रीज कराएं। आईपी (IP) एड्रेस और कॉल डिटेल्स (CDR) को ट्रेसिंग पर डालें।";
-            classification = "संज्ञेय (Cognizable) / गैर-जमानती";
-        } else if (text.includes("बलात्कार") || text.includes("rape") || text.includes("376") || text.includes("छेड़खानी")) {
-            sections = "धारा 64/74 (BNS) / पुराना IPC 376/354 (महिला संबंधी गंभीर अपराध)";
-            action = "महिला पुलिस अधिकारी की उपस्थिति में पीड़िता का बंद कमरे में बयान दर्ज करें। 24 घंटे के भीतर अनिवार्य मेडिकल परीक्षण (CRPC 164A / BNSS) सुनिश्चित करें।";
-            classification = "संज्ञेय (Cognizable) / गैर-जमानती / गैर-शमनीय (Non-Compoundable)";
-        } else if (text.includes("एक्सीडेंट") || text.includes("accident") || text.includes("टक्कर") || text.includes("304")) {
-            sections = "धारा 106 (BNS) / पुराना IPC 304A (लापरवाही से मौत)";
-            action = "दुर्घटनाग्रस्त वाहनों को जब्त कर मैकेनिकल इंस्पेक्टर से तकनीकी जांच कराएं। चश्मदीदों के बयान लें और रूट के सीसीटीवी कैमरे खंगालें।";
-            classification = "संज्ञेय (Cognizable) / जमानती";
-        } else {
-            sections = "भारतीय न्याय संहिता (BNS) की प्रासंगिक धाराएं एवं केस-विशिष्ट कानूनी प्रावधान";
-            action = "शिकायतकर्ता के तथ्यों का प्रारंभिक सत्यापन (Preliminary Inquiry) करें। साक्ष्यों के आधार पर केस डायरी में प्रविष्टि कर नियमानुसार प्राथमिकी (FIR) दर्ज करें।";
-            classification = "मामले के तथ्यों और साक्ष्यों के सत्यापन पर निर्भर";
-        }
+function runAudit(){
 
-        outputDiv.innerHTML = `
-            <div style="padding: 20px; background-color: #f8fafc; border-left: 5px solid #1e3a8a; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: left;">
-                <h3 style="color: #1e3a8a; margin-top: 0; display: flex; align-items: center; gap: 8px;">
-                    🛡️ न्याय-कवच AI वास्तविक-समय विश्लेषण रिपोर्ट
-                </h3>
-                <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 10px 0;">
-                <p style="margin: 8px 0; font-size: 15px;"><strong>📝 इनपुट केस विवरण:</strong> <span style="color: #475569;">"${caseText}"</span></p>
-                <p style="margin: 8px 0; font-size: 15px;"><strong>⚖️ लागू संभावित धाराएं:</strong> <span style="color: #dc2626; font-weight: bold;">${sections}</span></p>
-                <p style="margin: 8px 0; font-size: 15px;"><strong>📊 अपराध का वर्गीकरण:</strong> <span style="color: #1e3a8a; font-weight: bold;">${classification}</span></p>
-                <p style="margin: 8px 0; font-size: 15px; line-height: 1.5;"><strong>🚨 पुलिस / न्यायिक गाइडलाइन:</strong> <span style="color: #334155;">${action}</span></p>
-                <div style="margin-top: 15px; padding: 10px; background: #e0f2fe; color: #0369a1; font-size: 13px; border-radius: 4px; font-weight: bold; text-align: center;">
-                    ✅ स्थिति: न्याय-कवच AI द्वारा लाइव केस सफलतापूर्वक विश्लेषित।
-                </div>
-            </div>
-        `;
-    }, 1200);
+let html="";
+
+html+=`
+<div class="alert">
+<h3>⚠️ Time Conflict Detected</h3>
+<p><b>Case Diary Time:</b> 02:00 PM</p>
+<p><b>e-Sakshya Timestamp:</b> 04:45 PM</p>
+<p><b>Difference:</b> 2 Hours 45 Minutes</p>
+</div>
+`;
+
+html+=`
+<div class="alert">
+<h3>⚠️ Witness Contradiction</h3>
+<p>Witness states police reached at <b>11:30 AM</b>, while the Case Diary records <b>02:00 PM</b>.</p>
+</div>
+`;
+
+html+=`
+<div class="success">
+<h3>✅ BNSS Compliance Report</h3>
+<ul>
+<li>✔️ Case Diary Attached</li>
+<li>✔️ Section 161 Statements Attached</li>
+<li>✔️ e-Sakshya Video Available</li>
+<li>⚠️ Medical Report Missing</li>
+<li>⚠️ FSL Report Missing</li>
+</ul>
+</div>
+`;
+
+html+=`
+<div class="success">
+<h3>🛠️ AI Suggestions</h3>
+<ul>
+<li>Add a clarification note explaining the delay between seizure and video upload.</li>
+<li>Re-examine the witness under BNSS Section 161.</li>
+<li>Attach remaining forensic documents before filing the charge sheet.</li>
+</ul>
+</div>
+`;
+
+html+=`
+<div class="score">
+Risk Score : 🔴 82 / 100
+</div>
+`;
+
+document.getElementById("output").style.display="block";
+document.getElementById("output").innerHTML=html;
+
 }
+
 </script>
+
+<footer>
+<h3>Nyaya-Kavach AI</h3>
+<p>BNSS Case-Diary Compliance & Evidence Loophole Auditor</p>
+<p>UP Police Innovation Challenge 2026</p>
+<p>© 2026 All Rights Reserved</p>
+</footer>
+
 </body>
 </html>
