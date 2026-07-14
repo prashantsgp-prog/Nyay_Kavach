@@ -130,5 +130,74 @@
         }, 1500);
     }
 </script>
+    <script>
+async function analyzeCase() {
+    // 1. HTML से यूजर का इनपुट (केस/धारा) प्राप्त करना
+    const caseText = document.getElementById('caseInput').value;
+    const outputDiv = document.getElementById('outputArea');
+    
+    // अगर इनपुट खाली है तो अलर्ट दिखाना
+    if (!caseText.trim()) {
+        alert('कृपया केस का विवरण, धारा या थाना दर्ज करें।');
+        return;
+    }
+    
+    // 2. स्क्रीन पर 'Loading' स्टेट दिखाना
+    outputDiv.innerHTML = `
+        <div style="text-align: center; color: #2563eb; font-weight: bold; padding: 20px;">
+            ⏳ न्याय-कवच AI विश्लेषण कर रहा है, कृपया प्रतीक्षा करें...
+        </div>
+    `;
+    
+    // 3. AI API सेटिंग्स (यहाँ अपनी API Details डालें)
+    const API_URL = "YOUR_AI_API_ENDPOINT"; // उदाहरण: आपके बैकएंड का URL या AI API का URL
+    const API_KEY = "YOUR_API_KEY";         // आपकी गुप्त API Key
+    
+    try {
+        // 4. Fetch API के जरिए लाइव सर्वर को रिक्वेस्ट भेजना
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${API_KEY}`
+            },
+            body: JSON.stringify({
+                // AI को भेजा जाने वाला प्रॉम्ट (Prompt)
+                prompt: `You are Nyaya-Kavach AI, a highly specialized Indian legal assistant. Analyze this query and give relevant IPC/BNS sections, legal insights, and police guidelines: ${caseText}`,
+                temperature: 0.7
+            })
+        });
+        
+        // अगर सर्वर से रिस्पॉन्स सही नहीं आया
+        if (!response.ok) {
+            throw new Error('सर्वर से कनेक्ट करने में विफल। कृपया नेटवर्क चेक करें।');
+        }
+        
+        // 5. सर्वर से आए डेटा को प्रोसेस करना
+        const data = await response.json();
+        
+        // मान लेते हैं कि AI का जवाब 'data.result' या 'data.choices[0].text' में आ रहा है
+        // अपनी API के फॉर्मेट के अनुसार नीचे वाली लाइन को बदल सकते हैं:
+        const aiResponse = data.result || data.output || "विश्लेषण पूरा हुआ।";
+        
+        // 6. रिजल्ट को सुंदर फॉर्मेट में स्क्रीन पर दिखाना
+        outputDiv.innerHTML = `
+            <div style="padding: 20px; background-color: #f8fafc; border-left: 5px solid #1e3a8a; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <h3 style="color: #1e3a8a; margin-top: 0;">🛡️ न्याय-कवच AI कानूनी रिपोर्ट:</h3>
+                <p style="white-space: pre-line; color: #334155; line-height: 1.6;">${aiResponse}</p>
+            </div>
+        `;
+        
+    } catch (error) {
+        // 7. एरर आने पर स्क्रीन पर मैसेज दिखाना
+        outputDiv.innerHTML = `
+            <div style="padding: 15px; background-color: #fef2f2; border-left: 5px solid #dc2626; color: #991b1b; border-radius: 4px;">
+                <strong>⚠️ त्रुटि:</strong> ${error.message}
+            </div>
+        `;
+    }
+}
+</script>
+
 </body>
 </html>
