@@ -238,7 +238,7 @@
             timelineCard.scrollIntoView({ behavior: 'smooth' });
         });
 
-        // 4. SMART CHATBOT RESPONSE LOGIC (स्मार्ट कीवर्ड स्कैनर)
+        // 4. SMART CHATBOT RESPONSE LOGIC (फिक्स मैचिंग इंजन)
         const chatInput = document.getElementById('chatInput');
         const chatMessages = document.getElementById('chatMessages');
         
@@ -253,18 +253,20 @@
             chatInput.value = '';
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
-            // स्मार्ट रिस्पॉन्स जनरेशन
             setTimeout(() => {
-                let reply = "जय हिंद ऑफिसर! मैंने आपके केस इनपुट को नोट कर लिया है। कृपया इसके साक्ष्य या धाराओं के संबंध में प्रश्न पूछें।";
-                let lowerText = text.toLowerCase();
-
-                if (lowerText.includes("हेलो") || lowerText.includes("जय हिंद") || lowerText.includes("hi") || lowerText.includes("hello")) {
-                    reply = "जय हिंद ऑफिसर! बताइए, आज किस केस डायरी या बयान का कानूनी ऑडिट करना है?";
-                } else if (lowerText.includes("सबूत") || lowerText.includes("कमी") || lowerText.includes("loophole") || lowerText.includes("विरोधाभास")) {
+                let reply = "जय हिंद ऑफिसर! मैंने आपके इनपुट को नोट कर लिया है। कृपया केस डायरी से जुड़ा साक्ष्य या विरोधाभास पूछें।";
+                
+                // बिल्कुल सटीक कीवर्ड डिटेक्शन
+                if (text.includes("हेलो") || text.includes("जय हिंद") || text.includes("hi") || text.includes("hello") || text.includes("Hi")) {
+                    reply = "जय हिंद ऑफिसर! बताइए, आज किस केस फाइल का लीगल ऑडिट करना है?";
+                } 
+                else if (text.includes("सबूत") || text.includes("कमी") || text.includes("loophole") || text.includes("विरोधाभास") || text.includes("कमी")) {
                     reply = "⚠️ अलर्ट: गवाह के बयानों और मेडिकल रिपोर्ट में गहरा विरोधाभास है। कोर्ट में बचाव पक्ष इसका फायदा उठा सकता है। कृपया गवाह से दोबारा पूछताछ करें।";
-                } else if (lowerText.includes("समय") || lowerText.includes("टाइम") || lowerText.includes("timeline") || lowerText.includes("बजे")) {
+                } 
+                else if (text.includes("समय") || text.includes("टाइम") || text.includes("timeline") || text.includes("बजे")) {
                     reply = "📅 क्रोनोलॉजी अलर्ट: FIR का समय रात 11:30 बजे है जबकि मेडिकल रिपोर्ट में चोटों का समय दोपहर 2:00 बजे आ रहा है। दोनों का समय मेल नहीं खा रहा है।";
-                } else if (lowerText.includes("तारीख") || lowerText.includes("धारा") || lowerText.includes("bnss") || lowerText.includes("कानून")) {
+                } 
+                else if (text.includes("तारीख") || text.includes("धारा") || text.includes("bnss") || text.includes("कानून") || text.includes("BNSS")) {
                     reply = "⚖️ BNSS निर्देश: नए नियमों के अनुसार धारा 161 के बयानों की ऑडियो-वीडियो रिकॉर्डिंग का हैश सर्टिफिकेट तुरंत केस डायरी के साथ नत्थी करें।";
                 }
 
@@ -273,7 +275,7 @@
                 aDiv.innerText = reply;
                 chatMessages.appendChild(aDiv);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 600);
+            }, 500);
         }
 
         document.getElementById('sendBtn').addEventListener('click', sendReply);
