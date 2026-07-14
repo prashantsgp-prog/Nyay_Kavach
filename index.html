@@ -7,33 +7,39 @@
         :root { --up-blue: #002e6e; --up-gold: #ffb300; --up-red: #c62828; }
         body { margin: 0; background: linear-gradient(135deg, #0A0F1D 0%, #001533 100%); color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
         
-        /* Logo */
-        .logo { width: 90px; margin-bottom: 10px; }
-        h1 { color: var(--up-gold); font-size: 22px; margin: 0; }
+        .logo { width: 100px; margin-bottom: 10px; }
+        h1 { color: var(--up-gold); font-size: 20px; margin-bottom: 20px; text-transform: uppercase; }
         
-        /* Login Card */
+        /* VIP Container */
+        .vip-container { display: flex; gap: 15px; margin-bottom: 25px; }
+        .vip-box img { width: 80px; height: 80px; border: 2px solid var(--up-gold); border-radius: 50%; object-fit: cover; }
+        
         .login-card { background: rgba(0, 46, 110, 0.4); padding: 25px; border-radius: 15px; border: 2px solid var(--up-gold); width: 280px; text-align: center; }
         input { width: 90%; padding: 10px; margin: 7px 0; background: rgba(0,0,0,0.3); border: 1px solid var(--up-gold); color: white; border-radius: 5px; }
         button { width: 100%; padding: 10px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        
-        /* Captcha Styling */
-        #captcha-display { font-weight: bold; letter-spacing: 5px; color: var(--up-gold); background: #000; padding: 10px; border: 1px solid var(--up-gold); margin-bottom: 5px; display: inline-block; width: 100%; }
+        #captcha-display { font-weight: bold; letter-spacing: 5px; color: var(--up-gold); background: #000; padding: 10px; border: 1px solid var(--up-gold); margin: 10px 0; display: block; }
     </style>
 </head>
 <body>
 
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo">
+    <img src="logo.png" class="logo" alt="UP Police Logo">
     <h1>NYAYA-KAVACH AI</h1>
+
+    <div class="vip-container">
+        <img src="pm.jpg" alt="PM">
+        <img src="cm.jpg" alt="CM">
+        <img src="dgp.jpg" alt="DGP">
+    </div>
 
     <div class="login-card">
         <input type="text" placeholder="Officer ID">
         <input type="password" placeholder="Password">
         
         <div id="captcha-display">------</div>
-        <button style="background:var(--up-blue);" onclick="generateCaptcha()">Generate Captcha</button>
+        <button style="background:var(--up-blue); margin-bottom:10px;" onclick="generateCaptcha()">Generate Captcha</button>
         <input type="text" placeholder="Enter Captcha" id="user-captcha">
         
-        <button style="margin-top:10px;" onclick="checkLogin()">LOGIN</button>
+        <button onclick="checkLogin()">LOGIN</button>
     </div>
 
     <script>
@@ -50,11 +56,9 @@
             if(userCaptcha === actualCaptcha) {
                 window.location.href = 'dashboard.html';
             } else {
-                alert("Invalid Captcha! Try again.");
+                alert("Invalid Captcha!");
             }
         }
-        
-        // Page load pe pehla captcha
         generateCaptcha();
     </script>
 </body>
