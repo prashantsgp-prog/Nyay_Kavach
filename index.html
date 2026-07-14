@@ -2,45 +2,57 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nyaya-Kavach | UP Police Login</title>
+    <title>Nyaya-Kavach | UP Police Portal</title>
     <style>
-        body { margin: 0; background: #0A0F1D; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; }
-        .logo-main { width: 80px; margin-bottom: 10px; }
-        .tagline { color: #FFB300; font-weight: bold; margin: 10px 0; font-size: 14px; }
-        
-        /* VIP Photos Section */
-        .vip-container { display: flex; gap: 15px; margin: 20px 0; align-items: flex-end; justify-content: center; }
-        .vip-box { text-align: center; }
-        .vip-box img { border: 2px solid #0D47A1; border-radius: 10px; object-fit: cover; }
-        
-        /* Sizes */
-        .size-pm { width: 100px; height: 100px; }
-        .size-cm { width: 85px; height: 85px; }
-        .size-dgp { width: 70px; height: 70px; }
-
-        /* Login Box */
-        .login-card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; border: 1px solid #0D47A1; width: 280px; }
+        body { margin: 0; background: #0A0F1D; color: white; font-family: sans-serif; }
+        .page { display: none; padding: 20px; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; }
+        #login-page { display: flex; }
+        .logo { width: 80px; }
+        .vips { display: flex; gap: 15px; margin: 20px 0; align-items: flex-end; }
+        .vip-img { border: 2px solid #0D47A1; border-radius: 10px; object-fit: cover; }
+        .s-pm { width: 100px; height: 100px; }
+        .s-cm { width: 85px; height: 85px; }
+        .s-dgp { width: 70px; height: 70px; }
+        .card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; border: 1px solid #0D47A1; width: 300px; text-align: center; }
         input { width: 90%; padding: 12px; margin: 8px 0; background: #000; border: 1px solid #444; color: white; border-radius: 5px; }
-        .btn-login { width: 100%; padding: 12px; background: #C62828; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        button { width: 100%; padding: 12px; background: #C62828; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        
+        /* Dashboard Styling */
+        #dashboard-page { display: none; align-items: flex-start; text-align: left; }
+        .dashboard-content { width: 100%; max-width: 900px; }
+        textarea { width: 100%; height: 100px; background: #000; color: white; border: 1px solid #444; padding: 10px; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo-main">
-    <h2 style="margin:5px;">NYAYA-KAVACH AI</h2>
-    <div class="tagline">सुरक्षा - सेवा - न्याय | उत्तर प्रदेश पुलिस</div>
-
-    <div class="vip-container">
-        <div class="vip-box"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg" class="size-pm"><br>PM</div>
-        <div class="vip-box"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg" class="size-cm"><br>CM</div>
-        <div class="vip-box"><img src="https://upload.wikimedia.org/wikipedia/commons/7/75/UP_Police_Logo.png" class="size-dgp"><br>DGP</div>
+    <div id="login-page" class="page">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo">
+        <h2>NYAYA-KAVACH AI</h2>
+        <div class="vips">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg" class="vip-img s-pm">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg" class="vip-img s-cm">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/UP_Police_Logo.png" class="vip-img s-dgp">
+        </div>
+        <div class="card">
+            <input type="text" placeholder="Officer ID">
+            <input type="password" placeholder="Password">
+            <button onclick="document.getElementById('login-page').style.display='none'; document.getElementById('dashboard-page').style.display='flex';">LOGIN</button>
+        </div>
     </div>
 
-    <div class="login-card">
-        <input type="text" placeholder="Officer ID">
-        <input type="password" placeholder="Password">
-        <button class="btn-login" onclick="window.location.href='dashboard.html'">LOGIN</button>
+    <div id="dashboard-page" class="page">
+        <div class="dashboard-content">
+            <h1>🛡️ Nyaya-Kavach Dashboard</h1>
+            <p><strong>ऑफिसर:</strong> प्रशांत सिंह | <strong>पद:</strong> वरिष्ठ जांच अधिकारी</p>
+            <div class="card" style="width: 100%;">
+                <h3>Case Evidence & Diary Input</h3>
+                <textarea placeholder="यहाँ केस डायरी पेस्ट करें..."></textarea>
+                <div style="display:flex; gap:10px;">
+                    <button>Run AI Audit</button>
+                    <button>Generate Timeline</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
