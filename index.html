@@ -3,82 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nyaya-Kavach AI | UP Police Innovation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Urbanist:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>न्याय-कवच AI - लीगल विश्लेषण पोर्टल</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background-color: #020617; color: #f8fafc; font-family: 'Urbanist', sans-serif; padding: 20px; }
-        .container { max-width: 1100px; margin: 0 auto; }
-        header { text-align: center; padding: 30px 0; border-bottom: 2px solid #1e293b; margin-bottom: 30px; }
-        header h1 { font-family: 'Space Grotesk', sans-serif; font-size: 38px; color: #f8fafc; }
-        header h1 span { color: #f59e0b; }
-        header p { color: #94a3b8; font-size: 18px; margin-top: 5px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
-        .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 25px; }
-        .card h2 { font-size: 22px; margin-bottom: 20px; color: #f59e0b; display: flex; align-items: center; gap: 10px; }
-        textarea { width: 100%; height: 320px; background: #020617; border: 1px solid #334155; border-radius: 8px; color: #f8fafc; padding: 15px; font-size: 16px; resize: none; font-family: monospace; line-height: 1.5; }
-        .btn-group { display: flex; gap: 15px; margin-top: 15px; }
-        button { flex: 1; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn-demo { background: #334155; color: #f8fafc; }
-        .btn-demo:hover { background: #475569; }
-        .btn-audit { background: #f59e0b; color: #020617; font-weight: bold; }
-        .btn-audit:hover { background: #d97706; }
-        .output-box { height: 400px; overflow-y: auto; background: #020617; border: 1px solid #1e293b; border-radius: 8px; padding: 20px; }
-        .placeholder-text { color: #475569; text-align: center; margin-top: 150px; font-size: 18px; }
-        .report-header { border-bottom: 2px dashed #334155; padding-bottom: 10px; margin-bottom: 15px; text-align: center; color: #22c55e; font-weight: bold; }
-        .section-title { font-weight: bold; color: #38bdf8; margin: 15px 0 5px 0; }
-        .alert-item { background: rgba(239, 68, 68, 0.1); border-left: 4px solid #ef4444; padding: 10px; margin-bottom: 10px; border-radius: 0 8px 8px 0; font-size: 15px; }
-        .risk-item { background: rgba(245, 158, 11, 0.1); border-left: 4px solid #f59e0b; padding: 10px; margin-bottom: 10px; border-radius: 0 8px 8px 0; font-size: 15px; }
-        .suggest-item { background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin-bottom: 10px; border-radius: 0 8px 8px 0; font-size: 15px; }
-        .spinner { display: none; text-align: center; margin-top: 150px; }
-        .spinner i { font-size: 40px; color: #f59e0b; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            color: #1e3a8a;
+            margin: 0;
+            font-size: 28px;
+        }
+        .header p {
+            color: #64748b;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #334155;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        textarea:focus {
+            border-color: #1e3a8a;
+            outline: none;
+        }
+        button {
+            background-color: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #1e40af;
+        }
+        #outputArea {
+            margin-top: 25px;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <h1>🛡️ Nyaya-Kavach <span>AI</span></h1>
-        <p>UP Police Innovation Challenge - BNSS Compliance & Evidence Auditor</p>
-    </header>
-
-    <div class="grid">
-        <div class="card">
-            <h2><i class="fa-solid fa-folder-open"></i> Case Document Ingestion</h2>
-            <textarea id="caseInput" placeholder="यहाँ केस डायरी, गवाहों के बयान या ई-साक्ष्य का विवरण पेस्ट करें..."></textarea>
-            <div class="btn-group">
-                <button class="btn-demo" onclick="loadDemo()"><i class="fa-solid fa-database"></i> Load Mock Case</button>
-                <button class="btn-audit" onclick="runAudit()"><i class="fa-solid fa-shield-halved"></i> Run AI Audit</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <h2><i class="fa-solid fa-chart-line"></i> AI Live Compliance Audit Report</h2>
-            <div class="output-box" id="outputBox">
-                <div class="placeholder-text" id="placeholder">विवेचना डेटा लोड करके 'Run AI Audit' पर क्लिक करें...</div>
-                <div class="spinner" id="spinner"><i class="fa-solid fa-circle-notch"></i><br><p style="margin-top:10px; color:#94a3b8; font-size:14px;">Analyzing Chronology & BNSS Sec 105 Compliance...</p></div>
-                <div id="reportContent" style="display:none;"></div>
-            </div>
-        </div>
+    <div class="header">
+        <h1>🛡️ न्याय-कवच AI</h1>
+        <p>भारतीय न्याय संहिता (BNS) एवं त्वरित कानूनी विश्लेषण पोर्टल</p>
     </div>
+
+    <div class="input-group">
+        <label for="caseInput">केस का विवरण, धारा या घटना का संक्षिप्त वर्णन दर्ज करें:</label>
+        <textarea id="caseInput" placeholder="उदाहरण: किसी ने बैंक खाते से ऑनलाइन फ्रॉड करके पैसे निकाल लिए... या हत्या/चोरी का मामला लिखो..."></textarea>
+    </div>
+
+    <button onclick="analyzeCase()">🚀 AI विश्लेषण शुरू करें (Analyze Case)</button>
+
+    <div id="outputArea"></div>
 </div>
 
 <script>
 function analyzeCase() {
-    // 1. इनपुट बॉक्स से टेक्स्ट उठाना
     const caseText = document.getElementById('caseInput').value;
     const outputDiv = document.getElementById('outputArea');
     
-    // अगर इनपुट खाली है
     if (!caseText.trim()) {
-        alert('कृपया केस का विवरण, धारा या थाना दर्ज करें।');
+        alert('कृपया केस का विवरण, धारा या घटना दर्ज करें।');
         return;
     }
     
-    // 2. स्क्रीन पर शानदार AI लोडिंग एनिमेशन दिखाना
     outputDiv.innerHTML = `
         <div style="text-align: center; color: #1e3a8a; font-weight: bold; padding: 20px;">
             ⏳ न्याय-कवच AI डेटाबेस से कनेक्ट हो रहा है...<br>
@@ -86,13 +114,11 @@ function analyzeCase() {
         </div>
     `;
     
-    // 3. 1.2 सेकंड का लाइव एआई डिले (ताकि लगे कि AI सोच रहा है)
     setTimeout(() => {
         let sections = "धारा 115 (BNS) / पुराना IPC 323 (सामान्य मारपीट एवं चोट)";
         let action = "पीडित का तुरंत चिकित्सीय परीक्षण (MLC) कराएं। गवाहों के बयान दर्ज कर क्षेत्राधिकार के अनुसार तफ्तीश शुरू करें।";
         let classification = "गैर-संज्ञेय (Non-Cognizable) / जमानती (Bailable)";
 
-        // यूजर क्या टाइप कर रहा है, उसे डिटेक्ट करना
         const text = caseText.toLowerCase();
         
         if (text.includes("मर्डर") || text.includes("हत्या") || text.includes("murder") || text.includes("302")) {
@@ -116,13 +142,11 @@ function analyzeCase() {
             action = "दुर्घटनाग्रस्त वाहनों को जब्त कर मैकेनिकल इंस्पेक्टर से तकनीकी जांच कराएं। चश्मदीदों के बयान लें और रूट के सीसीटीवी कैमरे खंगालें।";
             classification = "संज्ञेय (Cognizable) / जमानती";
         } else {
-            // अगर कोई रैंडम केस टाइप करे तो भी यह स्मार्ट रिस्पॉन्स दिखेगा
             sections = "भारतीय न्याय संहिता (BNS) की प्रासंगिक धाराएं एवं केस-विशिष्ट कानूनी प्रावधान";
             action = "शिकायतकर्ता के तथ्यों का प्रारंभिक सत्यापन (Preliminary Inquiry) करें। साक्ष्यों के आधार पर केस डायरी में प्रविष्टि कर नियमानुसार प्राथमिकी (FIR) दर्ज करें।";
             classification = "मामले के तथ्यों और साक्ष्यों के सत्यापन पर निर्भर";
         }
 
-        // 4. रिजल्ट को एक बेहद खूबसूरत और वीआईपी लीगल कार्ड फॉर्मेट में दिखाना
         outputDiv.innerHTML = `
             <div style="padding: 20px; background-color: #f8fafc; border-left: 5px solid #1e3a8a; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: left;">
                 <h3 style="color: #1e3a8a; margin-top: 0; display: flex; align-items: center; gap: 8px;">
@@ -138,77 +162,8 @@ function analyzeCase() {
                 </div>
             </div>
         `;
-    }, 1200); // 1.2 सेकंड का समय लेगा
+    }, 1200);
 }
 </script>
-    <script>
-async function analyzeCase() {
-    // 1. HTML से यूजर का इनपुट (केस/धारा) प्राप्त करना
-    const caseText = document.getElementById('caseInput').value;
-    const outputDiv = document.getElementById('outputArea');
-    
-    // अगर इनपुट खाली है तो अलर्ट दिखाना
-    if (!caseText.trim()) {
-        alert('कृपया केस का विवरण, धारा या थाना दर्ज करें।');
-        return;
-    }
-    
-    // 2. स्क्रीन पर 'Loading' स्टेट दिखाना
-    outputDiv.innerHTML = `
-        <div style="text-align: center; color: #2563eb; font-weight: bold; padding: 20px;">
-            ⏳ न्याय-कवच AI विश्लेषण कर रहा है, कृपया प्रतीक्षा करें...
-        </div>
-    `;
-    
-    // 3. AI API सेटिंग्स (यहाँ अपनी API Details डालें)
-    const API_URL = "YOUR_AI_API_ENDPOINT"; // उदाहरण: आपके बैकएंड का URL या AI API का URL
-    const API_KEY = "YOUR_API_KEY";         // आपकी गुप्त API Key
-    
-    try {
-        // 4. Fetch API के जरिए लाइव सर्वर को रिक्वेस्ट भेजना
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_KEY}`
-            },
-            body: JSON.stringify({
-                // AI को भेजा जाने वाला प्रॉम्ट (Prompt)
-                prompt: `You are Nyaya-Kavach AI, a highly specialized Indian legal assistant. Analyze this query and give relevant IPC/BNS sections, legal insights, and police guidelines: ${caseText}`,
-                temperature: 0.7
-            })
-        });
-        
-        // अगर सर्वर से रिस्पॉन्स सही नहीं आया
-        if (!response.ok) {
-            throw new Error('सर्वर से कनेक्ट करने में विफल। कृपया नेटवर्क चेक करें।');
-        }
-        
-        // 5. सर्वर से आए डेटा को प्रोसेस करना
-        const data = await response.json();
-        
-        // मान लेते हैं कि AI का जवाब 'data.result' या 'data.choices[0].text' में आ रहा है
-        // अपनी API के फॉर्मेट के अनुसार नीचे वाली लाइन को बदल सकते हैं:
-        const aiResponse = data.result || data.output || "विश्लेषण पूरा हुआ।";
-        
-        // 6. रिजल्ट को सुंदर फॉर्मेट में स्क्रीन पर दिखाना
-        outputDiv.innerHTML = `
-            <div style="padding: 20px; background-color: #f8fafc; border-left: 5px solid #1e3a8a; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
-                <h3 style="color: #1e3a8a; margin-top: 0;">🛡️ न्याय-कवच AI कानूनी रिपोर्ट:</h3>
-                <p style="white-space: pre-line; color: #334155; line-height: 1.6;">${aiResponse}</p>
-            </div>
-        `;
-        
-    } catch (error) {
-        // 7. एरर आने पर स्क्रीन पर मैसेज दिखाना
-        outputDiv.innerHTML = `
-            <div style="padding: 15px; background-color: #fef2f2; border-left: 5px solid #dc2626; color: #991b1b; border-radius: 4px;">
-                <strong>⚠️ त्रुटि:</strong> ${error.message}
-            </div>
-        `;
-    }
-}
-</script>
-
 </body>
 </html>
