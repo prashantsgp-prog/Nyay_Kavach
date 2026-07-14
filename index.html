@@ -150,24 +150,22 @@
 
     <script>
         function handleLogin(event) {
-            event.preventDefault(); // Form reload rokne ke liye
+            event.preventDefault(); // Reload rokne ke liye
 
-            const usernameInput = document.getElementById('username').value;
-            const passwordInput = document.getElementById('password').value;
+            const usernameInput = document.getElementById('username').value.trim();
+            const passwordInput = document.getElementById('password').value.trim();
             const errorMsg = document.getElementById('errorMsg');
 
-            // Dummy Credentials (Aap ise badal sakte hain)
+            // Login Details
             const correctUsername = "police_admin";
             const correctPassword = "UPPolice@2026";
 
             if (usernameInput === correctUsername && passwordInput === correctPassword) {
                 errorMsg.style.display = "none";
-                alert("Login Safal Raha! Nyaya-Kavach AI Dashboard par bheja raha hai...");
-                
-                // Aapke main webpage ka link yahan hai
+                alert("Login Safal Raha! Dashboard par bheja raha hai...");
+                // Direct local file 'dashboard.html' par bhejega
                 window.location.href = "dashboard.html";
             } else {
-                // Galat password hone par error message dikhayega
                 errorMsg.style.display = "block";
             }
         }
