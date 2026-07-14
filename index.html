@@ -69,6 +69,8 @@
         .status-box { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); padding: 12px; border-radius: 8px; flex: 1; }
         .status-box h3 { color: #FFB300; margin-top: 5px; font-size: 16px; }
         
+        .loopholes-style { margin-top: 8px; color: #E2E8F0; line-height: 1.5; }
+
         .timeline-wrapper { position: relative; padding: 10px 0 10px 25px; margin-top: 15px; }
         .timeline-line { position: absolute; left: 8px; top: 0; bottom: 0; width: 3px; background: linear-gradient(to bottom, var(--upp-red), var(--upp-blue)); }
         .timeline-item { position: relative; margin-bottom: 20px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 8px; border: 1px solid var(--glass-border); }
@@ -83,7 +85,7 @@
         .assistant-body { height: 0; display: none; flex-direction: column; }
         .voice-assistant-widget.open .assistant-body { height: 320px; display: flex; }
         .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .message { padding: 10px 12px; border-radius: 8px; font-size: 13px; max-width: 85%; }
+        .message { padding: 10px 12px; border-radius: 8px; font-size: 13px; max-width: 85%; line-height: 1.4; }
         .message.assistant { background: rgba(255,255,255,0.08); align-self: flex-start; }
         .message.user { background: var(--upp-blue); align-self: flex-end; }
         .chat-input-area { display: flex; padding: 10px; gap: 5px; border-top: 1px solid var(--glass-border); }
@@ -143,7 +145,7 @@
                     </div>
                 </div>
                 <h4>Detected Loopholes:</h4>
-                <p id="loopholesOutput" style="margin-top: 8px; color: #E2E8F0; line-height: 1.5;"></p>
+                <p id="loopholesOutput" class="loopholes-style"></p>
             </div>
 
             <div class="card" id="timelineCard" style="display: none;">
@@ -175,7 +177,7 @@
     </div>
 
     <script>
-        // 1. CHATBOT TOGGLE (बिना किसी देरी के तुरंत काम करेगा)
+        // 1. CHATBOT TOGGLE
         const toggleBtn = document.getElementById('toggleChatBtn');
         const widget = document.getElementById('voiceAssistant');
         const assistantBody = document.getElementById('assistantBody');
@@ -183,21 +185,15 @@
 
         toggleBtn.addEventListener('click', () => {
             widget.classList.toggle('open');
-            if(widget.classList.contains('open')) {
-                assistantBody.style.display = 'flex';
-                toggleIcon.innerText = '▼';
-            } else {
-                assistantBody.style.display = 'none';
-                toggleIcon.innerText = '▲';
-            }
+            assistantBody.style.display = widget.classList.contains('open') ? 'flex' : 'none';
+            toggleIcon.innerText = widget.classList.contains('open') ? '▼' : '▲';
         });
 
-        // 2. AI AUDIT LOGIC (खाली रहने पर ऑटो-फिल करेगा)
+        // 2. AI AUDIT LOGIC
         document.getElementById('runAuditBtn').addEventListener('click', () => {
             let inputArea = document.getElementById('caseDataInput');
             let rawText = inputArea.value.trim();
 
-            // अगर यूजर ने कुछ नहीं लिखा, तो खुद डेमो टेक्स्ट भर दो
             if (!rawText) {
                 rawText = "आरोपी रात 11:30 बजे घटना स्थल पर देखा गया, लेकिन मेडिकल रिपोर्ट में चोट का समय दोपहर 2:00 बजे का है।";
                 inputArea.value = rawText;
@@ -211,8 +207,6 @@
                 <b style="color:#ff5252;">1. समय विरोधाभास (Timeline Mismatch):</b> गवाह के बयान (रात 11:30) और मेडिकल रिपोर्ट (दोपहर 2:00) के समय में गंभीर अंतर है। कोर्ट में जिरह के दौरान बचाव पक्ष इसका लाभ उठा सकता है।<br><br>
                 <b style="color:#ff5252;">2. BNSS अलर्ट:</b> धारा 161 के तहत दर्ज केस डायरी की क्रोनोलॉजी में विसंगति है। कृपया डिजिटल साक्ष्य का हैश सर्टिफिकेट चेक करें।
             `;
-            
-            // स्क्रीन को स्मूथ स्क्रॉल करके नीचे ले जाएं
             resultCard.scrollIntoView({ behavior: 'smooth' });
         });
 
@@ -241,11 +235,10 @@
                     <p class="timeline-desc">डॉक्टर के अनुसार चोटें 8 घंटे पुरानी हैं, जो FIR के समय से मेल नहीं खातीं।</p>
                 </div>
             `;
-            
             timelineCard.scrollIntoView({ behavior: 'smooth' });
         });
 
-        // 4. CHAT MESSAGE SEND LOGIC
+        // 4. SMART CHATBOT RESPONSE LOGIC (स्मार्ट कीवर्ड स्कैनर)
         const chatInput = document.getElementById('chatInput');
         const chatMessages = document.getElementById('chatMessages');
         
@@ -258,11 +251,26 @@
             uDiv.innerText = text;
             chatMessages.appendChild(uDiv);
             chatInput.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
 
+            // स्मार्ट रिस्पॉन्स जनरेशन
             setTimeout(() => {
+                let reply = "जय हिंद ऑफिसर! मैंने आपके केस इनपुट को नोट कर लिया है। कृपया इसके साक्ष्य या धाराओं के संबंध में प्रश्न पूछें।";
+                let lowerText = text.toLowerCase();
+
+                if (lowerText.includes("हेलो") || lowerText.includes("जय हिंद") || lowerText.includes("hi") || lowerText.includes("hello")) {
+                    reply = "जय हिंद ऑफिसर! बताइए, आज किस केस डायरी या बयान का कानूनी ऑडिट करना है?";
+                } else if (lowerText.includes("सबूत") || lowerText.includes("कमी") || lowerText.includes("loophole") || lowerText.includes("विरोधाभास")) {
+                    reply = "⚠️ अलर्ट: गवाह के बयानों और मेडिकल रिपोर्ट में गहरा विरोधाभास है। कोर्ट में बचाव पक्ष इसका फायदा उठा सकता है। कृपया गवाह से दोबारा पूछताछ करें।";
+                } else if (lowerText.includes("समय") || lowerText.includes("टाइम") || lowerText.includes("timeline") || lowerText.includes("बजे")) {
+                    reply = "📅 क्रोनोलॉजी अलर्ट: FIR का समय रात 11:30 बजे है जबकि मेडिकल रिपोर्ट में चोटों का समय दोपहर 2:00 बजे आ रहा है। दोनों का समय मेल नहीं खा रहा है।";
+                } else if (lowerText.includes("तारीख") || lowerText.includes("धारा") || lowerText.includes("bnss") || lowerText.includes("कानून")) {
+                    reply = "⚖️ BNSS निर्देश: नए नियमों के अनुसार धारा 161 के बयानों की ऑडियो-वीडियो रिकॉर्डिंग का हैश सर्टिफिकेट तुरंत केस डायरी के साथ नत्थी करें।";
+                }
+
                 const aDiv = document.createElement('div');
                 aDiv.className = 'message assistant';
-                aDiv.innerText = "जय हिंद ऑफिसर! मैंने आपके केस इनपुट का विश्लेषण कर लिया है। मेडिकल और टाइमलाइन में विरोधाभास है, कृपया केस डायरी दोबारा जांचें।";
+                aDiv.innerText = reply;
                 chatMessages.appendChild(aDiv);
                 chatMessages.scrollTop = chatMessages.scrollHeight;
             }, 600);
@@ -271,7 +279,7 @@
         document.getElementById('sendBtn').addEventListener('click', sendReply);
         chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') sendReply(); });
 
-        // 5. SAFE MOBILE SPEECH IMPLEMENTATION
+        // 5. MIC SUPPORT
         try {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             if (SpeechRecognition) {
@@ -280,9 +288,7 @@
                 const micBtn = document.getElementById('micBtn');
                 const recStatus = document.getElementById('recStatus');
 
-                micBtn.addEventListener('click', () => {
-                    recognition.start();
-                });
+                micBtn.addEventListener('click', () => { recognition.start(); });
                 recognition.onstart = () => { recStatus.style.display = 'block'; };
                 recognition.onend = () => { recStatus.style.display = 'none'; };
                 recognition.onresult = (event) => {
