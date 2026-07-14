@@ -2,67 +2,46 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Nyaya-Kavach AI | UP Police</title>
+    <title>Nyaya-Kavach | UP Police</title>
     <style>
         :root { --up-blue: #002e6e; --up-gold: #ffb300; --up-red: #c62828; }
-        body { margin: 0; background: #0A0F1D; color: white; font-family: 'Segoe UI', sans-serif; }
-        .page { display: none; padding: 20px; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; }
-        #login-page { display: flex; }
+        body { margin: 0; background: linear-gradient(135deg, #0A0F1D 0%, #001533 100%); color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
         
-        /* Login Page */
-        .vip-container { display: flex; gap: 20px; margin: 20px 0; align-items: flex-end; }
-        .vip-box { text-align: center; font-size: 12px; }
-        .vip-box img { border: 3px solid var(--up-gold); border-radius: 10px; object-fit: cover; background: #222; }
-        .s-pm { width: 110px; height: 110px; }
-        .s-cm { width: 95px; height: 95px; }
-        .s-dgp { width: 80px; height: 80px; }
-        .login-card { background: rgba(13, 71, 161, 0.2); padding: 30px; border-radius: 20px; border: 1px solid var(--up-blue); width: 300px; text-align: center; }
-        
-        /* Dashboard Page */
-        #dashboard-page { display: none; align-items: flex-start; text-align: left; }
-        .dashboard-header { border-bottom: 3px solid var(--up-gold); width: 100%; margin-bottom: 20px; padding-bottom: 10px; }
-        .card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; border-left: 5px solid var(--up-blue); margin-bottom: 20px; }
-        input, textarea { width: 90%; padding: 12px; margin: 8px 0; background: #000; border: 1px solid var(--up-blue); color: white; border-radius: 5px; }
-        button { padding: 12px 20px; background: var(--up-red); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        /* Logo & Header */
+        .logo { width: 90px; margin-bottom: 5px; filter: drop-shadow(0 0 5px rgba(255,179,0,0.5)); }
+        h1 { color: var(--up-gold); margin: 5px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .tagline { color: white; font-size: 14px; margin-bottom: 20px; border-bottom: 2px solid var(--up-gold); padding-bottom: 5px; }
+
+        /* VIP Photos */
+        .vip-container { display: flex; gap: 15px; margin-bottom: 30px; }
+        .vip-box { text-align: center; }
+        .vip-box img { width: 90px; height: 90px; border: 3px solid var(--up-gold); border-radius: 50%; object-fit: cover; box-shadow: 0 0 15px rgba(0,0,0,0.5); }
+        .vip-box div { margin-top: 5px; font-weight: bold; color: var(--up-gold); }
+
+        /* Login Card */
+        .login-card { background: rgba(0, 46, 110, 0.4); padding: 30px; border-radius: 15px; border: 2px solid var(--up-gold); width: 300px; backdrop-filter: blur(10px); }
+        input { width: 90%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.3); border: 1px solid var(--up-gold); color: white; border-radius: 5px; }
+        button { width: 100%; padding: 12px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: #8e0000; }
     </style>
 </head>
 <body>
 
-    <div id="login-page" class="page">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" style="width:90px;">
-        <h2>NYAYA-KAVACH AI</h2>
-        <div class="vip-container">
-            <div class="vip-box"><img src="pm.jpg" class="s-pm"><div>PM</div></div>
-            <div class="vip-box"><img src="cm.jpg" class="s-cm"><div>CM</div></div>
-            <div class="vip-box"><img src="dgp.jpg" class="s-dgp"><div>DGP</div></div>
-        </div>
-        <div class="login-card">
-            <input type="text" placeholder="Officer ID">
-            <input type="password" placeholder="Password">
-            <div style="display:flex; gap:5px;"><input type="text" placeholder="Captcha" id="c-code"><button onclick="document.getElementById('c-code').value='UPP2026'">🔄</button></div>
-            <button onclick="document.getElementById('login-page').style.display='none'; document.getElementById('dashboard-page').style.display='flex';">LOGIN</button>
-        </div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo">
+    <h1>NYAYA-KAVACH AI</h1>
+    <div class="tagline">उत्तर प्रदेश पुलिस | सुरक्षा - सेवा - न्याय</div>
+
+    <div class="vip-container">
+        <div class="vip-box"><img src="pm.jpg"><div>PM</div></div>
+        <div class="vip-box"><img src="cm.jpg"><div>CM</div></div>
+        <div class="vip-box"><img src="dgp.jpg"><div>DGP</div></div>
     </div>
 
-    <div id="dashboard-page" class="page">
-        <div class="dashboard-header">
-            <h1>🛡️ Nyaya-Kavach Portal</h1>
-            <p>ऑफिसर: प्रशांत सर | पद: वरिष्ठ जांच अधिकारी</p>
-        </div>
-        <div class="card" style="width: 800px;">
-            <h3>Case Evidence & Diary Input</h3>
-            <textarea placeholder="केस डायरी यहाँ पेस्ट करें..."></textarea>
-            <button>Run AI Audit</button>
-            <button style="background:var(--up-blue);">Generate Timeline</button>
-        </div>
-        <div class="card" style="width: 800px; display:flex; gap:20px; align-items:center;">
-            <img src="avatar.jpg" style="width:70px; height:70px; border-radius:50%; border:2px solid gold;">
-            <div>
-                <h3>AI Assistant (वर्दी में)</h3>
-                <p>जय हिंद! मैं आपकी सेवा में तत्पर हूँ।</p>
-                <button onclick="alert('AI Voice Activated!')">🔊 Voice Mode</button>
-            </div>
-        </div>
+    <div class="login-card">
+        <input type="text" placeholder="Officer ID">
+        <input type="password" placeholder="Password">
+        <div style="display:flex; gap:5px;"><input type="text" placeholder="Captcha" id="c-code"><button style="width:40%;" onclick="document.getElementById('c-code').value='UPP2026'">🔄</button></div>
+        <button onclick="window.location.href='dashboard.html'">LOGIN</button>
     </div>
 
 </body>
