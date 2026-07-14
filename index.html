@@ -35,10 +35,17 @@
             text-align: center;
         }
 
-        .logo-area {
-            font-size: 50px;
-            color: #38bdf8;
-            margin-bottom: 10px;
+        /* UP Police Logo styling */
+        .up-logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.6));
+            transition: transform 0.3s ease;
+        }
+
+        .up-logo:hover {
+            transform: scale(1.05);
         }
 
         .title {
@@ -121,8 +128,8 @@
 <body>
 
     <div class="login-container">
-        <div class="logo-area">
-            <i class="fa-solid fa-shield-halved"></i>
+        <div>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Uttar_Pradesh_Logo.png" alt="UP Police Logo" class="up-logo">
         </div>
         <div class="title">Nyaya-Kavach AI</div>
         <div class="subtitle">UP Police Innovation Challenge 2026</div>
@@ -150,20 +157,18 @@
 
     <script>
         function handleLogin(event) {
-            event.preventDefault(); // Reload rokne ke liye
+            event.preventDefault();
 
             const usernameInput = document.getElementById('username').value.trim();
             const passwordInput = document.getElementById('password').value.trim();
             const errorMsg = document.getElementById('errorMsg');
 
-            // Login Details
             const correctUsername = "police_admin";
             const correctPassword = "UPPolice@2026";
 
             if (usernameInput === correctUsername && passwordInput === correctPassword) {
                 errorMsg.style.display = "none";
                 alert("Login Safal Raha! Dashboard par bheja raha hai...");
-                // Direct local file 'dashboard.html' par bhejega
                 window.location.href = "dashboard.html";
             } else {
                 errorMsg.style.display = "block";
