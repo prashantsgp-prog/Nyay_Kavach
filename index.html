@@ -3,178 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nyaya-Kavach AI - Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ffffff;
-        }
-
-        .login-container {
-            background: rgba(30, 41, 59, 0.7);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            backdrop-filter: blur(8.5px);
-            -webkit-backdrop-filter: blur(8.5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        /* UP Police Logo styling */
-        .up-logo {
-            width: 100px;
-            height: auto;
-            margin-bottom: 15px;
-            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.6));
-            transition: transform 0.3s ease;
-        }
-
-        .up-logo:hover {
-            transform: scale(1.05);
-        }
-
-        .title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #f8fafc;
-        }
-
-        .subtitle {
-            font-size: 14px;
-            color: #94a3b8;
-            margin-bottom: 30px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-            position: relative;
-            text-align: left;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #64748b;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px 12px 12px 45px;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s;
-        }
-
-        .input-group input:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 8px rgba(56, 189, 248, 0.2);
-        }
-
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(90deg, #0284c7 0%, #0369a1 100%);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            margin-top: 10px;
-        }
-
-        .btn-login:hover {
-            background: linear-gradient(90deg, #0369a1 0%, #0284c7 100%);
-            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4);
-        }
-
-        .error-msg {
-            color: #ef4444;
-            font-size: 14px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        .footer-text {
-            margin-top: 25px;
-            font-size: 12px;
-            color: #64748b;
-        }
-    </style>
+    <title>Nyaya-Kavach AI | UP Police Innovation 2026</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="login-container">
-        <div>
-            <img src="logo.png" alt="UP Police Logo" class="up-logo">
+    <header class="top-header">
+        <div class="logo-area">
+            <span class="police-badge">🛡️</span>
+            <h1>NYAYA-KAVACH AI <span class="subtitle">| UP Police Innovation Challenge</span></h1>
         </div>
-        <div class="title">Nyaya-Kavach AI</div>
-        <div class="subtitle">UP Police Innovation Challenge 2026</div>
+        <div class="status-badge">🟢 System Online (BNSS Active)</div>
+    </header>
 
-        <form id="loginForm" onsubmit="handleLogin(event)">
-            <div class="input-group">
-                <i class="fa-solid fa-user"></i>
-                <input type="text" id="username" placeholder="Username (User ID)" required>
-            </div>
-
-            <div class="input-group">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" id="password" placeholder="Password" required>
-            </div>
-
-            <button type="submit" class="btn-login">Login <i class="fa-solid fa-right-to-bracket"></i></button>
+    <div class="dashboard-container">
+        
+        <aside class="sidebar">
+            <h3>नेविगेशन</h3>
+            <button class="nav-btn active">📊 डैशबोर्ड</button>
+            <button class="nav-btn">📝 नया केस दर्ज करें</button>
+            <button class="nav-btn">🔎 AI साक्ष्य ऑडिट</button>
+            <button class="nav-btn">📑 चार्जशीट रेडीनेस</button>
             
-            <div class="error-msg" id="errorMsg">Galat Username ya Password! Kripya sahi details dalein.</div>
-        </form>
+            <div class="officer-info">
+                <p><strong>इन्वेस्टिगेटिंग ऑफिसर:</strong> प्रशांत सर</p>
+                <p><strong>पद:</strong> वरिष्ठ जांच अधिकारी</p>
+            </div>
+        </aside>
 
-        <div class="footer-text">
-            © 2026 Nyaya-Kavach AI. All Rights Reserved.
+        <main class="main-content">
+            
+            <div class="card">
+                <h3><span class="red-dot">●</span> Case Evidence & Diary Input</h3>
+                <p class="desc">यहाँ केस डायरी, गवाहों के बयान (Sec 161 BNSS) या FSL रिपोर्ट पेस्ट करें:</p>
+                
+                <textarea id="caseDataInput" rows="5" placeholder="उदाहरण: आरोपी रात 11:30 बजे घटना स्थल पर देखा गया, लेकिन मेडिकल रिपोर्ट में चोट का समय दोपहर 2:00 बजे का है..."></textarea>
+                
+                <div class="btn-group">
+                    <button id="runAuditBtn" class="btn btn-red">🛡️ Run AI Loophole Audit</button>
+                    <button id="generateTimelineBtn" class="btn btn-blue">📊 Generate Timeline</button>
+                </div>
+            </div>
+
+            <div class="card result-card" id="auditResultCard" style="display: none;">
+                <h3>🔎 AI Audit Analysis Report</h3>
+                <hr>
+                <div class="score-board">
+                    <div class="score-box">
+                        <span>RISK SCORE</span>
+                        <h2 id="riskScoreVal">0%</h2>
+                    </div>
+                    <div class="status-box">
+                        <span>COMPLIANCE STATUS</span>
+                        <h3 id="complianceStatusVal">Processing...</h3>
+                    </div>
+                </div>
+                <h4>Detected Loopholes & Contradictions:</h4>
+                <p id="loopholesOutput"></p>
+            </div>
+
+            <div class="card" id="timelineCard" style="display: none;">
+                <h3>📅 Investigation Chronology & Contradictions</h3>
+                <div class="timeline-wrapper">
+                    <div class="timeline-line"></div>
+                    <div id="timelineEventsContainer"></div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div class="voice-assistant-widget" id="voiceAssistant">
+        <div class="assistant-header" id="toggleChatBtn">
+            <span>🟢 Nyaya-Kavach AI Assistant</span>
+            <span class="toggle-icon" id="toggleIcon">▲</span>
+        </div>
+        <div class="assistant-body" id="assistantBody">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message assistant">जय हिंद, ऑफिसर। मैं 'न्याय-कवच' AI हूँ। मैं इस केस में आपकी कैसे मदद कर सकता हूँ? आप बोलकर (माइक बटन) भी पूछ सकते हैं।</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="अपना सवाल टाइप करें या बोलें...">
+                <button class="icon-btn" id="micBtn" title="बोलकर पूछें">🎤</button>
+                <button class="icon-btn send-btn" id="sendBtn">➤</button>
+            </div>
+            <div id="recStatus" class="recording-status">Listening... बोलिए...</div>
         </div>
     </div>
 
-    <script>
-        function handleLogin(event) {
-            event.preventDefault();
-
-            const usernameInput = document.getElementById('username').value.trim();
-            const passwordInput = document.getElementById('password').value.trim();
-            const errorMsg = document.getElementById('errorMsg');
-
-            const correctUsername = "police_admin";
-            const correctPassword = "UPPolice@2026";
-
-            if (usernameInput === correctUsername && passwordInput === correctPassword) {
-                errorMsg.style.display = "none";
-                alert("Login Safal Raha! Dashboard par bheja raha hai...");
-                window.location.href = "dashboard.html";
-            } else {
-                errorMsg.style.display = "block";
-            }
-        }
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
