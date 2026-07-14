@@ -2,55 +2,65 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Nyaya-Kavach | UP Police Portal</title>
+    <title>Nyaya-Kavach AI | UP Police</title>
     <style>
-        body { margin: 0; background: #0A0F1D; color: white; font-family: sans-serif; }
+        :root { --up-blue: #002e6e; --up-gold: #ffb300; --up-red: #c62828; }
+        body { margin: 0; background: #0A0F1D; color: white; font-family: 'Segoe UI', sans-serif; }
         .page { display: none; padding: 20px; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; }
         #login-page { display: flex; }
-        .logo { width: 80px; }
-        .vips { display: flex; gap: 15px; margin: 20px 0; align-items: flex-end; }
-        .vip-img { border: 2px solid #0D47A1; border-radius: 10px; object-fit: cover; }
-        .s-pm { width: 100px; height: 100px; }
-        .s-cm { width: 85px; height: 85px; }
-        .s-dgp { width: 70px; height: 70px; }
-        .card { background: rgba(255,255,255,0.05); padding: 25px; border-radius: 15px; border: 1px solid #0D47A1; width: 300px; text-align: center; }
-        input { width: 90%; padding: 12px; margin: 8px 0; background: #000; border: 1px solid #444; color: white; border-radius: 5px; }
-        button { width: 100%; padding: 12px; background: #C62828; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 10px; }
         
-        /* Dashboard Styling */
+        /* Login Page */
+        .vip-container { display: flex; gap: 20px; margin: 20px 0; align-items: flex-end; }
+        .vip-box { text-align: center; font-size: 12px; }
+        .vip-box img { border: 3px solid var(--up-gold); border-radius: 10px; object-fit: cover; background: #222; }
+        .s-pm { width: 110px; height: 110px; }
+        .s-cm { width: 95px; height: 95px; }
+        .s-dgp { width: 80px; height: 80px; }
+        .login-card { background: rgba(13, 71, 161, 0.2); padding: 30px; border-radius: 20px; border: 1px solid var(--up-blue); width: 300px; text-align: center; }
+        
+        /* Dashboard Page */
         #dashboard-page { display: none; align-items: flex-start; text-align: left; }
-        .dashboard-content { width: 100%; max-width: 900px; }
-        textarea { width: 100%; height: 100px; background: #000; color: white; border: 1px solid #444; padding: 10px; margin-top: 10px; }
+        .dashboard-header { border-bottom: 3px solid var(--up-gold); width: 100%; margin-bottom: 20px; padding-bottom: 10px; }
+        .card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 15px; border-left: 5px solid var(--up-blue); margin-bottom: 20px; }
+        input, textarea { width: 90%; padding: 12px; margin: 8px 0; background: #000; border: 1px solid var(--up-blue); color: white; border-radius: 5px; }
+        button { padding: 12px 20px; background: var(--up-red); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div id="login-page" class="page">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png" style="width:90px;">
         <h2>NYAYA-KAVACH AI</h2>
-        <div class="vips">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg" class="vip-img s-pm">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg" class="vip-img s-cm">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/75/UP_Police_Logo.png" class="vip-img s-dgp">
+        <div class="vip-container">
+            <div class="vip-box"><img src="pm.jpg" class="s-pm"><div>PM</div></div>
+            <div class="vip-box"><img src="cm.jpg" class="s-cm"><div>CM</div></div>
+            <div class="vip-box"><img src="dgp.jpg" class="s-dgp"><div>DGP</div></div>
         </div>
-        <div class="card">
+        <div class="login-card">
             <input type="text" placeholder="Officer ID">
             <input type="password" placeholder="Password">
+            <div style="display:flex; gap:5px;"><input type="text" placeholder="Captcha" id="c-code"><button onclick="document.getElementById('c-code').value='UPP2026'">🔄</button></div>
             <button onclick="document.getElementById('login-page').style.display='none'; document.getElementById('dashboard-page').style.display='flex';">LOGIN</button>
         </div>
     </div>
 
     <div id="dashboard-page" class="page">
-        <div class="dashboard-content">
-            <h1>🛡️ Nyaya-Kavach Dashboard</h1>
-            <p><strong>ऑफिसर:</strong> प्रशांत सिंह | <strong>पद:</strong> वरिष्ठ जांच अधिकारी</p>
-            <div class="card" style="width: 100%;">
-                <h3>Case Evidence & Diary Input</h3>
-                <textarea placeholder="यहाँ केस डायरी पेस्ट करें..."></textarea>
-                <div style="display:flex; gap:10px;">
-                    <button>Run AI Audit</button>
-                    <button>Generate Timeline</button>
-                </div>
+        <div class="dashboard-header">
+            <h1>🛡️ Nyaya-Kavach Portal</h1>
+            <p>ऑफिसर: प्रशांत सर | पद: वरिष्ठ जांच अधिकारी</p>
+        </div>
+        <div class="card" style="width: 800px;">
+            <h3>Case Evidence & Diary Input</h3>
+            <textarea placeholder="केस डायरी यहाँ पेस्ट करें..."></textarea>
+            <button>Run AI Audit</button>
+            <button style="background:var(--up-blue);">Generate Timeline</button>
+        </div>
+        <div class="card" style="width: 800px; display:flex; gap:20px; align-items:center;">
+            <img src="avatar.jpg" style="width:70px; height:70px; border-radius:50%; border:2px solid gold;">
+            <div>
+                <h3>AI Assistant (वर्दी में)</h3>
+                <p>जय हिंद! मैं आपकी सेवा में तत्पर हूँ।</p>
+                <button onclick="alert('AI Voice Activated!')">🔊 Voice Mode</button>
             </div>
         </div>
     </div>
