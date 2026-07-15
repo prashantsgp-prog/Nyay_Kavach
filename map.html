@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nyay-Kavach | Incident & Police Station Map</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+        }
+        .header {
+            background-color: #1e3a8a; /* Navy Blue Color UP Police Theme */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .back-btn {
+            background-color: #f59e0b; /* Golden Yellow */
+            color: #111827;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background-color: #d97706;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        /* Map container ki height define karna zaroori hai */
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 8px;
+            border: 2px solid #e5e7eb;
+            margin-top: 15px;
+        }
+        .info-text {
+            color: #4b5563;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>NYAY-KAVACH AI | Live Investigation Map</h1>
+        <a href="javascript:history.back()" class="back-btn">← Back</a>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>Incident & Police Station Live Tracker</h2>
+            <p class="info-text">Is map par aap UP ke major police headquarters aur reported incident areas ko real-time dekh sakte hain.</p>
+            
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <script>
+        // 1. Map initialize karein (Lucknow, UP par center set kiya hai)
+        const map = L.map('map').setView([26.8467, 80.9462], 12); 
+
+        // 2. OpenStreetMap standard design load karein
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // 3. UP Police HQ (Signature Building) ka marker
+        const policeHQ = L.marker([26.8631, 81.0022]).addTo(map);
+        policeHQ.bindPopup("<b>UP Police HQ (Signature Building)</b><br>Lucknow Main Command Centre.").openPopup();
+
+        // 4. Ek Mock Cyber Fraud Incident Marker (Red color popup ke sath)
+        const incidentMarker = L.marker([26.8385, 80.9234]).addTo(map);
+        incidentMarker.bindPopup("<b style='color:red;'>⚠️ Cyber Fraud Threat Alert</b><br>Reported near Charbagh Area.");
+        
+        // 5. Aap chahein toh aur bhi markers is tarah add kar sakte hain:
+        // L.marker([latitude, longitude]).addTo(map).bindPopup("Information text");
+    </script>
+</body>
+</html>
