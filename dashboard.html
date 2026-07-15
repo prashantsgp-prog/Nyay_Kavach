@@ -1040,6 +1040,21 @@
         📊 Open Case Analytics & Graphics
     </a>
 </div>
+    
+<script>
+    function saveToFirebase(event) {
+        event.preventDefault(); // Page ko refresh hone se rokne ke liye
+
+        // Success message show karein
+        document.getElementById('successMessage').style.display = 'block';
+        document.getElementById('complaintForm').reset();
+        
+        // 3 second baad success message hide karne ke liye
+        setTimeout(() => {
+            document.getElementById('successMessage').style.display = 'none';
+        }, 4000);
+    }
+</script>
 
 </body>
 </html>
