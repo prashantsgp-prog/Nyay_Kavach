@@ -1009,52 +1009,59 @@
                 });
             }
         });
+    <div style="text-align: center; margin: 15px 0;">
+        <a href="map.html" style="
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #1e3a8a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 260px;
+        ">
+            🌐 Open Live Investigation Map
+        </a>
+    </div>
+        
+    <div style="text-align: center; margin: 15px 0;">
+        <a href="charts.html" style="
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #10b981;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 260px;
+        ">
+            📊 Open Case Analytics & Graphics
+        </a>
+    </div>
 
+    <div style="text-align: center; margin: 15px 0;">
+        <a href="report.html" style="
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #ef4444;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            width: 260px;
+        ">
+            ✍️ Register Complaint
+        </a>
+    </div>
+
+    <script>
+        // Yeh aapka purana workload script hai, ise bilkul mat chhedna
         setTimeout(function() { window.calculateWorkload(); }, 300);
     </script>
-    <a href="map.html" style="
-    display: inline-block;
-    padding: 12px 24px;
-    background-color: #1e3a8a;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin: 20px 0;
-">
-    🌐 Open Live Investigation Map
-</a>
-    
-<div style="text-align: center; margin: 15px 0;">
-    <a href="charts.html" style="
-        display: inline-block;
-        padding: 12px 24px;
-        background-color: #10b981; /* Green Button for Analytics */
-        color: white;
-        text-decoration: none;
-        border-radius: 8px;
-        font-weight: bold;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    ">
-        📊 Open Case Analytics & Graphics
-    </a>
-</div>
-    
-<script>
-    function saveToFirebase(event) {
-        event.preventDefault(); // Page ko refresh hone se rokne ke liye
 
-        // Success message show karein
-        document.getElementById('successMessage').style.display = 'block';
-        document.getElementById('complaintForm').reset();
-        
-        // 3 second baad success message hide karne ke liye
-        setTimeout(() => {
-            document.getElementById('successMessage').style.display = 'none';
-        }, 4000);
-    }
-</script>
 
 </body>
 </html>
