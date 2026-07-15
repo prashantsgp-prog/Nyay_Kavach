@@ -4,573 +4,569 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nyaya-Kavach AI | UP Police Smart Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --navy-dark: #0a192f;
-            --navy-blue: #102c57;
-            --khaki-gold: #c29b38;
-            --khaki-light: #f4e8c1;
-            --white: #ffffff;
-            --text-light: #e6f1ff;
-            --bg-gray: #f0f4f8;
+            --bg-dark: #070d18;
+            --card-bg: rgba(16, 28, 48, 0.85);
+            --border-color: rgba(212, 175, 55, 0.3);
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.5);
+            --accent-blue: #00f0ff;
+            --text-light: #e0e6ed;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff3366;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background-color: var(--bg-gray);
-            color: #333;
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 0%, #112240 0%, var(--bg-dark) 75%);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        /* Top Header - UP Police Theme */
-        .navbar {
-            background: linear-gradient(135deg, var(--navy-dark), var(--navy-blue));
-            color: var(--white);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid var(--khaki-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        .header {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #0a192f, #112240);
+            border: 2px solid var(--gold);
+            border-radius: 15px;
+            box-shadow: 0 0 25px var(--gold-glow);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        .header h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 2.8rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px var(--gold-glow);
         }
 
-        .logo-section img {
-            height: 55px;
-            filter: drop-shadow(0 0 5px rgba(194, 155, 56, 0.8));
-        }
-
-        .title h1 {
-            font-size: 24px;
-            color: var(--khaki-light);
-            letter-spacing: 1px;
-        }
-
-        .title p {
-            font-size: 12px;
+        .header p {
+            font-size: 1.1rem;
             color: #a8b2d1;
+            font-weight: 600;
         }
 
-        .status-badge {
-            background: rgba(194, 155, 56, 0.2);
-            border: 1px solid var(--khaki-gold);
-            padding: 8px 15px;
+        .status-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 5px 15px;
             border-radius: 20px;
-            font-size: 13px;
-            color: var(--khaki-light);
+            font-size: 0.85rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background: #00ff66;
-            border-radius: 50%;
-            animation: pulse 1.5s infinite;
+        .badge.gold-badge {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+            color: var(--gold);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(0, 255, 102, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 255, 102, 0); }
-        }
-
-        /* Main Dashboard Grid */
-        .dashboard-container {
-            display: grid;
-            grid-template-columns: 320px 1fr;
-            gap: 20px;
-            padding: 25px;
-            max-width: 1400px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
         }
 
-        /* Left Panel - AI Officer Avatar */
-        .avatar-panel {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--navy-blue);
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .avatar-box {
-            position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 10px auto 15px;
+        /* SI Kavach Avatar Box */
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-left: 5px solid var(--gold);
+        }
+
+        .avatar-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .avatar-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--gold), #8a6f1c);
             border-radius: 50%;
-            border: 4px solid var(--khaki-gold);
-            overflow: hidden;
-            background: var(--navy-dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 15px rgba(194, 155, 56, 0.3);
-        }
-
-        /* Placeholder SVG for Police Officer in Verdi */
-        .avatar-box img, .avatar-box svg {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .avatar-status {
-            font-weight: bold;
-            color: var(--navy-blue);
-            margin-bottom: 5px;
-            font-size: 16px;
-        }
-
-        .avatar-sub {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        /* Soundwave Animation when Speaking */
-        .sound-waves {
-            display: none;
-            justify-content: center;
-            align-items: center;
-            gap: 4px;
-            height: 30px;
-            margin-bottom: 15px;
-        }
-
-        .wave {
-            width: 4px;
-            height: 10px;
-            background: var(--khaki-gold);
-            border-radius: 2px;
-            animation: wave-animation 0.8s infinite ease-in-out;
-        }
-
-        .wave:nth-child(2) { animation-delay: 0.2s; }
-        .wave:nth-child(3) { animation-delay: 0.4s; }
-        .wave:nth-child(4) { animation-delay: 0.6s; }
-
-        @keyframes wave-animation {
-            0%, 100% { height: 8px; }
-            50% { height: 25px; background: var(--navy-blue); }
+            font-size: 35px;
+            color: #000;
+            box-shadow: 0 0 15px var(--gold-glow);
         }
 
         .voice-controls {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .btn {
-            padding: 12px 18px;
+            padding: 12px 20px;
             border: none;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
-            font-size: 14px;
+            transition: all 0.3s ease;
         }
 
-        .btn-mic {
-            background: var(--navy-blue);
-            color: var(--white);
+        .btn-voice {
+            background: #112240;
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
         }
 
-        .btn-mic:hover { background: var(--navy-dark); }
-        .btn-mic.listening { background: #d32f2f; animation: pulse 1s infinite; }
+        .btn-voice:hover {
+            background: var(--accent-blue);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-blue);
+        }
 
         .btn-stop {
-            background: #ffebee;
-            color: #c62828;
-            border: 1px solid #ffcdd2;
+            background: #112240;
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            display: none;
         }
 
-        /* Right Panel - Interaction & Results */
-        .main-panel {
+        .btn-stop:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        /* Case Input Section */
+        .section-title {
+            font-size: 1.3rem;
+            color: var(--gold);
+            margin-bottom: 15px;
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
         }
 
-        .query-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--khaki-gold);
+        textarea {
+            width: 100%;
+            height: 120px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #233554;
+            border-radius: 10px;
+            padding: 15px;
+            color: #fff;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 15px;
+            outline: none;
+            transition: 0.3s;
         }
 
-        .query-header {
+        textarea:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-demo {
+            background: transparent;
+            border: 1px dashed var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-demo:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .btn-analyze {
+            background: linear-gradient(135deg, var(--gold), #b89728);
+            color: #000;
+            font-size: 1.05rem;
+            padding: 12px 30px;
+            box-shadow: 0 0 15px var(--gold-glow);
+        }
+
+        .btn-analyze:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--gold);
+        }
+
+        /* UNIQUE PRIORITY POINT MODULE */
+        .priority-box {
+            border: 2px solid var(--accent-blue);
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.05), rgba(10, 25, 47, 0.9));
+            position: relative;
+        }
+
+        .priority-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
 
-        .query-header h3 {
-            color: var(--navy-dark);
-            font-size: 18px;
-        }
-
-        .btn-demo {
-            background: linear-gradient(135deg, var(--khaki-gold), #997320);
-            color: var(--white);
-            box-shadow: 0 2px 8px rgba(194, 155, 56, 0.4);
-        }
-
-        .btn-demo:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(194, 155, 56, 0.6);
-        }
-
-        textarea {
-            width: 100%;
-            height: 90px;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            resize: none;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        textarea:focus { border-color: var(--navy-blue); }
-
-        .action-buttons {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 10px;
-            gap: 10px;
-        }
-
-        .btn-analyze {
-            background: #00796b;
-            color: var(--white);
-        }
-
-        .btn-analyze:hover { background: #004d40; }
-
-        /* Response Output Section */
-        .output-card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 22px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            display: none; /* Shown after analysis */
-            border-left: 5px solid #00796b;
-        }
-
-        .output-card h2 {
-            color: var(--navy-dark);
-            font-size: 20px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .ai-speech-text {
-            background: #f8f9fa;
-            border-left: 4px solid var(--khaki-gold);
-            padding: 15px;
-            border-radius: 4px;
-            font-size: 16px;
-            line-height: 1.6;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-weight: 500;
-        }
-
-        .details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .detail-box {
-            background: var(--bg-gray);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid #dcdcdc;
-        }
-
-        .detail-box h4 {
-            color: var(--navy-blue);
-            margin-bottom: 8px;
-            font-size: 14px;
+        .priority-tag {
+            background: var(--accent-blue);
+            color: #000;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
             text-transform: uppercase;
         }
 
-        .detail-box p, .detail-box ul {
-            font-size: 14px;
-            color: #444;
-            padding-left: 15px;
+        .priority-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .priority-item {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .priority-item h4 {
+            color: #a8b2d1;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .priority-item p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        /* Progress Bar for Operation Conviction */
+        .progress-container {
+            margin-top: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--success));
+            width: 85%;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Report Section */
+        #report-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media(max-width: 768px) {
+            .report-grid { grid-template-columns: 1fr; }
+        }
+
+        .report-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #233554;
+        }
+
+        .report-card h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .report-card ul {
+            list-style-position: inside;
+            color: #d1d5db;
+            line-height: 1.8;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2rem;
+            color: var(--gold);
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo-section">
-            <svg width="45" height="45" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="48" fill="#c29b38" stroke="#ffffff" stroke-width="4"/>
-                <path d="M50 20 L65 40 L85 45 L70 65 L75 85 L50 75 L25 85 L30 65 L15 45 L35 40 Z" fill="#102c57"/>
-            </svg>
-            <div class="title">
-                <h1>NYAYA-KAVACH AI</h1>
-                <p>UTTAR PRADESH POLICE SMART INVESTIGATION PORTAL</p>
-            </div>
+    <div class="header">
+        <h1>NYAYA-KAVACH AI</h1>
+        <p>UTTAR PRADESH POLICE SMART INVESTIGATION PORTAL</p>
+        <div class="status-badges">
+            <span class="badge"><i class="fa-solid fa-robot"></i> AI Avatar Active</span>
+            <span class="badge"><i class="fa-solid fa-database"></i> CCTNS Ready</span>
+            <span class="badge gold-badge"><i class="fa-solid fa-star"></i> UP Police 10-Priority Integrated</span>
         </div>
-        <div class="status-badge">
-            <div class="status-dot"></div>
-            <span>AI Avatar Active | CCTNS Ready</span>
-        </div>
-    </nav>
+    </div>
 
-    <div class="dashboard-container">
+    <div class="container">
         
-        <div class="avatar-panel">
-            <div class="avatar-box" id="avatarBox">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="200" height="200" fill="#0a192f"/>
-                    <path d="M20 200 Q100 130 180 200 Z" fill="#c29b38"/>
-                    <polygon points="80,160 100,190 120,160" fill="#8c6d23"/>
-                    <circle cx="65" cy="180" r="4" fill="#ffffff"/>
-                    <circle cx="135" cy="180" r="4" fill="#ffffff"/>
-                    <rect x="85" y="120" width="30" height="40" fill="#e0ac69"/>
-                    <circle cx="100" cy="95" r="40" fill="#f0c080"/>
-                    <circle cx="85" cy="90" r="4" fill="#111"/>
-                    <circle cx="115" cy="90" r="4" fill="#111"/>
-                    <path d="M80 105 Q100 98 120 105 Q100 112 80 105 Z" fill="#222"/>
-                    <path d="M50 65 Q100 35 150 65 L160 55 Q100 20 40 55 Z" fill="#102c57"/>
-                    <rect x="55" y="60" width="90" height="12" fill="#c29b38" rx="3"/>
-                    <circle cx="100" cy="53" r="7" fill="#c29b38" stroke="#fff" stroke-width="1"/>
-                </svg>
+        <div class="card avatar-section">
+            <div class="avatar-info">
+                <div class="avatar-icon">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                    <h2 style="color: #fff; font-size: 1.4rem;">👮‍♂️ SI Kavach (AI Assistant)</h2>
+                    <p style="color: #00ff88; font-size: 0.9rem;" id="ai-status">
+                        <i class="fa-solid fa-circle-check"></i> Verdi me aapka digital sahayak tyar hai
+                    </p>
+                </div>
             </div>
-            <div class="avatar-status" id="avatarStatusName">👮‍♂️ SI Kavach (AI Assistant)</div>
-            <div class="avatar-sub" id="avatarStateText">Verdi me aapka digital sahayak tyar hai</div>
-
-            <div class="sound-waves" id="soundWaves">
-                <div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div><div class="wave"></div>
-            </div>
-
             <div class="voice-controls">
-                <button class="btn btn-mic" id="micBtn" onclick="toggleListening()">
-                    🎤 Bolkar Puchiye (Voice Input)
+                <button class="btn btn-voice" id="start-record-btn" onclick="startVoice()">
+                    <i class="fa-solid fa-microphone"></i> Bolkar Puchiye
                 </button>
-                <button class="btn btn-stop" id="stopBtn" onclick="stopSpeaking()" style="display: none;">
-                    🛑 Awaaz Rokein (Stop Voice)
+                <button class="btn btn-stop" id="stop-record-btn" onclick="stopVoice()">
+                    <i class="fa-solid fa-stop"></i> Awaaz Rokein
                 </button>
             </div>
         </div>
 
-        <div class="main-panel">
-            
-            <div class="query-card">
-                <div class="query-header">
-                    <h3>🚨 Case Inquiry / FIR Analysis Box</h3>
-                    <button class="btn btn-demo" onclick="runAutoDemo()">
-                        ⚡ Auto Demo Example (Live Test)
-                    </button>
+        <div class="card">
+            <div class="section-title">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                <span>🚨 Case Inquiry / FIR Analysis Box</span>
+            </div>
+            <textarea id="case-input" placeholder="Yahan FIR ki details, apradh ka vivaran ya sandigdho ki jankari likhein ya paste karein..."></textarea>
+            <div class="action-buttons">
+                <button class="btn btn-demo" onclick="loadDemo()">
+                    <i class="fa-solid fa-bolt"></i> ⚡ Auto Demo Example (Live Test)
+                </button>
+                <button class="btn btn-analyze" onclick="analyzeCase()">
+                    <i class="fa-solid fa-brain"></i> 🔍 AI Analysis Karein
+                </button>
+            </div>
+        </div>
+
+        <div class="loader pulse" id="loader">
+            <i class="fa-solid fa-spinner fa-spin"></i> Nyaya-Kavach AI case ki investigation kar raha hai... Kripya pratiksha karein...
+        </div>
+
+        <div class="card priority-box" id="priority-section">
+            <div class="priority-header">
+                <div class="section-title" style="margin-bottom: 0; border: none;">
+                    <i class="fa-solid fa-crosshairs" style="color: var(--accent-blue);"></i>
+                    <span style="color: #fff;">UP Police 10-Priority Feature: <span style="color: var(--accent-blue);">Operation Conviction & Yaksh AI</span></span>
                 </div>
-                <textarea id="queryInput" placeholder="Yahan case details, FIR description ya IPC/BNS dhara likhein ya mic se bolkar puchiye... (e.g., Cyber fraud rs 50,000 via UPI)"></textarea>
-                <div class="action-buttons">
-                    <button class="btn btn-analyze" onclick="analyzeCase()">
-                        🔍 AI Analysis Karein
-                    </button>
+                <span class="priority-tag">Priority #1 & #8 Active</span>
+            </div>
+            <p style="color: #a8b2d1; font-size: 0.95rem;">
+                <strong>DGP UP Special Directive:</strong> Jaghanya apradhon aur cyber crimes me fast-track evidence management aur <strong>Yaksh App / Pratibimb Portal</strong> se sandigdho ki real-time surveillance.
+            </p>
+
+            <div class="priority-grid">
+                <div class="priority-item">
+                    <h4>⚖️ Operation Conviction Status</h4>
+                    <p style="color: var(--success);"><i class="fa-solid fa-gavel"></i> Fast-Track Eligible</p>
+                    <small style="color: #a8b2d1;">Target Chargesheet: <strong>30 Days</strong></small>
+                </div>
+                <div class="priority-item">
+                    <h4>📲 Yaksh App Criminal Database</h4>
+                    <p style="color: var(--warning);"><i class="fa-solid fa-triangle-exclamation"></i> 2 Matched Profiles</p>
+                    <small style="color: #a8b2d1;">Pratibimb Geo-Fence: <strong>Active</strong></small>
+                </div>
+                <div class="priority-item">
+                    <h4>🎯 Conviction Readiness Score</h4>
+                    <p id="score-text">85% (Strong Evidence)</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="conviction-progress"></div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="output-card" id="outputCard">
-                <h2>🛡️ Nyaya-Kavach AI Investigation Report</h2>
-                
-                <div class="ai-speech-text" id="aiSpeechText">
-                    </div>
-
-                <div class="details-grid">
-                    <div class="detail-box">
-                        <h4>📜 Applicable Laws (BNS / IPC)</h4>
-                        <p id="lawDetails">Bharatiya Nyaya Sanhita (BNS) Dhara 318(4) - Cheating and Fraud.</p>
-                    </div>
-                    <div class="detail-box">
-                        <h4>🔍 Actionable Next Steps</h4>
-                        <ul id="actionSteps">
-                            <li>Bank account freeze request via Cyber Crime Portal (1930).</li>
-                            <li>UPI Transaction ID & Gateway IP logs collection.</li>
-                            <li>Call Detail Records (CDR) analysis of suspect numbers.</li>
+        <div class="card" id="report-section">
+            <div class="section-title">
+                <i class="fa-solid fa-file-shield"></i>
+                <span>🛡️ Nyaya-Kavach AI Investigation Report</span>
+            </div>
+            <div class="report-grid">
+                <div class="report-card">
+                    <h3>📜 Applicable Laws (BNS / IPC & IT Act)</h3>
+                    <ul id="laws-list">
                         </ul>
-                    </div>
+                </div>
+                <div class="report-card">
+                    <h3>🔍 Actionable Next Steps (IO Protocol)</h3>
+                    <ul id="steps-list">
+                        </ul>
                 </div>
             </div>
-
         </div>
 
     </div>
 
     <script>
-        const queryInput = document.getElementById('queryInput');
-        const outputCard = document.getElementById('outputCard');
-        const aiSpeechText = document.getElementById('aiSpeechText');
-        const soundWaves = document.getElementById('soundWaves');
-        const avatarStateText = document.getElementById('avatarStateText');
-        const stopBtn = document.getElementById('stopBtn');
-        const micBtn = document.getElementById('micBtn');
-
-        // 1. AUTO DEMO FUNCTION (Key requirement for easy evaluation)
-        function runAutoDemo() {
-            // Pre-fill a realistic UP Police case query
-            queryInput.value = "FIR Case: Hazratganj Lucknow se complaint hai ki ek vyakti se UPI Phishing link ke jariye 75,000 rupaye ka cyber fraud hua hai. Isme BNS ki kaun si dhara lagegi aur immediate shuruati investigation steps kya honge?";
-            
-            // Trigger analysis automatically
-            analyzeCase();
+        // Demo Auto Fill Function
+        function loadDemo() {
+            const demoText = "Ek peedit ne shikaayat ki hai ki kisi agyat vyakti ne phone par bank adhikaari ban kar KYC update ke naam par OTP manga. OTP dete hi peedit ke bank account se ₹85,000 turant kisi doosre UPI account me transfer ho gaye. Sandigdh ka mobile number switch off aa raha hai.";
+            document.getElementById('case-input').value = demoText;
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-info"></i> Demo case loaded. Click "AI Analysis Karein"';
+            document.getElementById('ai-status').style.color = '#00f0ff';
         }
 
-        // 2. CASE ANALYSIS & AI RESPONSE GENERATOR
+        // AI Case Analysis Simulation
         function analyzeCase() {
-            const query = queryInput.value.trim();
-            if (!query) {
-                alert("Kripya case details likhein ya 'Auto Demo Example' button par click karein.");
+            const input = document.getElementById('case-input').value;
+            if(!input.trim()) {
+                alert("Kripya pehle FIR ya case ki details box me likhein!");
                 return;
             }
 
-            // Show output box
-            outputCard.style.display = 'block';
-            outputCard.scrollIntoView({ behavior: 'smooth' });
+            // Show Loader, Hide Report
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('report-section').style.display = 'none';
 
-            // Generate smart response based on input
-            let speechResponse = "";
-            
-            if (query.toLowerCase().includes('fraud') || query.toLowerCase().includes('upi') || query.toLowerCase().includes('75,000')) {
-                speechResponse = "Jai Hind! Nyay Kavach AI me aapka swagat hai. Is UPI Cyber Fraud case me Bharatiya Nyaya Sanhita yani BNS ki Dhara 318 Sub-section 4 ke tehat mukadama darj kiya jayega. Shuruati investigation ke liye turant National Cyber Helpline 1930 ke jariye suspect ka bank account freeze karayein, aur UPI transaction ID ke IP logs bank se mangwayein.";
-            } else {
-                speechResponse = "Jai Hind! Aapke case ki basic analysis kar li gayi hai. Sabhi digital evidence aur gawahon ke bayan Bharatiya Nagarik Suraksha Sanhita (BNSS) ke niyamanoosar record karein. Agar crime serious nature ka hai, to forensically verifable video recording anivarya hai.";
-            }
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('report-section').style.display = 'block';
 
-            aiSpeechText.innerText = `"${speechResponse}"`;
+                // Populate Laws
+                const laws = [
+                    "<strong>Bharatiya Nyaya Sanhita (BNS) Dhara 318(4):</strong> Cheating and dishonestly inducing delivery of property (Dho-khadhadi).",
+                    "<strong>BNS Dhara 319(2):</strong> Cheating by personation (Roop badal kar chhal karna).",
+                    "<strong>IT Act Section 66D:</strong> Punishment for cheating by personation by using computer resource."
+                ];
+                document.getElementById('laws-list').innerHTML = laws.map(l => `<li>${l}</li>`).join('');
 
-            // Speak the response aloud using Police Avatar Voice
-            speakHindi(speechResponse);
+                // Populate Actionable Steps
+                const steps = [
+                    "<strong>Cyber Crime Portal (1930):</strong> Turant suspect bank account aur UPI gateway ko freeze karne ka request bhejein.",
+                    "<strong>Pratibimb & Yaksh App Check:</strong> Sandigdh mobile number aur IMEI ka UP Police Yaksh database me purana criminal record check karein.",
+                    "<strong>IP & CDR Analysis:</strong> Suspected UPI transaction ki IP logs aur Call Detail Records (CDR) ki geofencing karein.",
+                    "<strong>Operation Conviction Protocol:</strong> 30 dino ke andar digital evidence (65B Certificate) ke sath charge-sheet court me submit karein."
+                ];
+                document.getElementById('steps-list').innerHTML = steps.map(s => `<li>${s}</li>`).join('');
+
+                // Update UI Status
+                document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-check-double"></i> Case Analysis Complete | Fast-Track Report Generated';
+                document.getElementById('ai-status').style.color = '#00ff88';
+
+                // Scroll to report
+                document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
+
+            }, 1800);
         }
 
-        // 3. TEXT-TO-SPEECH (Avatar Speaks in Hindi)
-        function speakHindi(text) {
-            // Stop any ongoing speech
-            stopSpeaking();
-
-            if ('speechSynthesis' in window) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                
-                // Set language to Hindi
-                utterance.lang = 'hi-IN';
-                utterance.rate = 0.95; // Slightly authoritative officer pace
-                utterance.pitch = 1.0;
-
-                // Try to find a Hindi voice if available
-                const voices = window.speechSynthesis.getVoices();
-                const hindiVoice = voices.find(v => v.lang.includes('hi') || v.name.toLowerCase().includes('hindi'));
-                if (hindiVoice) {
-                    utterance.voice = hindiVoice;
-                }
-
-                // UI Animation on Speech Start
-                utterance.onstart = () => {
-                    soundWaves.style.display = 'flex';
-                    avatarStateText.innerText = "🔊 SI Kavach bol rahe hain...";
-                    avatarStateText.style.color = "#d32f2f";
-                    stopBtn.style.display = 'inline-flex';
-                };
-
-                // UI Animation on Speech End
-                utterance.onend = () => {
-                    resetAvatarState();
-                };
-
-                window.speechSynthesis.speak(utterance);
-            } else {
-                alert("Aapke browser me Voice Support available nahi hai.");
-            }
-        }
-
-        function stopSpeaking() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-            resetAvatarState();
-        }
-
-        function resetAvatarState() {
-            soundWaves.style.display = 'none';
-            avatarStateText.innerText = "Verdi me aapka digital sahayak tyar hai";
-            avatarStateText.style.color = "#666";
-            stopBtn.style.display = 'none';
-            micBtn.classList.remove('listening');
-            micBtn.innerText = "🎤 Bolkar Puchiye (Voice Input)";
-        }
-
-        // 4. SPEECH-TO-TEXT (Voice Recognition for Mic Input)
+        // Web Speech API for Real Voice Recognition
         let recognition;
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             recognition = new SpeechRecognition();
-            recognition.lang = 'hi-IN'; // Listen in Hindi
-            recognition.continuous = false;
-            recognition.interimResults = false;
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'hi-IN'; // Hindi voice support
 
-            recognition.onstart = () => {
-                micBtn.classList.add('listening');
-                micBtn.innerText = "🔴 Sun raha hoon... Bolte rahiye";
-                avatarStateText.innerText = "🎧 SI Kavach aapki baat sun rahe hain...";
+            recognition.onresult = function(event) {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    transcript += event.results[i][0].transcript;
+                }
+                document.getElementById('case-input').value = transcript;
             };
 
-            recognition.onresult = (event) => {
-                const transcript = event.results[0][0].transcript;
-                queryInput.value = transcript;
-                analyzeCase(); // Auto analyze after speaking!
-            };
-
-            recognition.onerror = () => {
-                alert("Awaaz pehchanne me samasya aayi. Kripya dubaara koshish karein ya text likhein.");
-                resetAvatarState();
-            };
-
-            recognition.onend = () => {
-                micBtn.classList.remove('listening');
-                micBtn.innerText = "🎤 Bolkar Puchiye (Voice Input)";
+            recognition.onerror = function(event) {
+                console.error("Speech error", event);
+                stopVoice();
             };
         }
 
-        function toggleListening() {
-            if (recognition) {
-                stopSpeaking();
-                recognition.start();
-            } else {
-                alert("Aapke browser me Mic Voice Recognition support nahi karta (Chrome browser use karein).");
+        function startVoice() {
+            if(!recognition) {
+                alert("Aapka browser Voice Recognition support nahi karta. Kripya Google Chrome ka istemal karein.");
+                return;
             }
+            recognition.start();
+            document.getElementById('start-record-btn').style.display = 'none';
+            document.getElementById('stop-record-btn').style.display = 'flex';
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-microphone-lines fa-bounce"></i> Awaaz sun raha hoon... Kripya boliye...';
+            document.getElementById('ai-status').style.color = '#ffaa00';
         }
 
-        // Ensure voices are loaded in browser
-        window.speechSynthesis.onvoiceschanged = () => {
-            window.speechSynthesis.getVoices();
-        };
+        function stopVoice() {
+            if(recognition) recognition.stop();
+            document.getElementById('start-record-btn').style.display = 'flex';
+            document.getElementById('stop-record-btn').style.display = 'none';
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-check"></i> Voice recording complete.';
+            document.getElementById('ai-status').style.color = '#00ff88';
+        }
     </script>
 </body>
 </html>
