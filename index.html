@@ -40,8 +40,8 @@
     </div>
 
     <div class="login-card">
-        <input type="text" placeholder="Officer ID">
-        <input type="password" placeholder="Password">
+        <input type="text" placeholder="Officer ID" id="officer-id">
+        <input type="password" placeholder="Password" id="officer-password">
         
         <div id="captcha-display">------</div>
         <button style="background:var(--up-blue);" onclick="generateCaptcha()">Generate Captcha</button>
@@ -57,12 +57,27 @@
             for(let i=0; i<6; i++) captcha += chars.charAt(Math.floor(Math.random() * chars.length));
             document.getElementById('captcha-display').innerText = captcha;
         }
+
         function checkLogin() {
-            const u = document.getElementById('user-captcha').value;
-            const a = document.getElementById('captcha-display').innerText;
-            if(u === a) { window.location.href = 'dashboard.html'; }
-            else { alert("Wrong Captcha!"); }
+            // इनपुट वैल्यूज लेना
+            const id = document.getElementById('officer-id').value;
+            const pass = document.getElementById('officer-password').value;
+            const uCaptcha = document.getElementById('user-captcha').value;
+            const rCaptcha = document.getElementById('captcha-display').innerText;
+
+            // चेकिंग: ID, Password और Captcha
+            if (id === "admin" && pass === "admin") {
+                if (uCaptcha === rCaptcha) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    alert("गलत Captcha!");
+                    generateCaptcha(); // गलत पर नया कैप्चा दें
+                }
+            } else {
+                alert("गलत Officer ID या Password!");
+            }
         }
+        
         generateCaptcha();
     </script>
 </body>
