@@ -2,68 +2,95 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Nyaya-Kavach | UP Police</title>
+    <title>Nyaya-Kavach AI - BNSS Compliance Auditor</title>
     <style>
-        :root { --up-blue: #002e6e; --up-gold: #ffb300; --up-red: #c62828; }
-        body { margin: 0; background: #0A0F1D; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        :root { --up-navy: #001B3A; --up-gold: #ffb703; --up-red: #d62828; --up-blue: #003366; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
         
-        /* Logo & Header */
-        .logo { width: 100px; margin-bottom: 5px; }
-        h1 { color: var(--up-gold); font-size: 24px; margin: 0; text-transform: uppercase; }
-        .desc { color: #ccc; font-size: 14px; margin-bottom: 20px; text-align: center; max-width: 300px; }
-
-        /* VIP Container */
-        .vip-container { display: flex; gap: 15px; margin-bottom: 25px; }
-        .vip-box { text-align: center; }
-        .vip-box img { width: 70px; height: 70px; border: 2px solid var(--up-gold); border-radius: 50%; object-fit: cover; background: #333; }
-        .label { font-size: 11px; color: var(--up-gold); margin-top: 5px; }
-
-        /* Login Card */
-        .login-card { background: rgba(0, 46, 110, 0.4); padding: 25px; border-radius: 20px; border: 2px solid var(--up-gold); width: 300px; text-align: center; }
-        input { width: 90%; padding: 12px; margin: 8px 0; background: #000; border: 1px solid var(--up-gold); color: white; border-radius: 5px; }
-        button { width: 100%; padding: 12px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        /* Login Screen */
+        #login-section { display: flex; height: 100vh; background: #070d1f; align-items: center; justify-content: center; }
+        .login-card { background: rgba(10,20,45,0.95); padding: 30px; border-radius: 15px; border: 2px solid var(--up-gold); width: 350px; text-align: center; }
         
-        /* Captcha */
-        #captcha-display { font-size: 22px; font-weight: bold; letter-spacing: 5px; color: var(--up-gold); background: #000; padding: 10px; border: 1px solid var(--up-gold); margin: 10px 0; }
+        /* Persistent Header (Logo & Leadership) - Yeh kabhi gayab nahi hoga */
+        #dashboard-section { display: none; background: #f4f6f9; min-height: 100vh; }
+        .main-header { background: linear-gradient(135deg, var(--up-navy), var(--up-blue)); padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 4px solid var(--up-gold); color: white; position: sticky; top: 0; z-index: 1000; }
+        .logo-box { width: 50px; height: 50px; background: white; border: 2px solid var(--up-gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 7px; font-weight: 900; color: var(--up-navy); text-align: center; }
+        .leadership-bar { display: flex; gap: 15px; margin-left: 20px; }
+        .leader { text-align: center; }
+        .leader-img { width: 35px; height: 35px; border-radius: 50%; border: 1px solid var(--up-gold); background: #eee; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .label { font-size: 8px; color: var(--up-gold); font-weight: bold; margin-top: 2px; }
+
+        /* Dashboard Content */
+        .content-area { padding: 20px; display: grid; grid-template-columns: 300px 1fr; gap: 20px; max-width: 1200px; margin: auto; }
+        .panel { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
-    <img src="logo.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png'" class="logo">
-    <h1>NYAYA-KAVACH AI</h1>
-    <p class="desc">Smart AI-driven portal for UP Police to analyze crime records, manage case files, and provide real-time investigation assistance.</p>
-
-    <div class="vip-container">
-        <div class="vip-box"><img src="pm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg'"><div class="label">PM</div></div>
-        <div class="vip-box"><img src="cm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg'"><div class="label">CM</div></div>
-        <div class="vip-box"><img src="dgp.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Rajeev_Krishna.jpg/300px-Rajeev_Krishna.jpg'"><div class="label">DGP</div></div>
+    <div id="login-section">
+        <div class="login-card">
+            <div style="margin:0 auto 10px; width:60px; height:60px; border-radius:50%; background:white; display:flex; align-items:center; justify-content:center; border:2px solid var(--up-gold); font-size:9px; font-weight:bold; color:var(--up-navy);">UP<br>POLICE</div>
+            <h2 style="color:var(--up-gold);">NYAYA-KAVACH AI</h2>
+            <p style="color:#fff; font-size:12px; margin:10px 0;">BNSS Sec 105 Auditor</p>
+            <input type="text" placeholder="Username" style="width:100%; padding:10px; margin-bottom:10px; border-radius:5px;">
+            <button onclick="login()" style="width:100%; padding:10px; background:var(--up-red); color:white; border:none; cursor:pointer;">LOGIN</button>
+        </div>
     </div>
 
-    <div class="login-card">
-        <input type="text" placeholder="Officer ID">
-        <input type="password" placeholder="Password">
-        
-        <div id="captcha-display">------</div>
-        <button style="background:var(--up-blue);" onclick="generateCaptcha()">Generate Captcha</button>
-        <input type="text" placeholder="Enter Captcha" id="user-captcha">
-        
-        <button style="margin-top:10px;" onclick="checkLogin()">LOGIN</button>
+    <div id="dashboard-section">
+        <header class="main-header">
+            <div style="display: flex; align-items: center;">
+                <div class="logo-box">UP<br>👮‍♂️<br>POLICE</div>
+                <div class="leadership-bar">
+                    <div class="leader"><div class="leader-img">🏛️</div><div class="label">PM</div></div>
+                    <div class="leader"><div class="leader-img">🇮🇳</div><div class="label">CM</div></div>
+                    <div class="leader"><div class="leader-img">👮‍♂️</div><div class="label">DGP</div></div>
+                </div>
+            </div>
+            <button onclick="location.reload()" style="background:var(--up-red); color:white; border:none; padding:8px 15px; border-radius:5px; cursor:pointer;">LOGOUT</button>
+        </header>
+
+        <div class="content-area">
+            <div class="panel">
+                <h3>Case Input</h3>
+                <label>CD Time:</label><input type="time" id="cd_time" onchange="runAudit()" style="width:100%; margin:5px 0 15px;">
+                <label>Video Time:</label><input type="time" id="video_time" onchange="runAudit()" style="width:100%; margin:5px 0 15px;">
+            </div>
+            
+            <div class="panel">
+                <h3>AI Audit Report</h3>
+                <div id="audit-result"></div>
+            </div>
+        </div>
     </div>
 
     <script>
-        function generateCaptcha() {
-            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            let captcha = "";
-            for(let i=0; i<6; i++) captcha += chars.charAt(Math.floor(Math.random() * chars.length));
-            document.getElementById('captcha-display').innerText = captcha;
+        function login() {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('dashboard-section').style.display = 'block';
+            runAudit();
         }
-        function checkLogin() {
-            const u = document.getElementById('user-captcha').value;
-            const a = document.getElementById('captcha-display').innerText;
-            if(u === a) { window.location.href = 'dashboard.html'; }
-            else { alert("Wrong Captcha!"); }
+
+        function runAudit() {
+            let cd = document.getElementById('cd_time').value || "14:00";
+            let vid = document.getElementById('video_time').value || "16:45";
+            
+            document.getElementById('audit-result').innerHTML = `
+                <div style="border-left: 4px solid #d62828; padding:15px; margin-top:10px; background:#fff5f5;">
+                    <h4 style="color:#d62828; margin-bottom:5px;">⚠️ Time Conflict Detected</h4>
+                    <p style="font-size:14px; margin-bottom:10px;">Case Diary time: <b>${cd}</b> vs e-Sakshya Video: <b>${vid}</b>.</p>
+                    
+                    <h4 style="color:#001B3A; margin-bottom:5px;">🛡️ Defense Exploitability Risk</h4>
+                    <p style="font-size:14px; margin-bottom:10px;">High Risk. Advocate may argue police kept accused in illegal detention before seizure.</p>
+                    
+                    <h4 style="color:#2a9d8f; margin-bottom:5px;">💡 Rectification Suggestions</h4>
+                    <ul style="font-size:14px; padding-left:20px;">
+                        <li>Add technical explanation note in next Case Diary.</li>
+                        <li>Re-examine Sec 161 BNSS witness to align timelines.</li>
+                    </ul>
+                </div>
+            `;
         }
-        generateCaptcha();
     </script>
 </body>
 </html>
