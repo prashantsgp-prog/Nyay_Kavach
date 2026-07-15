@@ -716,7 +716,7 @@
                     score = "88% (डिजिटल साक्ष्य)";
                     progress = "88%";
                     convictionStatus = 'साइबर अपराध ट्रैक';
-                    tagText = "साइबर फ्रॉड केस डेटा";
+                    tagText = "साइबर फ्रॉड Case Data";
                     targetDays = "90 दिन";
                 }
 
@@ -790,9 +790,15 @@
             if(resultBox) resultBox.innerHTML = 'सूचकांक: ' + totalScore + ' | स्थिति: ' + status;
         };
 
+        // FIXED: Complete and functional Logout System
         window.logoutUser = function() {
             if(confirm("क्या आप सुरक्षित रूप से लॉग आउट करना चाहते हैं?")) {
+                // Clear active sessions 
+                localStorage.clear();
+                sessionStorage.clear();
                 alert("आप सफलतापूर्वक लॉग आउट हो गए हैं!");
+                // Redirect back to the login page (index.html)
+                window.location.href = "index.html";
             }
         };
 
