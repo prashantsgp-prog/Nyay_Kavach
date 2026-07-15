@@ -5,26 +5,74 @@
     <title>Nyaya-Kavach | UP Police</title>
     <style>
         :root { --up-blue: #002e6e; --up-gold: #ffb300; --up-red: #c62828; }
-        body { margin: 0; background: #0A0F1D; color: white; font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        
+        body { 
+            margin: 0; 
+            /* Sansodhan: Aapki local hq.jpg image yahan se load hogi */
+            background: linear-gradient(rgba(10, 15, 29, 0.85), rgba(10, 15, 29, 0.85)), 
+                        url('hq.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white; 
+            font-family: sans-serif; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            padding: 15px; 
+        }
         
         /* Logo & Header */
-        .logo { width: 100px; margin-bottom: 5px; }
-        h1 { color: var(--up-gold); font-size: 24px; margin: 0; text-transform: uppercase; }
-        .desc { color: #ccc; font-size: 14px; margin-bottom: 20px; text-align: center; max-width: 300px; }
+        .logo { width: 90px; margin-bottom: 5px; }
+        h1 { color: var(--up-gold); font-size: 24px; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .desc { color: #ccc; font-size: 13px; margin-bottom: 15px; text-align: center; max-width: 320px; line-height: 1.4; }
 
         /* VIP Container */
-        .vip-container { display: flex; gap: 15px; margin-bottom: 25px; }
-        .vip-box { text-align: center; }
-        .vip-box img { width: 70px; height: 70px; border: 2px solid var(--up-gold); border-radius: 50%; object-fit: cover; background: #333; }
-        .label { font-size: 11px; color: var(--up-gold); margin-top: 5px; }
+        .vip-container { display: flex; gap: 20px; margin-bottom: 15px; justify-content: center; flex-wrap: wrap; }
+        .vip-box { text-align: center; max-width: 140px; }
+        .vip-box img { width: 70px; height: 70px; border: 2px solid var(--up-gold); border-radius: 50%; object-fit: cover; background: #333; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
+        
+        /* VIP Formatting */
+        .label { font-size: 11px; color: #fff; margin-top: 6px; font-weight: bold; line-height: 1.3; }
+        .label span { color: var(--up-gold); display: block; font-weight: normal; font-size: 10.5px; margin-top: 2px; }
 
         /* Login Card */
-        .login-card { background: rgba(0, 46, 110, 0.4); padding: 25px; border-radius: 20px; border: 2px solid var(--up-gold); width: 300px; text-align: center; }
-        input { width: 90%; padding: 12px; margin: 8px 0; background: #000; border: 1px solid var(--up-gold); color: white; border-radius: 5px; }
-        button { width: 100%; padding: 12px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .login-card { 
+            background: rgba(0, 46, 110, 0.6); 
+            padding: 20px 25px; 
+            border-radius: 20px; 
+            border: 2px solid var(--up-gold); 
+            width: 300px; 
+            text-align: center; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            margin-top: -5px; 
+        }
+        
+        input[type="text"], input[type="password"] { width: 90%; padding: 10px; margin: 6px 0; background: #000; border: 1px solid var(--up-gold); color: white; border-radius: 5px; outline: none; }
+        input[type="text"]:focus, input[type="password"]:focus { border-color: #fff; }
+        button { width: 100%; padding: 11px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        button:hover { opacity: 0.9; }
         
         /* Captcha */
-        #captcha-display { font-size: 22px; font-weight: bold; letter-spacing: 5px; color: var(--up-gold); background: #000; padding: 10px; border: 1px solid var(--up-gold); margin: 10px 0; }
+        #captcha-display { font-size: 20px; font-weight: bold; letter-spacing: 5px; color: var(--up-gold); background: #000; padding: 8px; border: 1px solid var(--up-gold); margin: 8px 0; }
+
+        /* Checkbox Styling */
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin: 10px 0 12px 5px;
+            font-size: 12px;
+            color: #ddd;
+            cursor: pointer;
+            user-select: none;
+        }
+        .checkbox-container input {
+            margin-right: 8px;
+            cursor: pointer;
+            accent-color: var(--up-gold);
+        }
     </style>
 </head>
 <body>
@@ -34,9 +82,28 @@
     <p class="desc">Smart AI-driven portal for UP Police to analyze crime records, manage case files, and provide real-time investigation assistance.</p>
 
     <div class="vip-container">
-        <div class="vip-box"><img src="pm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg'"><div class="label">PM</div></div>
-        <div class="vip-box"><img src="cm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg'"><div class="label">CM</div></div>
-        <div class="vip-box"><img src="dgp.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Rajeev_Krishna.jpg/300px-Rajeev_Krishna.jpg'"><div class="label">DGP</div></div>
+        <div class="vip-box">
+            <img src="pm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg'">
+            <div class="label">
+                1- SHRI NARENDRA MODI
+                <span>Hon'ble Prime Minister India</span>
+            </div>
+        </div>
+        <div class="vip-box">
+            <img src="cm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg'">
+            <div class="label">
+                2- YOGI ADITYANATH
+                <span>Hon'ble Chief Minister Uttar Pradesh</span>
+            </div>
+        </div>
+        <div class="vip-box">
+            <img src="dgp.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Rajeev_Krishna.jpg/300px-Rajeev_Krishna.jpg'">
+            <div class="label">
+                3- RAJEEV KRISHNA
+                <span style="font-weight: bold; color: #fff; margin: 2px 0;">(IPS)</span>
+                <span>D. G. P. U. P.</span>
+            </div>
+        </div>
     </div>
 
     <div class="login-card">
@@ -47,7 +114,11 @@
         <button style="background:var(--up-blue);" onclick="generateCaptcha()">Generate Captcha</button>
         <input type="text" placeholder="Enter Captcha" id="user-captcha">
         
-        <button style="margin-top:10px;" onclick="checkLogin()">LOGIN</button>
+        <label class="checkbox-container">
+            <input type="checkbox" id="remember-me"> मुझे याद रखें / Remember Me
+        </label>
+        
+        <button onclick="checkLogin()">LOGIN</button>
     </div>
 
     <script>
@@ -59,19 +130,17 @@
         }
 
         function checkLogin() {
-            // इनपुट वैल्यूज लेना
             const id = document.getElementById('officer-id').value;
             const pass = document.getElementById('officer-password').value;
             const uCaptcha = document.getElementById('user-captcha').value;
             const rCaptcha = document.getElementById('captcha-display').innerText;
 
-            // चेकिंग: ID, Password और Captcha
             if (id === "admin" && pass === "admin") {
                 if (uCaptcha === rCaptcha) {
                     window.location.href = 'dashboard.html';
                 } else {
                     alert("गलत Captcha!");
-                    generateCaptcha(); // गलत पर नया कैप्चा दें
+                    generateCaptcha(); 
                 }
             } else {
                 alert("गलत Officer ID या Password!");
