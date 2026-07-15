@@ -14,7 +14,7 @@
             --gold: #d4af37;
             --gold-glow: rgba(212, 175, 55, 0.4);
             --bg-dark: #050b14;
-            --card-bg: #0f223d; /* फिक्स: ग्लास इफ़ेक्ट हटाकर सॉलिड विज़िबल कलर दिया */
+            --card-bg: #0f223d;
             --border-color: rgba(212, 175, 55, 0.4);
             --text-light: #ffffff;
             --success: #00ff88;
@@ -31,14 +31,12 @@
 
         body {
             background-color: var(--bg-dark);
-            /* फिक्स: बैकग्राउंड को बिल्कुल सिंपल रखा ताकि कंटेंट ऊपर तैरता हुआ साफ़ दिखे */
             background-image: linear-gradient(135deg, #050b14 0%, #0b2545 100%);
             color: var(--text-light);
             min-height: 100vh;
             padding: 20px;
         }
 
-        /* यूपी पुलिस रेड-ब्लू टॉप स्ट्रिप */
         .top-police-strip {
             height: 6px;
             background: linear-gradient(90deg, var(--police-red) 0%, var(--police-red) 50%, #0040ff 50%, #0040ff 100%);
@@ -119,14 +117,13 @@
             gap: 25px;
         }
 
-        /* सेफ कार्ड स्टाइल (बिना किसी ब्लर बग के) */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            display: block !important; /* हर हाल में विज़िबल रखने के लिए */
+            display: block !important;
         }
 
         .avatar-section {
@@ -406,7 +403,7 @@
         <div class="status-badges">
             <span class="badge"><i class="fa-solid fa-robot"></i> एआई अवतार एक्टिव</span>
             <span class="badge"><i class="fa-solid fa-database"></i> CCTNS रेडी</span>
-            <span class="badge gold-badge"><i class="fa-solid fa-star"></i> यूपी पुलिस 10-प्रायोरिटी इंटीग्रेटेड</span>
+            <span class="badge gold-badge"><i class="fa-solid fa-star"></i> यूपी पुलिस BNS/BNSS इंटीग्रेटेड</span>
         </div>
     </div>
 
@@ -469,9 +466,9 @@
         <div class="card">
             <div class="section-title">
                 <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--accent-blue);"></i>
-                <span>🚨 केस इंक्वायरी / एफआईआर एनालिसिस बॉक्स</span>
+                <span>🚨 केस इंक्वायरी / एफआईआर एनालिसिस बॉक्स (BNS-BNSS रेडी)</span>
             </div>
-            <textarea id="case-input" placeholder="यहाँ चोरी, हत्या, एक्सीडेंट, या कोई भी दूसरा आपराधिक विवरण टाइप करें..."></textarea>
+            <textarea id="case-input" placeholder="यहाँ चोरी, हत्या, रेप, एक्सीडेंट, मारपीट, या साइबर फ्रॉड का विवरण लिखें..."></textarea>
             <div class="action-buttons">
                 <button class="btn btn-demo" id="demo-btn" onclick="loadDemo()">
                     <i class="fa-solid fa-bolt"></i> ⚡ ऑटो डेमो उदाहरण (लाइव test)
@@ -505,17 +502,17 @@
                     <i class="fa-solid fa-crosshairs" style="color: var(--accent-blue);"></i>
                     <span style="color: #fff;">यूपी पुलिस 10-प्रायोरिटी फीचर: <span style="color: var(--accent-blue);">ऑपरेशन कन्विक्शन और यक्ष एआई</span></span>
                 </div>
-                <span class="priority-tag" id="priority-tag-text">प्रायोरिटी #1 और #8 एक्टिव</span>
+                <span class="priority-tag" id="priority-tag-text">प्रायोरिटी एक्टिव</span>
             </div>
             <p style="color: #c5d1eb; font-size: 0.95rem; margin-bottom: 15px;">
-                <strong>डीजीपी यूपी विशेष निर्देश:</strong> जघन्य अपराधों और साइबर क्राइम में फास्ट-ट्रैक साक्ष्य प्रबंधन और <strong>यक्ष ऐप / प्रतिबिंब पोर्टल</strong> से संदिग्धों की रियल-टाइम निगरानी।
+                <strong>डीजीपी यूपी विशेष निर्देश:</strong> नए BNS/BNSS कानूनों के तहत फ़ास्ट-ट्रैक साक्ष्य प्रबंधन और <strong>यक्ष ऐप / प्रतिबिंब पोर्टल</strong> से संदिग्धों की रियल-टाइम निगरानी।
             </p>
 
             <div class="priority-grid">
                 <div class="priority-item">
                     <h4>⚖️ ऑपरेशन कन्विक्शन स्थिति</h4>
                     <p id="conviction-status-text" style="color: var(--success);"><i class="fa-solid fa-gavel"></i> फास्ट-ट्रैक योग्य</p>
-                    <small style="color: #a8b2d1;">टारगेट charge-sheet: <strong>30 दिन</strong></small>
+                    <small style="color: #a8b2d1;">टारगेट charge-sheet: <strong id="target-days">30 दिन</strong></small>
                 </div>
                 <div class="priority-item">
                     <h4>📲 यक्ष ऐप क्रिमिनल डेटाबेस</h4>
@@ -524,7 +521,7 @@
                 </div>
                 <div class="priority-item">
                     <h4>🎯 कन्विक्शन रेडीनेस स्कोर</h4>
-                    <p id="score-text">85% (मजबूत साक्ष्य)</p>
+                    <p id="score-text">85%</p>
                     <div class="progress-container">
                         <div class="progress-bar" id="conviction-progress" style="width: 85%;"></div>
                     </div>
@@ -544,7 +541,7 @@
                     </ul>
                 </div>
                 <div class="report-card">
-                    <h3>🔍 अगले जरूरी कदम (IO प्रोटोकॉल)</h3>
+                    <h3>🔍 अगले जरूरी कदम (IO प्रोटोकॉल - BNSS)</h3>
                     <ul id="steps-list">
                     </ul>
                 </div>
@@ -586,9 +583,9 @@
         };
 
         window.loadDemo = function() {
-            var demoText = "एक पीड़ित ने शिकायत की है कि किसी अज्ञात व्यक्ति ने फोन पर बैंक अधिकारी बन कर केवाईसी (KYC) अपडेट के नाम पर ओटीपी (OTP) मांगा। ओटीपी देते ही पीड़ित के बैंक अकाउंट से ₹85,000 तुरंत किसी दूसरे यूपीआई (UPI) अकाउंट में ट्रांसफर हो गए। संदिग्ध का मोबाइल स्विच ऑफ आ रहा है।";
+            var demoText = "एक महिला पीड़िता ने थाने आकर शिकायत की है कि एक नामजद आरोपी ने नशीला पदार्थ पिलाकर उसके साथ जबरन दुष्कर्म (Rape) किया और किसी को बताने पर जान से मारने की धमकी दी।";
             document.getElementById('case-input').value = demoText;
-            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-info"></i> डेमो केस लोड हो गया! अब "एआई विश्लेषण करें" पर क्लिक करें।';
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-info"></i> महिला अपराध का डेमो केस लोड हो गया! अब "एआई विश्लेषण करें" पर क्लिक करें।';
             document.getElementById('ai-status').style.color = '#00f0ff';
         };
 
@@ -613,47 +610,114 @@
                 var score = "80%";
                 var progress = "80%";
                 var convictionStatus = '<i class="fa-solid fa-gavel"></i> फास्ट-ट्रैक योग्य';
-                var tagText = "प्रायोरिटी #1 एक्टिव";
+                var tagText = "प्रायोरिटी एक्टिव";
+                var targetDays = "30 दिन";
 
-                if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1) {
+                // 1. Rape / Sexual Assault / Women Safety
+                if (lowerInput.indexOf("rape") !== -1 || lowerInput.indexOf("रेप") !== -1 || lowerInput.indexOf("balatkar") !== -1 || lowerInput.indexOf("बलात्कार") !== -1 || lowerInput.indexOf("dushkarm") !== -1 || lowerInput.indexOf("दुष्कर्म") !== -1 || lowerInput.indexOf("छेड़खानी") !== -1) {
                     laws = [
-                        "<strong>बीएनएस धारा 103(1):</strong> हत्या के लिए दंड (आजीवन कारावास या फांसी)।",
-                        "<strong>बीएनएस धारा 61(2):</strong> आपराधिक षड्यंत्र।"
+                        "<strong>बीएनएस धारा 64(1):</strong> बलात्कार (Rape) के लिए कठोर कारावास (10 वर्ष से आजीवन कारावास)।",
+                        "<strong>बीएनएस धारा 74:</strong> महिला की लज्जा भंग करने के इरादे से हमला या आपराधिक बल प्रयोग।",
+                        "<strong>बीएनएस धारा 351(2):</strong> जान से मारने या चोट पहुँचाने की धमकी देना।"
                     ];
                     steps = [
-                        "<strong>फॉरेंसिक टीम की तैनाती:</strong> घटनास्थल से तुरंत फिंगरप्रिंट और डीएनए सैंपल सुरक्षित करें।",
-                        "<strong>हथियार जब्ती मेमो:</strong> वारदात में इस्तेमाल हथियार बरामद कर केस डायरी में प्रविष्टि करें।"
+                        "<strong>पीड़िता का मेडिकल (BNSS धारा 184):</strong> 24 घंटे के भीतर सरकारी महिला चिकित्सक द्वारा मेडिकल जांच अनिवार्य कराएं।",
+                        "<strong>मजिस्ट्रेट बयान (BNSS धारा 183):</strong> महिला पुलिस अधिकारी की मौजूदगी में न्यायिक मजिस्ट्रेट के समक्ष धारा 163/183 का बयान तुरंत दर्ज कराएं।",
+                        "<strong>वीडियो रिकॉर्डिंग (BNSS धारा 176):</strong> पीड़िता के बयानों की ऑडियो-वीडियो इलेक्ट्रॉनिक रिकॉर्डिंग सुरक्षित करें।"
                     ];
-                    score = "95% (गंभीर)";
+                    score = "98% (संवेदनशील)";
+                    progress = "98%";
+                    convictionStatus = '<span style="color:var(--danger)"><i class="fa-solid fa-shield-halved"></i> महिला सुरक्षा स्पेशल ट्रैक</span>';
+                    tagText = "प्रायोरिटी #2 (महिला सुरक्षा)";
+                    targetDays = "60 दिन (कानूनी सीमा)";
+                } 
+                // 2. Murder / Homicide
+                else if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1 || lowerInput.indexOf("shav") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 103(1):</strong> हत्या (Murder) के लिए निर्धारित दंड (आजीवन कारावास या मृत्युदंड)।",
+                        "<strong>बीएनएस धारा 61(2):</strong> आपराधिक षड्यंत्र रचना (Criminal Conspiracy)।",
+                        "<strong>बीएनएस धारा 238:</strong> साक्ष्यों को मिटाना या झूठी सूचना देना।"
+                    ];
+                    steps = [
+                        "<strong>अनिवार्य FSL जांच (BNSS धारा 176):</strong> 7 वर्ष से अधिक सजा वाले अपराधों में फॉरेंसिक टीम (FSL) द्वारा साक्ष्य एकत्र करना अनिवार्य है।",
+                        "<strong>हथियार बरामदगी मेमो:</strong> वारदात में प्रयुक्त हथियार (Weapon of Offence) बरामद कर पंचनामा इलेक्ट्रॉनिक साक्ष्य के साथ बनाएं।",
+                        "<strong>शव का पंचनामा (BNSS धारा 194):</strong> शव का तत्काल इनक्वेस्ट (Inquest Report) तैयार कर पोस्टमार्टम हेतु भिजवाएं।"
+                    ];
+                    score = "95% (जघन्य अपराध)";
                     progress = "95%";
                     convictionStatus = 'जघन्य अपराध ट्रैक एक्टिव';
-                    tagText = "प्रायोरिटी #1 (जघन्य अपराध)";
-                } else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("चोरी") !== -1) {
+                    tagText = "प्रायोरिटी #1 (ऑपरेशन कन्विक्शन)";
+                    targetDays = "30 दिन";
+                } 
+                // 3. Theft / Robbery / Dacoity
+                else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("चोरी") !== -1 || lowerInput.indexOf("लूट") !== -1 || lowerInput.indexOf("डकैती") !== -1) {
                     laws = [
-                        "<strong>बीएनएस धारा 303(2):</strong> चोरी के लिए निर्धारित दंड।",
-                        "<strong>बीएनएस धारा 317:</strong> चुराई संपत्ति पास में रखना।"
+                        "<strong>बीएनएस धारा 303(2):</strong> चोरी के लिए वैधानिक दंड प्रावधान।",
+                        "<strong>बीएनएस धारा 309:</strong> जबरन लूटपाट (Robbery) करना।",
+                        "<strong>बीएनएस धारा 317:</strong> चोरी की संपत्ति को जानते हुए बरामदगी में छिपाना।"
                     ];
                     steps = [
-                        "<strong>मोडस ऑपरेंडी चेक:</strong> यक्ष ऐप डेटाबेस में एक्टिव नकबजनों की लिस्ट फिल्टर करें।",
-                        "<strong>सीसीटीवी फुटेज:</strong> संदेहास्पद रास्तों के फुटेज २४ घंटे में एकत्रित करें।"
+                        "<strong>ई-एफआईआर सत्यापन (BNSS धारा 173):</strong> इलेक्ट्रॉनिक माध्यम से मिली सूचना का 3 दिन के भीतर सत्यापन कर एफआईआर रजिस्टर करें।",
+                        "<strong>सर्च एवं सीज़र वीडियोग्राफी (BNSS धारा 185):</strong> तलाशी और माल की जब्ती के समय पूरी प्रक्रिया की ऑडियो-वीडियो रिकॉर्डिंग अनिवार्य रूप से करें।",
+                        "<strong>मोडस ऑपरेंडी चेक:</strong> यक्ष ऐप डेटाबेस में एक्टिव नकबजनों की हिस्ट्री शीट फिल्टर करें।"
                     ];
-                    score = "72%";
-                    progress = "72%";
-                    convictionStatus = 'संपत्ति अपराध ट्रैक (60 दिन)';
-                    tagText = "प्रायोरिटी #5 (संपत्ति अपराध)";
-                } else {
+                    score = "75%";
+                    progress = "75%";
+                    convictionStatus = 'संपत्ति अपराध ट्रैक';
+                    tagText = "प्रायोरिटी #5 (संपत्ति रिकवरी)";
+                    targetDays = "60 दिन";
+                } 
+                // 4. Accident / Rash Driving / Hit and Run
+                else if (lowerInput.indexOf("accident") !== -1 || lowerInput.indexOf("एक्सीडेंट") !== -1 || lowerInput.indexOf("takkar") !== -1 || lowerInput.indexOf("टक्कर") !== -1 || lowerInput.indexOf("hit and run") !== -1) {
                     laws = [
-                        "<strong>बीएनएस धारा 318(4):</strong> धोखाधड़ी और बेईमानी करना।",
-                        "<strong>आईटी एक्ट धारा 66D:</strong> कंप्यूटर रिसोर्स द्वारा फ्रॉड।"
+                        "<strong>बीएनएस धारा 281:</strong> सार्वजनिक मार्ग पर उतावलेपन या लापरवाही से वाहन चलाना।",
+                        "<strong>बीएनएस धारा 106(1):</strong> लापरवाही से वाहन चलाकर किसी की मृत्यु कारित करना।",
+                        "<strong>बीएनएस धारा 106(2):</strong> हिट एंड रन (घटना के बाद पुलिस को सूचना दिए बिना भागना - 10 साल तक की सजा)।"
                     ];
                     steps = [
-                        "<strong>डिजिटल वित्तीय होल्ड:</strong> नोडल अधिकारियों को लिखकर फ्रॉड राशि होल्ड पर डलवाएं।",
-                        "<strong>प्रतिबिंब पोर्टल ट्रैकिंग:</strong> संदिग्ध नंबर की लाइव जियोफेंसिंग एक्टिव करें।"
+                        "<strong>घटनास्थल का नक्शा नजरी (BNSS धारा 185):</strong> दुर्घटनास्थल की फोटो/वीडियो लेकर डिजिटल साइट-मैप तैयार करें।",
+                        "<strong>वाहन जब्ती एवं मैकेनिकल निरीक्षण:</strong> दुर्घटनाग्रस्त वाहन को कस्टडी में लेकर तत्काल आरटीओ/मैकेनिक रिपोर्ट लें।",
+                        "<strong>सीसीटीवी एवं डैशकैम फुटेज:</strong> मार्ग पर लगे ट्रैफिक कैमरों के डिजिटल साक्ष्य सुरक्षित करें।"
                     ];
-                    score = "88%";
+                    score = "82%";
+                    progress = "82%";
+                    convictionStatus = 'रोड सेफ्टी एक्सीडेंट ट्रैक';
+                    tagText = "प्रायोरिटी #9 (सड़क सुरक्षा)";
+                    targetDays = "45 दिन";
+                }
+                // 5. Assault / Fight / Physical Hurt
+                else if (lowerInput.indexOf("marpeet") !== -1 || lowerInput.indexOf("मारपीट") !== -1 || lowerInput.indexOf("chot") !== -1 || lowerInput.indexOf("चोट") !== -1 || lowerInput.indexOf("gali") !== -1 || lowerInput.indexOf("झगड़ा") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 115:</strong> स्वेच्छा से किसी को साधारण चोट (Hurt) पहुँचाना।",
+                        "<strong>बीएनएस धारा 117:</strong> किसी को गंभीर चोट (Grievous Hurt/हड्डी टूटना) पहुँचाना।",
+                        "<strong>बीएनएस धारा 352:</strong> शांति भंग करने के इरादे से जानबूझकर अपमान या गाली देना।"
+                    ];
+                    steps = [
+                        "<strong>डॉक्टरी मुलाहजा (Medical Report):</strong> पीड़ित का तत्काल नजदीकी स्वास्थ्य केंद्र में डॉक्टरी परीक्षण (इंजरी रिपोर्ट) कराएं।",
+                        "<strong>गवाहों के बयान (BNSS धारा 179):</strong> चश्मदीद गवाहों के बयान मौके पर मोबाइल या लिखित रूप में तुरंत दर्ज करें।",
+                        "<strong>शांति भंग पाबंदी:</strong> आरोपियों के खिलाफ भविष्य में झगड़ा रोकने हेतु निरोधात्मक कार्रवाई सुनिश्चित करें।"
+                    ];
+                    score = "70%";
+                    progress = "70%";
+                    convictionStatus = 'शांति व्यवस्था सामान्य ट्रैक';
+                    tagText = "प्रायोरिटी #4 (कानून व्यवस्था)";
+                    targetDays = "30 दिन";
+                }
+                // 6. Fallback: Cyber Fraud / Cheating
+                else {
+                    laws = [
+                        "<strong>बीएनएस धारा 318(4):</strong> धोखाधड़ी (Cheating) करना और बेईमानी से संपत्ति ट्रांसफर कराना।",
+                        "<strong>आईटी एक्ट धारा 66D:</strong> कंप्यूटर/मोबाइल रिसोर्स का छद्मरूप में उपयोग कर फ्रॉड।"
+                    ];
+                    steps = [
+                        "<strong>वित्तीय होल्ड (BNSS धारा 107):</strong> साइबर सेल के माध्यम से नोडल बैंक अधिकारियों को मेल भेजकर फ्रॉड राशि तुरंत होल्ड कराएं।",
+                        "<strong>प्रतिबिंब पोर्टल:</strong> संदेहास्पद मोबाइल नंबर और आईएमईआई (IMEI) की लाइव जियोफेंसिंग ट्रैक सक्रिय करें।"
+                    ];
+                    score = "88% (डिजिटल साक्ष्य)";
                     progress = "88%";
                     convictionStatus = 'साइबर अपराध ट्रैक';
                     tagText = "साइबर फ्रॉड केस डेटा";
+                    targetDays = "90 दिन";
                 }
 
                 document.getElementById('laws-list').innerHTML = laws.map(function(l) { return '<li>' + l + '</li>'; }).join('');
@@ -663,9 +727,10 @@
                 document.getElementById('conviction-progress').style.width = progress;
                 document.getElementById('conviction-status-text').innerHTML = convictionStatus;
                 document.getElementById('priority-tag-text').innerText = tagText;
+                document.getElementById('target-days').innerText = targetDays;
 
                 var cleanLawsText = laws.map(function(l) { return l.replace(/<\/?[^>]+(>|$)/g, ""); }).join(', ');
-                window.speakReport("विश्लेषण पूरा हो गया है। लागू कानून इस प्रकार हैं: " + cleanLawsText);
+                window.speakReport("केस का विश्लेषण पूर्ण हो गया है। लागू कानून इस प्रकार हैं: " + cleanLawsText);
 
             }, 1000);
         };
@@ -692,7 +757,7 @@
         window.startVoice = function() {
             if (window.speechSynthesis) window.speechSynthesis.cancel();
             if(!recognition) {
-                alert("आपका ब्राउज़र वॉइस सपोर्ट नहीं करता। गूगल क्रोम का उपयोग करें।");
+                alert("आपका ब्राउज़र वॉइस सपोर्ट नहीं करता। कृपया गूगल क्रोम का उपयोग करें।");
                 return;
             }
             recognition.start();
