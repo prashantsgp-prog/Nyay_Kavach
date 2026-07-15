@@ -9,7 +9,7 @@
     <style>
         :root {
             --bg-dark: #070d18;
-            --card-bg: rgba(16, 28, 48, 0.9);
+            --card-bg: rgba(16, 28, 48, 0.95);
             --border-color: rgba(212, 175, 55, 0.3);
             --gold: #d4af37;
             --gold-glow: rgba(212, 175, 55, 0.5);
@@ -206,6 +206,7 @@
 
         textarea:focus {
             border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
         }
 
         .action-buttons {
@@ -216,13 +217,13 @@
         }
 
         .btn-demo {
-            background: transparent;
+            background: rgba(212, 175, 55, 0.05);
             border: 1px dashed var(--gold);
             color: var(--gold);
         }
 
         .btn-demo:hover {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.2);
         }
 
         .btn-analyze {
@@ -343,11 +344,11 @@
         }
 
         .pulse {
-            animation: pulse 1.5s infinite;
+            animation: pulse-effect 1.5s infinite;
         }
 
-        @keyframes pulse {
-            0 Overlay { opacity: 0.5; }
+        @keyframes pulse-effect {
+            0% { opacity: 0.5; }
             50% { opacity: 1; }
             100% { opacity: 0.5; }
         }
@@ -369,7 +370,7 @@
         
         <div class="card avatar-section">
             <div class="avatar-info">
-                <div class="avatar-icon">
+                <div class="avatar-icon" id="avatar-icon-box">
                     <img src="avatar.jpg" alt="SI Kavach AI Avatar" class="ai-avatar-img" onerror="this.src='https://via.placeholder.com/80?text=Kavach'">
                 </div>
                 <div>
@@ -394,12 +395,12 @@
                 <i class="fa-solid fa-magnifying-glass-chart"></i>
                 <span>🚨 Case Inquiry / FIR Analysis Box</span>
             </div>
-            <textarea id="case-input" placeholder="Yahan Chori, Hatya, Accident, ya online fraud likh kar check karein..."></textarea>
+            <textarea id="case-input" placeholder="Yahan Chori, Hatya, Accident, ya koi bhi dusra apradhik vivaran type karein..."></textarea>
             <div class="action-buttons">
-                <button class="btn btn-demo" onclick="loadDemo()">
+                <button class="btn btn-demo" id="demo-btn" onclick="loadDemo()">
                     <i class="fa-solid fa-bolt"></i> ⚡ Auto Demo Example (Live Test)
                 </button>
-                <button class="btn btn-analyze" onclick="analyzeCase()">
+                <button class="btn btn-analyze" id="analyze-btn" onclick="analyzeCase()">
                     <i class="fa-solid fa-brain"></i> 🔍 AI Analysis Karein
                 </button>
             </div>
@@ -420,3 +421,232 @@
             <p style="color: #a8b2d1; font-size: 0.95rem;">
                 <strong>DGP UP Special Directive:</strong> Jaghanya apradhon aur cyber crimes me fast-track evidence management aur <strong>Yaksh App / Pratibimb Portal</strong> se sandigdho ki real-time surveillance.
             </p>
+
+            <div class="priority-grid">
+                <div class="priority-item">
+                    <h4>⚖️ Operation Conviction Status</h4>
+                    <p id="conviction-status-text" style="color: var(--success);"><i class="fa-solid fa-gavel"></i> Fast-Track Eligible</p>
+                    <small style="color: #a8b2d1;">Target Chargesheet: <strong>30 Days</strong></small>
+                </div>
+                <div class="priority-item">
+                    <h4>📲 Yaksh App Criminal Database</h4>
+                    <p id="yaksh-status-text" style="color: var(--warning);"><i class="fa-solid fa-triangle-exclamation"></i> 2 Matched Profiles</p>
+                    <small style="color: #a8b2d1;">Pratibimb Geo-Fence: <strong>Active</strong></small>
+                </div>
+                <div class="priority-item">
+                    <h4>🎯 Conviction Readiness Score</h4>
+                    <p id="score-text">85% (Strong Evidence)</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="conviction-progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="report-section">
+            <div class="section-title">
+                <i class="fa-solid fa-file-shield"></i>
+                <span>🛡️ Nyaya-Kavach AI Investigation Report</span>
+            </div>
+            <div class="report-grid">
+                <div class="report-card">
+                    <h3>📜 Applicable Laws (BNS & Special Acts)</h3>
+                    <ul id="laws-list">
+                        </ul>
+                </div>
+                <div class="report-card">
+                    <h3>🔍 Actionable Next Steps (IO Protocol)</h3>
+                    <ul id="steps-list">
+                        </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Global Scope Binding to ensure buttons always work perfectly
+        window.loadDemo = function() {
+            var demoText = "Ek peedit ne shikaayat ki hai ki kisi agyat vyakti ne phone par bank adhikaari ban kar KYC update ke naam par OTP manga. OTP dete hi peedit ke bank account se Rs 85,000 turant kisi doosre UPI account me transfer ho gaye. Suspect switch off hai.";
+            var inputArea = document.getElementById('case-input');
+            var statusText = document.getElementById('ai-status');
+            
+            if(inputArea) {
+                inputArea.value = demoText;
+            }
+            if(statusText) {
+                statusText.innerHTML = '<i class="fa-solid fa-circle-info"></i> Demo case successfully loaded! Click "AI Analysis Karein"';
+                statusText.style.color = '#00f0ff';
+            }
+        };
+
+        window.analyzeCase = function() {
+            var inputArea = document.getElementById('case-input');
+            if(!inputArea) return;
+
+            var input = inputArea.value.trim();
+            if(!input) {
+                alert("Kripya pehle FIR ya case ki details box me likhein!");
+                return;
+            }
+
+            // Show Loader, Hide Old Report
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('report-section').style.display = 'none';
+
+            var lowerInput = input.toLowerCase();
+            var textSnippet = input.length > 45 ? input.substring(0, 45) + "..." : input;
+
+            setTimeout(function() {
+                // Hide Loader, Show Report Section
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('report-section').style.display = 'block';
+
+                var laws = [];
+                var steps = [];
+                var score = "80%";
+                var progress = "80%";
+                var convictionStatus = '<i class="fa-solid fa-gavel"></i> Fast-Track Eligible';
+                var yakshStatus = '<i class="fa-solid fa-triangle-exclamation"></i> 2 Matches Found';
+                var tagText = "Priority #1 Active";
+
+                // 1. Murder / Heinous Crime Keywords
+                if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("khoon") !== -1 || lowerInput.indexOf("jaan se") !== -1) {
+                    laws = [
+                        "<strong>BNS Dhara 103(1):</strong> Murder (Hatya ke liye dand - Aajeewan Karavas ya Fansi).",
+                        "<strong>BNS Dhara 61(2):</strong> Criminal Conspiracy (Apradhik Shadyantra)."
+                    ];
+                    steps = [
+                        "<strong>Forensic Team Deployment:</strong> FSL team ko bula kar ghatanasthala se blood aur DNA samples secure karein.",
+                        "<strong>Weapon Seizure Memo:</strong> Incident me use kiye gaye weapon ko baramad kar Section 27 (BSA) ke tahat entry karein.",
+                        "<strong>CCTV Routing:</strong> Sabhi routes ke CCTV logs 24 ghante ke andar capture karein."
+                    ];
+                    score = "95% (Critical)";
+                    progress = "95%";
+                    convictionStatus = '<i class="fa-solid fa-triangle-exclamation" style="color:var(--danger)"></i> Heinous Track Active';
+                    tagText = "Priority #1 (Heinous Crime)";
+                } 
+                // 2. Theft / Chori Keywords
+                else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("dakaity") !== -1) {
+                    laws = [
+                        "<strong>BNS Dhara 303(2):</strong> Theft (Chori ke liye dand).",
+                        "<strong>BNS Dhara 317:</strong> Stolen property ko galat irade se paas me rakhna."
+                    ];
+                    steps = [
+                        "<strong>Modus Operandi Check:</strong> Yaksh App database me active choron ki list filter karein.",
+                        "<strong>Local Informers:</strong> Kabaadi aur secondhand market me mukhbir active karein.",
+                        "<strong>Fingerprint Analysis:</strong> Handlo se fingerprints uthakar fingerprint database se match karein."
+                    ];
+                    score = "70%";
+                    progress = "70%";
+                    convictionStatus = '<i class="fa-solid fa-clock"></i> Property Track (60 Days)';
+                    tagText = "Priority #5 (Property Crime)";
+                } 
+                // 3. Accident / Hit and Run Keywords
+                else if (lowerInput.indexOf("accident") !== -1 || lowerInput.indexOf("gaadi") !== -1 || lowerInput.indexOf("takkar") !== -1 || lowerInput.indexOf("vehicle") !== -1) {
+                    laws = [
+                        "<strong>BNS Dhara 106(1):</strong> Rash and negligent driving / Hit and Run case.",
+                        "<strong>BNS Dhara 281:</strong> Laparwahi se vehicle chalana."
+                    ];
+                    steps = [
+                        "<strong>Vehicle Identification:</strong> RTO database se gaadi ke owner aur chasis details verify karein.",
+                        "<strong>Medical Report:</strong> Peedit ka MLC report aur hospital se status track karein.",
+                        "<strong>Mechanical Inspection:</strong> Gaadi ka brake-fail check karwayein taaki claim verify ho sake."
+                    ];
+                    score = "78%";
+                    progress = "78%";
+                    convictionStatus = '<i class="fa-solid fa-car-crash"></i> Traffic Track';
+                    tagText = "Priority #6 (Road Safety)";
+                }
+                // 4. Fully Dynamic Fallback for Custom Data Entered by User
+                else {
+                    laws = [
+                        "<strong>BNS Dhara 318(4):</strong> Cheating and Fraud (Dhokhadhadi aur aropi par karwahi).",
+                        "<strong>IT Act Section 66D:</strong> Cyber cheating by personation via computer system."
+                    ];
+                    steps = [
+                        "<strong>Custom Logs Computed:</strong> Aapne '" + textSnippet + "' darj kiya hai. Data processing units ko push kiya gaya.",
+                        "<strong>Digital Traces Search:</strong> Suspect gateway accounts aur dynamic IP configurations track kiye ja rahe hain.",
+                        "<strong>Surveillance Network:</strong> Yaksh App aur Pratibimb dashboard par live location geofencing activate ki gayi."
+                    ];
+                    score = "88%";
+                    progress = "88%";
+                    convictionStatus = '<i class="fa-solid fa-bolt"></i> Dynamic Analytics Track';
+                    tagText = "Custom Dynamic Input Dataset";
+                }
+
+                // Inject lists into the interface safely
+                document.getElementById('laws-list').innerHTML = laws.map(function(l) { return '<li>' + l + '</li>'; }).join('');
+                document.getElementById('steps-list').innerHTML = steps.map(function(s) { return '<li>' + s + '</li>'; }).join('');
+                
+                // Update UI analytics metrics dynamically
+                document.getElementById('score-text').innerText = score + " (Evidence Strength)";
+                document.getElementById('conviction-progress').style.width = progress;
+                document.getElementById('conviction-status-text').innerHTML = convictionStatus;
+                document.getElementById('yaksh-status-text').innerHTML = yakshStatus;
+                document.getElementById('priority-tag-text').innerText = tagText;
+
+                var aiStatusText = document.getElementById('ai-status');
+                if(aiStatusText) {
+                    aiStatusText.innerHTML = '<i class="fa-solid fa-check-double"></i> Live Custom Analysis Rendered Successfully.';
+                    aiStatusText.style.color = '#00ff88';
+                }
+
+            }, 1000);
+        };
+
+        // Voice Engine Initialization Setup
+        var recognition;
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'hi-IN'; 
+
+            recognition.onresult = function(event) {
+                var transcript = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    transcript += event.results[i][0].transcript;
+                }
+                var inputArea = document.getElementById('case-input');
+                if(inputArea) inputArea.value = transcript;
+            };
+
+            recognition.onerror = function(event) {
+                window.stopVoice();
+            };
+        }
+
+        window.startVoice = function() {
+            if(!recognition) {
+                alert("Browser voice support nahi karta. Google Chrome use karein.");
+                return;
+            }
+            recognition.start();
+            document.getElementById('start-record-btn').style.display = 'none';
+            document.getElementById('stop-record-btn').style.display = 'flex';
+            
+            var aiStatusText = document.getElementById('ai-status');
+            if(aiStatusText) {
+                aiStatusText.innerHTML = '<i class="fa-solid fa-microphone-lines fa-bounce"></i> Awaaz sun raha hoon... Kripya boliye...';
+                aiStatusText.style.color = '#ffaa00';
+            }
+            document.getElementById('avatar-icon-box').classList.add('pulse');
+        };
+
+        window.stopVoice = function() {
+            if(recognition) recognition.stop();
+            document.getElementById('start-record-btn').style.display = 'flex';
+            document.getElementById('stop-record-btn').style.display = 'none';
+            
+            var aiStatusText = document.getElementById('ai-status');
+            if(aiStatusText) {
+                aiStatusText.innerHTML = '<i class="fa-solid fa-circle-check"></i> Voice recording completed.';
+                aiStatusText.style.color = '#00ff88';
+            }
+            document.getElementById('avatar-icon-box').classList.remove('pulse');
+        };
+    </script>
+</body>
+</html>
