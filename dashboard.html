@@ -123,16 +123,23 @@
         }
 
         .avatar-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;  
+            height: 80px;
             background: linear-gradient(135deg, var(--gold), #8a6f1c);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 35px;
-            color: #000;
-            box-shadow: 0 0 15px var(--gold-glow);
+            box-shadow: 0 0 20px var(--gold-glow);
+            overflow: hidden; 
+            border: 3px solid var(--gold); 
+        }
+
+        .ai-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+            display: block;
         }
 
         .voice-controls {
@@ -288,7 +295,6 @@
             color: #fff;
         }
 
-        /* Progress Bar for Operation Conviction */
         .progress-container {
             margin-top: 10px;
             background: rgba(255,255,255,0.1);
@@ -301,7 +307,7 @@
             height: 100%;
             background: linear-gradient(90deg, var(--accent-blue), var(--success));
             width: 85%;
-            transition: width 1s ease-in-out;
+            transition: width 0.5s ease-in-out;
         }
 
         /* Report Section */
@@ -380,7 +386,7 @@
         <div class="card avatar-section">
             <div class="avatar-info">
                 <div class="avatar-icon">
-                    <i class="fa-solid fa-user-shield"></i>
+                    <img src="avatar.jpg" alt="SI Kavach AI Avatar" class="ai-avatar-img" onerror="this.src='https://via.placeholder.com/80?text=Kavach'">
                 </div>
                 <div>
                     <h2 style="color: #fff; font-size: 1.4rem;">👮‍♂️ SI Kavach (AI Assistant)</h2>
@@ -404,7 +410,7 @@
                 <i class="fa-solid fa-magnifying-glass-chart"></i>
                 <span>🚨 Case Inquiry / FIR Analysis Box</span>
             </div>
-            <textarea id="case-input" placeholder="Yahan FIR ki details, apradh ka vivaran ya sandigdho ki jankari likhein ya paste karein..."></textarea>
+            <textarea id="case-input" placeholder="Yahan FIR ki details, apradh ka vivaran ya sandigdho ki jankari likhein ya paste karein... (Example: Chori, Hatya, ya Online Fraud likh kar test karein)"></textarea>
             <div class="action-buttons">
                 <button class="btn btn-demo" onclick="loadDemo()">
                     <i class="fa-solid fa-bolt"></i> ⚡ Auto Demo Example (Live Test)
@@ -434,19 +440,19 @@
             <div class="priority-grid">
                 <div class="priority-item">
                     <h4>⚖️ Operation Conviction Status</h4>
-                    <p style="color: var(--success);"><i class="fa-solid fa-gavel"></i> Fast-Track Eligible</p>
+                    <p id="conviction-status-text" style="color: var(--success);"><i class="fa-solid fa-gavel"></i> Fast-Track Eligible</p>
                     <small style="color: #a8b2d1;">Target Chargesheet: <strong>30 Days</strong></small>
                 </div>
                 <div class="priority-item">
                     <h4>📲 Yaksh App Criminal Database</h4>
-                    <p style="color: var(--warning);"><i class="fa-solid fa-triangle-exclamation"></i> 2 Matched Profiles</p>
+                    <p id="yaksh-status-text" style="color: var(--warning);"><i class="fa-solid fa-triangle-exclamation"></i> 2 Matched Profiles</p>
                     <small style="color: #a8b2d1;">Pratibimb Geo-Fence: <strong>Active</strong></small>
                 </div>
                 <div class="priority-item">
                     <h4>🎯 Conviction Readiness Score</h4>
                     <p id="score-text">85% (Strong Evidence)</p>
                     <div class="progress-container">
-                        <div class="progress-bar" id="conviction-progress"></div>
+                        <div class="progress-bar" id="conviction-progress" style="width: 85%;"></div>
                     </div>
                 </div>
             </div>
@@ -459,7 +465,7 @@
             </div>
             <div class="report-grid">
                 <div class="report-card">
-                    <h3>📜 Applicable Laws (BNS / IPC & IT Act)</h3>
+                    <h3>📜 Applicable Laws (BNS & Special Acts)</h3>
                     <ul id="laws-list">
                         </ul>
                 </div>
@@ -474,7 +480,6 @@
     </div>
 
     <script>
-        // Demo Auto Fill Function
         function loadDemo() {
             const demoText = "Ek peedit ne shikaayat ki hai ki kisi agyat vyakti ne phone par bank adhikaari ban kar KYC update ke naam par OTP manga. OTP dete hi peedit ke bank account se ₹85,000 turant kisi doosre UPI account me transfer ho gaye. Sandigdh ka mobile number switch off aa raha hai.";
             document.getElementById('case-input').value = demoText;
@@ -482,91 +487,33 @@
             document.getElementById('ai-status').style.color = '#00f0ff';
         }
 
-        // AI Case Analysis Simulation
+        // 🔥 FIXED DYNAMIC ENGINE 🔥
         function analyzeCase() {
-            const input = document.getElementById('case-input').value;
-            if(!input.trim()) {
+            const input = document.getElementById('case-input').value.trim();
+            if(!input) {
                 alert("Kripya pehle FIR ya case ki details box me likhein!");
                 return;
             }
 
-            // Show Loader, Hide Report
             document.getElementById('loader').style.display = 'block';
             document.getElementById('report-section').style.display = 'none';
+
+            // Convert to lowercase for clean matching
+            const lowerInput = input.toLowerCase();
 
             setTimeout(() => {
                 document.getElementById('loader').style.display = 'none';
                 document.getElementById('report-section').style.display = 'block';
 
-                // Populate Laws
-                const laws = [
-                    "<strong>Bharatiya Nyaya Sanhita (BNS) Dhara 318(4):</strong> Cheating and dishonestly inducing delivery of property (Dho-khadhadi).",
-                    "<strong>BNS Dhara 319(2):</strong> Cheating by personation (Roop badal kar chhal karna).",
-                    "<strong>IT Act Section 66D:</strong> Punishment for cheating by personation by using computer resource."
-                ];
-                document.getElementById('laws-list').innerHTML = laws.map(l => `<li>${l}</li>`).join('');
+                let laws = [];
+                let steps = [];
+                let score = "85%";
+                let progress = "85%";
+                let convictionStatus = '<i class="fa-solid fa-gavel"></i> Fast-Track Eligible';
+                let yakshStatus = '<i class="fa-solid fa-triangle-exclamation"></i> 2 Matched Profiles';
 
-                // Populate Actionable Steps
-                const steps = [
-                    "<strong>Cyber Crime Portal (1930):</strong> Turant suspect bank account aur UPI gateway ko freeze karne ka request bhejein.",
-                    "<strong>Pratibimb & Yaksh App Check:</strong> Sandigdh mobile number aur IMEI ka UP Police Yaksh database me purana criminal record check karein.",
-                    "<strong>IP & CDR Analysis:</strong> Suspected UPI transaction ki IP logs aur Call Detail Records (CDR) ki geofencing karein.",
-                    "<strong>Operation Conviction Protocol:</strong> 30 dino ke andar digital evidence (65B Certificate) ke sath charge-sheet court me submit karein."
-                ];
-                document.getElementById('steps-list').innerHTML = steps.map(s => `<li>${s}</li>`).join('');
-
-                // Update UI Status
-                document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-check-double"></i> Case Analysis Complete | Fast-Track Report Generated';
-                document.getElementById('ai-status').style.color = '#00ff88';
-
-                // Scroll to report
-                document.getElementById('report-section').scrollIntoView({ behavior: 'smooth' });
-
-            }, 1800);
-        }
-
-        // Web Speech API for Real Voice Recognition
-        let recognition;
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            recognition = new SpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = true;
-            recognition.lang = 'hi-IN'; // Hindi voice support
-
-            recognition.onresult = function(event) {
-                let transcript = '';
-                for (let i = event.resultIndex; i < event.results.length; ++i) {
-                    transcript += event.results[i][0].transcript;
-                }
-                document.getElementById('case-input').value = transcript;
-            };
-
-            recognition.onerror = function(event) {
-                console.error("Speech error", event);
-                stopVoice();
-            };
-        }
-
-        function startVoice() {
-            if(!recognition) {
-                alert("Aapka browser Voice Recognition support nahi karta. Kripya Google Chrome ka istemal karein.");
-                return;
-            }
-            recognition.start();
-            document.getElementById('start-record-btn').style.display = 'none';
-            document.getElementById('stop-record-btn').style.display = 'flex';
-            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-microphone-lines fa-bounce"></i> Awaaz sun raha hoon... Kripya boliye...';
-            document.getElementById('ai-status').style.color = '#ffaa00';
-        }
-
-        function stopVoice() {
-            if(recognition) recognition.stop();
-            document.getElementById('start-record-btn').style.display = 'flex';
-            document.getElementById('stop-record-btn').style.display = 'none';
-            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-check"></i> Voice recording complete.';
-            document.getElementById('ai-status').style.color = '#00ff88';
-        }
-    </script>
-</body>
-</html>
+                // Condition 1: Heinous Crime / Violent Crimes (Hatya, Maar-peet, Murder, Attack)
+                if (lowerInput.includes("hatya") || lowerInput.includes("murder") || lowerInput.includes("khoon") || lowerInput.includes("maar") || lowerInput.includes("hathiyar") || lowerInput.includes("जान से मारने")) {
+                    laws = [
+                        "<strong>Bharatiya Nyaya Sanhita (BNS) Dhara 103(1):</strong> Murder (Hatya ke liye dand - Aajeewan Karavas ya Fansi).",
+                        "<strong>BNS Dhara 115:</strong> Voluntarily
