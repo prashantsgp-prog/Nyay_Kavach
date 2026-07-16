@@ -8,7 +8,7 @@
         
         body { 
             margin: 0; 
-            position: relative; /* Clock ko top-right me sahi se fix karne ke liye */
+            position: relative; 
             background: linear-gradient(rgba(10, 15, 29, 0.85), rgba(10, 15, 29, 0.85)), 
                         url('hq.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -24,47 +24,85 @@
         }
         
         /* Logo & Header */
-        .logo { width: 90px; margin-bottom: 5px; }
-        h1 { color: var(--up-gold); font-size: 24px; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
-        .desc { color: #ccc; font-size: 13px; margin-bottom: 15px; text-align: center; max-width: 320px; line-height: 1.4; }
+        .logo { width: 100px; margin-bottom: 5px; } /* Logo thoda bada kiya */
+        h1 { color: var(--up-gold); font-size: 28px; margin: 0; text-transform: uppercase; letter-spacing: 1.5px; } /* Heading badi ki */
+        .desc { color: #ccc; font-size: 14px; margin-bottom: 20px; text-align: center; max-width: 400px; line-height: 1.5; }
 
         /* VIP Container */
-        .vip-container { display: flex; gap: 20px; margin-bottom: 15px; justify-content: center; flex-wrap: wrap; }
-        .vip-box { text-align: center; max-width: 140px; }
-        .vip-box img { width: 70px; height: 70px; border: 2px solid var(--up-gold); border-radius: 50%; object-fit: cover; background: #333; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
+        .vip-container { display: flex; gap: 25px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
+        .vip-box { text-align: center; max-width: 150px; }
+        .vip-box img { width: 80px; height: 80px; border: 2.5px solid var(--up-gold); border-radius: 50%; object-fit: cover; background: #333; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
         
         /* VIP Formatting */
-        .label { font-size: 11px; color: #fff; margin-top: 6px; font-weight: bold; line-height: 1.3; }
-        .label span { color: var(--up-gold); display: block; font-weight: normal; font-size: 10.5px; margin-top: 2px; }
+        .label { font-size: 12px; color: #fff; margin-top: 6px; font-weight: bold; line-height: 1.3; }
+        .label span { color: var(--up-gold); display: block; font-weight: normal; font-size: 11px; margin-top: 2px; }
 
-        /* Login Card */
+        /* ==========================================
+           BADA LOGIN CARD (UPDATED SIZE & PADDING)
+           ========================================== */
         .login-card { 
-            background: rgba(0, 46, 110, 0.6); 
-            padding: 20px 25px; 
-            border-radius: 20px; 
-            border: 2px solid var(--up-gold); 
-            width: 300px; 
+            background: rgba(0, 46, 110, 0.65); /* Thoda jyada readable kiya background */
+            padding: 35px 40px; /* Padding badhakar bada kiya */
+            border-radius: 24px; /* Border corners smooth kiye */
+            border: 2.5px solid var(--up-gold); 
+            width: 400px; /* Pehle 300px tha, ab 400px kar diya */
             text-align: center; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-            backdrop-filter: blur(4px);
-            margin-top: -5px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            backdrop-filter: blur(6px);
+            margin-top: 5px; 
+            box-sizing: border-box; /* Padding alignment theek rakhne ke liye */
         }
         
-        input[type="text"], input[type="password"] { width: 90%; padding: 10px; margin: 6px 0; background: #000; border: 1px solid var(--up-gold); color: white; border-radius: 5px; outline: none; }
+        /* Inputs Bade Kiye */
+        input[type="text"], input[type="password"] { 
+            width: 100%; /* Form ke pure size me fit hoga */
+            box-sizing: border-box;
+            padding: 13px 15px; /* Height badhane ke liye padding */
+            margin: 8px 0; 
+            font-size: 15px; /* Text thoda bada kiya */
+            background: #000; 
+            border: 1.5px solid var(--up-gold); 
+            color: white; 
+            border-radius: 8px; 
+            outline: none; 
+        }
         input[type="text"]:focus, input[type="password"]:focus { border-color: #fff; }
-        button { width: 100%; padding: 11px; background: var(--up-red); color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        
+        /* Buttons Bade Kiye */
+        button { 
+            width: 100%; 
+            padding: 13px; /* Touch target aur look bada karne ke liye */
+            font-size: 16px; /* Bold aur bada font */
+            background: var(--up-red); 
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.2s; 
+        }
         button:hover { opacity: 0.9; }
         
-        /* Captcha */
-        #captcha-display { font-size: 20px; font-weight: bold; letter-spacing: 5px; color: var(--up-gold); background: #000; padding: 8px; border: 1px solid var(--up-gold); margin: 8px 0; }
+        /* Bada Captcha Display */
+        #captcha-display { 
+            font-size: 24px; /* Pehle 20px tha */
+            font-weight: bold; 
+            letter-spacing: 6px; 
+            color: var(--up-gold); 
+            background: #000; 
+            padding: 10px; 
+            border: 1.5px solid var(--up-gold); 
+            margin: 10px 0; 
+            border-radius: 8px;
+        }
 
-        /* Checkbox Styling */
+        /* Checkbox Text Size */
         .checkbox-container {
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            margin: 10px 0 12px 5px;
-            font-size: 12px;
+            margin: 12px 0 16px 5px;
+            font-size: 13.5px; /* Thoda readable kiya */
             color: #ddd;
             cursor: pointer;
             user-select: none;
@@ -72,6 +110,8 @@
         .checkbox-container input {
             margin-right: 8px;
             cursor: pointer;
+            width: 16px; /* Checkbox box ka size bada kiya */
+            height: 16px;
             accent-color: var(--up-gold);
         }
 
@@ -83,8 +123,8 @@
             font-size: 13px; 
             font-weight: bold; 
             color: #FFFFFF; 
-            background-color: #002147; /* UP Police Navy Blue */
-            border-left: 4px solid #C8102E; /* UP Police Red Left Border */
+            background-color: #002147; 
+            border-left: 4px solid #C8102E; 
             padding: 6px 12px; 
             border-radius: 4px; 
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -93,8 +133,12 @@
             white-space: nowrap;
         }
 
-        /* Responsive settings for mobile screens */
+        /* Mobile Screens ke liye Scaling settings */
         @media (max-width: 480px) {
+            .login-card {
+                width: 100%; /* Mobile par full screen size adjust kar lega */
+                padding: 25px 20px;
+            }
             .top-police-clock {
                 font-size: 10px;
                 top: 10px;
@@ -103,7 +147,7 @@
                 border-left-width: 3px;
             }
             body {
-                padding-top: 50px; /* Mobile par clock aur content overlap na ho */
+                padding-top: 60px;
             }
         }
     </style>
@@ -200,13 +244,11 @@
                 };
                 const clockElement = document.getElementById('live-clock');
                 if (clockElement) {
-                    // English format ke liye 'en-US' ka upayog kiya hai
                     clockElement.innerText = now.toLocaleString('en-US', options);
                 }
             }, 1000);
         }
         
-        // DOM Load hote hi functions trigger honge
         window.addEventListener("DOMContentLoaded", () => {
             generateCaptcha();
             startLiveClock();
