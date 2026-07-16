@@ -390,7 +390,6 @@
             100% { opacity: 0.6; }
         }
 
-        /* Unique Classes for Crime Control & Interactive Analytics */
         .nk-insights-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -567,63 +566,14 @@
         <div class="card">
             <div class="section-title">
                 <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--accent-blue);"></i>
-                <div class="ai-box" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin: 20px 0;">
-  <h3 style="color: #003366; margin-top: 0;">🚨 लाइव एआई केस इंक्वायरी (BNS-BNSS रेडी)</h3>
-  <p style="color: #666; font-size: 14px;">किसी भी अपराध का विवरण नीचे लिखें, न्याय-कवच एआई लाइव धाराएं और प्रोटोकॉल बताएगा:</p>
-  
-  <textarea id="crimeInput" placeholder="उदाहरण: रात में दुकान का शटर तोड़कर चोरी हुई और चौकीदार से मारपीट की गई..." rows="3" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 15px; box-sizing: border-box;"></textarea>
-  
-  <button onclick="analyzeCase()" style="background: #003366; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin-top: 10px; font-size: 15px; font-weight: bold; cursor: pointer;">🔍 एआई विश्लेषण करें</button>
-  
-  <div id="aiOutput" style="display: none; margin-top: 15px; padding: 15px; background: #f8f9fa; border-left: 5px solid #003366; border-radius: 4px;">
-  </div>
-</div>
-
-<script>
-function analyzeCase() {
-  const input = document.getElementById('crimeInput').value.toLowerCase();
-  const outputDiv = document.getElementById('aiOutput');
-  
-  if (!input.trim()) {
-    alert("कृपया पहले बॉक्स में अपराध का विवरण लिखें!");
-    return;
-  }
-
-  outputDiv.style.display = "block";
-  outputDiv.innerHTML = "<p style='color:#003366;'><b>🤖 न्याय-कवच एआई BNS और BNSS डेटाबेस से केस का विश्लेषण कर रहा है... कृपया प्रतीक्षा करें...</b></p>";
-
-  setTimeout(() => {
-    let bnsSection = "BNS धारा 351 (आपराधिक धमकी व सामान्य अपराध)";
-    let complexity = "सामान्य (Low Complexity)";
-    let ioProtocol = "BNSS धारा 173 के तहत प्रारंभिक जांच और 3 दिन के भीतर रिपोर्ट।";
-
-    if (input.includes("चोरी") || input.includes("ताला") || input.includes("शटर") || input.includes("लूट")) {
-      bnsSection = "BNS धारा 303(2) [चोरी] व BNS धारा 331 [गृहभेदन / सेंधमारी]";
-      complexity = "गंभीर मामले (Medium Complexity - Fast Track)";
-      ioProtocol = "BNSS धारा 176(3): क्राइम सीन की डिजिटल वीडियोग्राफी और ई-साक्ष्य संकलन अनिवार्य।";
-    } else if (input.includes("मारपीट") || input.includes("हत्या") || input.includes("खून") || input.includes("चाकू") || input.includes("गोली")) {
-      bnsSection = "BNS धारा 103(1) [हत्या] या BNS धारा 115(2) [स्वेच्छा से गंभीर चोट पहुँचाना]";
-      complexity = "जघन्य अपराध (Critical - Highest Priority)";
-      ioProtocol = "BNSS धारा 175: 24 घंटे के भीतर फॉरेंसिक टीम (FSL) द्वारा मुआयना और यक्ष पोर्टल पर संदिग्धों की ट्रैकिंग।";
-    } else if (input.includes("साइबर") || input.includes("upi") || input.includes("ठगी") || input.includes("फ्रॉड") || input.includes("बैंक") || input.includes("पैसे")) {
-      bnsSection = "BNS धारा 318(4) [छल / चेटींग] व IT Act धारा 66D";
-      complexity = "गंभीर वित्तीय अपराध (Cyber Crime - Medium/High)";
-      ioProtocol = "प्रतिबिंब पोर्टल पर मोबाइल नंबर रिपोर्ट करें व BNSS धारा 106 के तहत बैंक खाते तुरंत फ्रीज़ कराएं।";
-    }
-
-    outputDiv.innerHTML = `
-      <h4 style="color:#003366; margin:0 0 10px 0;">🎯 एआई विश्लेषण रिपोर्ट तैयार:</h4>
-      <p style="margin: 5px 0;"><b>📜 लागू कानून व धाराएं (BNS):</b> <span style="color:#b30000; font-weight:bold;">${bnsSection}</span></p>
-      <p style="margin: 5px 0;"><b>⚠️ अपराध की श्रेणी व जटिलता:</b> ${complexity}</p>
-      <p style="margin: 5px 0;"><b>👮‍♂️ विवेचक (IO) हेतु BNSS प्रोटोकॉल:</b> ${ioProtocol}</p>
-      <hr style="border:0; border-top:1px solid #ddd; margin: 10px 0;">
-      <p style="margin:0;"><small style="color:green; font-weight:bold;">✔️ साक्ष्य संकलन और फास्ट-ट्रैक चार्जशीट के लिए CCTNS और यक्ष पोर्टल से सिंक किया गया।</small></p>
-    `;
-  }, 1000); // 1 सेकंड का रियल-टाइम लोडिंग इफेक्ट
-}
-</script>
+                <span>🚨 लाइव एआई केस इंक्वायरी / एफआईआर एनालिसिस (BNS-BNSS रेडी)</span>
             </div>
-            <textarea id="case-input" placeholder="यहाँ चोरी, हत्या, रेप, एक्सीडेंट, मारपीट, या साइबर फ्रॉड का विवरण लिखें..."></textarea>
+            <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 15px;">
+                किसी भी अपराध का विवरण नीचे बॉक्स में लिखें या बोलकर बताएं। न्याय-कवच एआई लाइव BNS धाराएं, BNSS विवेचना प्रोटोकॉल और कनविक्शन स्कोर जनरेट करेगा:
+            </p>
+            
+            <textarea id="case-input" placeholder="उदाहरण: रात में दुकान का शटर तोड़कर चोरी हुई और चौकीदार से मारपीट की गई, या किसी महिला से छेड़खानी/साइबर ठगी का मामला..."></textarea>
+            
             <div class="action-buttons">
                 <button class="btn btn-demo" id="demo-btn" onclick="loadDemo()">
                     <i class="fa-solid fa-bolt"></i> ⚡ ऑटो डेमो उदाहरण (लाइव test)
@@ -786,7 +736,7 @@ function analyzeCase() {
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 
     <script>
         window.speakReport = function(speechText) {
@@ -830,7 +780,7 @@ function analyzeCase() {
         window.analyzeCase = function() {
             var input = document.getElementById('case-input').value.trim();
             if(!input) {
-                alert("कृपया पहले एफआईआर या केस का विवरण बॉक्स में लिखें!");
+                alert("कृपया पहले एफआईआर या केस का विवरण बॉक्स में लिखें! (जैसे: चोरी, मारपीट, हत्या या साइबर ठगी)");
                 return;
             }
 
@@ -852,7 +802,7 @@ function analyzeCase() {
                 var targetDays = "30 दिन";
 
                 // 1. Rape / Sexual Assault / Women Safety
-                if (lowerInput.indexOf("rape") !== -1 || lowerInput.indexOf("रेप") !== -1 || lowerInput.indexOf("balatkar") !== -1 || lowerInput.indexOf("बलात्कार") !== -1 || lowerInput.indexOf("dushkarm") !== -1 || lowerInput.indexOf("दुष्कर्म") !== -1 || lowerInput.indexOf("छेड़खानी") !== -1) {
+                if (lowerInput.indexOf("rape") !== -1 || lowerInput.indexOf("रेप") !== -1 || lowerInput.indexOf("balatkar") !== -1 || lowerInput.indexOf("बलात्कार") !== -1 || lowerInput.indexOf("dushkarm") !== -1 || lowerInput.indexOf("दुष्कर्म") !== -1 || lowerInput.indexOf("छेड़खानी") !== -1 || lowerInput.indexOf("महिला") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 64(1):</strong> बलात्कार (Rape) के लिए कठोर कारावास (10 वर्ष से आजीवन कारावास)।",
                         "<strong>बीएनएस धारा 74:</strong> महिला की लज्जा भंग करने के इरादे से हमला या आपराधिक बल प्रयोग।",
@@ -870,7 +820,7 @@ function analyzeCase() {
                     targetDays = "60 दिन (कानूनी सीमा)";
                 } 
                 // 2. Murder / Homicide
-                else if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1 || lowerInput.indexOf("shav") !== -1) {
+                else if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1 || lowerInput.indexOf("shav") !== -1 || lowerInput.indexOf("चाकू") !== -1 || lowerInput.indexOf("गोली") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 103(1):</strong> हत्या (Murder) के लिए निर्धारित दंड (आजीवन कारावास या मृत्युदंड)।",
                         "<strong>बीएनएस धारा 61(2):</strong> आपराधिक षड्यंत्र रचना (Criminal Conspiracy)।",
@@ -888,7 +838,7 @@ function analyzeCase() {
                     targetDays = "30 दिन";
                 } 
                 // 3. Theft / Robbery / Dacoity
-                else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("चोरी") !== -1 || lowerInput.indexOf("लूट") !== -1 || lowerInput.indexOf("डकैती") !== -1) {
+                else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("चोरी") !== -1 || lowerInput.indexOf("लूट") !== -1 || lowerInput.indexOf("डकैती") !== -1 || lowerInput.indexOf("ताला") !== -1 || lowerInput.indexOf("शटर") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 303(2):</strong> चोरी के लिए वैधानिक दंड प्रावधान।",
                         "<strong>बीएनएस धारा 309:</strong> जबरन लूटपाट (Robbery) करना।",
@@ -924,7 +874,7 @@ function analyzeCase() {
                     targetDays = "45 दिन";
                 }
                 // 5. Assault / Fight / Physical Hurt
-                else if (lowerInput.indexOf("marpeet") !== -1 || lowerInput.indexOf("मारपीट") !== -1 || lowerInput.indexOf("chot") !== -1 || lowerInput.indexOf("चोट") !== -1 || lowerInput.indexOf("gali") !== -1 || lowerInput.indexOf("झगड़ा") !== -1) {
+                else if (lowerInput.indexOf("marpeet") !== -1 || lowerInput.indexOf("मारपीट") !== -1 || lowerInput.indexOf("chot") !== -1 || lowerInput.indexOf("चोट") !== -1 || lowerInput.indexOf("gali") !== -1 || lowerInput.indexOf("झगड़ा") !== -1 || lowerInput.indexOf("हमला") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 115:</strong> स्वेच्छा से किसी को साधारण चोट (Hurt) पहुँचाना।",
                         "<strong>बीएनएस धारा 117:</strong> किसी को गंभीर चोट (Grievous Hurt/हड्डी टूटना) पहुँचाना।",
@@ -941,8 +891,8 @@ function analyzeCase() {
                     tagText = "प्रायोरिटी #4 (कानून व्यवस्था)";
                     targetDays = "30 दिन";
                 }
-                // 6. Fallback: Cyber Fraud / Cheating
-                else {
+                // 6. Cyber Fraud / Cheating / UPI Fraud
+                else if (lowerInput.indexOf("cyber") !== -1 || lowerInput.indexOf("upi") !== -1 || lowerInput.indexOf("ठगी") !== -1 || lowerInput.indexOf("फ्रॉड") !== -1 || lowerInput.indexOf("बैंक") !== -1 || lowerInput.indexOf("पैसे") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 318(4):</strong> धोखाधड़ी (Cheating) करना और बेईमानी से संपत्ति ट्रांसफर कराना।",
                         "<strong>आईटी एक्ट धारा 66D:</strong> कंप्यूटर/मोबाइल रिसोर्स का छद्मरूप में उपयोग कर फ्रॉड।"
@@ -957,6 +907,22 @@ function analyzeCase() {
                     tagText = "साइबर फ्रॉड Case Data";
                     targetDays = "90 दिन";
                 }
+                // 7. General Fallback
+                else {
+                    laws = [
+                        "<strong>बीएनएस धारा 351:</strong> आपराधिक धमकी व सामान्य अपराध के प्रावधान।",
+                        "<strong>बीएनएस धारा 223:</strong> लोक सेवक द्वारा दिए गए आदेश की अवज्ञा करना।"
+                    ];
+                    steps = [
+                        "<strong>प्रारंभिक जांच (BNSS धारा 173):</strong> घटना की सत्यता जांचने हेतु 3 दिन के भीतर प्रारंभिक जांच पूरी करें।",
+                        "<strong>CCTNS सिंक:</strong> मामला दर्ज कर साक्ष्य संकलन हेतु CCTNS पोर्टल पर विवरण अपलोड करें।"
+                    ];
+                    score = "75% (सामान्य जांच)";
+                    progress = "75%";
+                    convictionStatus = 'सामान्य इन्वेस्टिगेशन ट्रैक';
+                    tagText = "सामान्य केस डाटा";
+                    targetDays = "30 दिन";
+                }
 
                 document.getElementById('laws-list').innerHTML = laws.map(function(l) { return '<li>' + l + '</li>'; }).join('');
                 document.getElementById('steps-list').innerHTML = steps.map(function(s) { return '<li>' + s + '</li>'; }).join('');
@@ -970,7 +936,7 @@ function analyzeCase() {
                 var cleanLawsText = laws.map(function(l) { return l.replace(/<\/?[^>]+(>|$)/g, ""); }).join(', ');
                 window.speakReport("केस का विश्लेषण पूर्ण हो गया है। लागू कानून इस प्रकार हैं: " + cleanLawsText);
 
-            }, 1000);
+            }, 800);
         };
 
         // Voice Input Control
@@ -1028,7 +994,6 @@ function analyzeCase() {
             if(resultBox) resultBox.innerHTML = 'सूचकांक: ' + totalScore + ' | स्थिति: ' + status;
         };
 
-        // FIXED: Complete and functional Logout System
         window.logoutUser = function() {
             if(confirm("क्या आप सुरक्षित रूप से लॉग आउट करना चाहते हैं?")) {
                 localStorage.clear();
@@ -1038,7 +1003,6 @@ function analyzeCase() {
             }
         };
 
-        // Render Professional Chart.js Chart matching the UP Police Palette
         document.addEventListener("DOMContentLoaded", function () {
             const ctx = document.getElementById('nyayKavachChart');
             if (ctx) {
@@ -1050,11 +1014,11 @@ function analyzeCase() {
                             label: 'संशोधित त्रुटियां (Errors Caught)',
                             data: [38, 24, 11, 29, 18],
                             backgroundColor: [
-                                'rgba(220, 38, 38, 0.85)',   // police-red
-                                'rgba(214, 175, 55, 0.85)',  // gold
-                                'rgba(0, 240, 255, 0.85)',   // accent-blue
-                                'rgba(0, 255, 136, 0.85)',   // success
-                                'rgba(255, 170, 0, 0.85)'    // warning
+                                'rgba(220, 38, 38, 0.85)',   
+                                'rgba(214, 175, 55, 0.85)',  
+                                'rgba(0, 240, 255, 0.85)',   
+                                'rgba(0, 255, 136, 0.85)',   
+                                'rgba(255, 170, 0, 0.85)'    
                             ],
                             borderWidth: 0,
                             borderRadius: 6
@@ -1086,7 +1050,6 @@ function analyzeCase() {
                     }
                 });
             }
-            // Auto calculate workload on load
             setTimeout(function() { window.calculateWorkload(); }, 300);
         });
     </script>
