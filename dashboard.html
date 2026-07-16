@@ -1,447 +1,100 @@
-<style>
-  /* Scoped CSS: All selectors prefixed with .nk-loophole-widget to prevent bleed */
-  .nk-loophole-widget-wrapper {
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f8f9fa;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 46, 110, 0.15);
-    overflow: hidden;
-    margin: 20px 0;
-    color: #1f2937;
-  }
-
-  /* Header - Official UP Police Navy Blue */
-  .nk-loophole-widget-header {
-    background-color: #002e6e;
-    color: #ffffff;
-    padding: 16px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px solid #ffb300; /* UP Police Gold Accent */
-  }
-
-  .nk-loophole-widget-title-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .nk-loophole-widget-badge-ai {
-    background-color: #ffb300;
-    color: #002e6e;
-    font-weight: 800;
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-  }
-
-  .nk-loophole-widget-title {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-  }
-
-  /* Real-Time Pulse Indicator */
-  .nk-loophole-widget-status {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #e5e7eb;
-  }
-
-  .nk-loophole-widget-pulse {
-    width: 10px;
-    height: 10px;
-    background-color: #ffb300;
-    border-radius: 50%;
-    box-shadow: 0 0 0 rgba(255, 179, 0, 0.4);
-    animation: nk-pulse-animation 1.5s infinite;
-  }
-
-  @keyframes nk-pulse-animation {
-    0% { box-shadow: 0 0 0 0 rgba(255, 179, 0, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(255, 179, 0, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(255, 179, 0, 0); }
-  }
-
-  /* Controls & Metrics Bar */
-  .nk-loophole-widget-toolbar {
-    background-color: #ffffff;
-    padding: 12px 20px;
-    border-bottom: 1px solid #e5e7eb;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .nk-loophole-widget-stats {
-    font-size: 13px;
-    color: #4b5563;
-    font-weight: 500;
-  }
-
-  .nk-loophole-widget-stats strong {
-    color: #c62828; /* UP Police Red for urgent metrics */
-    font-weight: 700;
-  }
-
-  .nk-loophole-widget-filter-btn {
-    background: none;
-    border: 1px solid #d1d5db;
-    padding: 5px 12px;
-    font-size: 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-    color: #4b5563;
-    transition: all 0.2s ease;
-  }
-
-  .nk-loophole-widget-filter-btn.active,
-  .nk-loophole-widget-filter-btn:hover {
-    background-color: #002e6e;
-    color: #ffffff;
-    border-color: #002e6e;
-  }
-
-  /* Alert Feed Container */
-  .nk-loophole-widget-feed {
-    padding: 16px 20px;
-    max-height: 480px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  /* Individual Alert Cards */
-  .nk-loophole-widget-card {
-    background-color: #ffffff;
-    border-left: 5px solid #c62828; /* Alert Red */
-    border-top: 1px solid #e5e7eb;
-    border-right: 1px solid #e5e7eb;
-    border-bottom: 1px solid #e5e7eb;
-    border-radius: 4px;
-    padding: 16px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .nk-loophole-widget-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-
-  .nk-loophole-widget-card.gold-tier {
-    border-left-color: #ffb300;
-  }
-
-  .nk-loophole-widget-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px;
-  }
-
-  .nk-loophole-widget-card-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #002e6e;
-    margin: 0 0 4px 0;
-  }
-
-  .nk-loophole-widget-card-meta {
-    font-size: 12px;
-    color: #6b7280;
-  }
-
-  .nk-loophole-widget-match-score {
-    background-color: #fef2f2;
-    color: #c62828;
-    border: 1px solid #fecaca;
-    font-weight: 800;
-    font-size: 12px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    white-space: nowrap;
-  }
-
-  .gold-tier .nk-loophole-widget-match-score {
-    background-color: #fffbeb;
-    color: #b45309;
-    border-color: #fde68a;
-  }
-
-  /* Cross-Border Comparison Table inside Card */
-  .nk-loophole-widget-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 12px;
-    font-size: 12px;
-    border: 1px solid #e5e7eb;
-  }
-
-  .nk-loophole-widget-district-box strong {
-    color: #002e6e;
-    display: block;
-    margin-bottom: 4px;
-    font-size: 13px;
-  }
-
-  .nk-loophole-widget-district-box span {
-    color: #4b5563;
-    display: block;
-    line-height: 1.4;
-  }
-
-  /* AI Insight Box */
-  .nk-loophole-widget-insight {
-    font-size: 13px;
-    color: #1f2937;
-    background-color: #eff6ff;
-    border-left: 3px solid #002e6e;
-    padding: 8px 12px;
-    margin-bottom: 12px;
-    line-height: 1.5;
-  }
-
-  .nk-loophole-widget-insight strong {
-    color: #002e6e;
-  }
-
-  /* Action Button */
-  .nk-loophole-widget-action-btn {
-    background-color: #002e6e;
-    color: #ffffff;
-    border: none;
-    padding: 8px 16px;
-    font-size: 12px;
-    font-weight: 600;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .nk-loophole-widget-action-btn:hover {
-    background-color: #c62828; /* Shifts to red on hover for urgent dispatch */
-  }
-
-  .nk-loophole-widget-action-btn:disabled {
-    background-color: #10b981;
-    cursor: default;
-  }
-
-  /* Dynamic animation for new items */
-  @keyframes nk-slide-down {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .nk-animate-new {
-    animation: nk-slide-down 0.4s ease forwards;
-  }
-</style>
-
-<div class="nk-loophole-widget-wrapper">
-  <div class="nk-loophole-widget-header">
-    <div class="nk-loophole-widget-title-group">
-      <span class="nk-loophole-widget-badge-ai">AI Module</span>
-      <h3 class="nk-loophole-widget-title">Chakravyuh-Net: Inter-District MO Correlator</h3>
-    </div>
-    <div class="nk-loophole-widget-status">
-      <div class="nk-loophole-widget-pulse"></div>
-      <span id="nk-scan-status">Scanning 75 Districts (Live)</span>
-    </div>
-  </div>
-
-  <div class="nk-loophole-widget-toolbar">
-    <div class="nk-loophole-widget-stats">
-      Active Cross-Border Patterns: <strong id="nk-pattern-count">2 Syndicates Tracked</strong> | 
-      Analyses Today: <strong>1,428 FIRs</strong>
-    </div>
-    <div>
-      <button class="nk-loophole-widget-filter-btn active" onclick="nkLoopholeWidget.filterFeed('all', this)">All Zones</button>
-      <button class="nk-loophole-widget-filter-btn" onclick="nkLoopholeWidget.filterFeed('west', this)">West UP Zone</button>
-      <button class="nk-loophole-widget-filter-btn" onclick="nkLoopholeWidget.filterFeed('central', this)">Central/East</button>
-    </div>
-  </div>
-
-  <div class="nk-loophole-widget-feed" id="nk-loophole-feed-container">
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>न्याय-कवच एआई | यूपी पुलिस स्मार्ट डैशबोर्ड</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
-    <div class="nk-loophole-widget-card" data-zone="west">
-      <div class="nk-loophole-widget-card-header">
-        <div>
-          <h4 class="nk-loophole-widget-card-title">Highway Robbery Syndicate — "Toota Shisha" MO</h4>
-          <span class="nk-loophole-widget-card-meta">Flagged 14 mins ago • Range: Meerut-Aligarh Sector</span>
-        </div>
-        <div class="nk-loophole-widget-match-score">94% MO MATCH</div>
-      </div>
-      <div class="nk-loophole-widget-grid">
-        <div class="nk-loophole-widget-district-box">
-          <strong>FIR #184/2026 — Bulandshahr (02:15 AM)</strong>
-          <span>"3 armed men in white SUV with cracked rear windshield robbed cement merchant on NH-34. Used .315 bore desi katta."</span>
-        </div>
-        <div class="nk-loophole-widget-district-box">
-          <strong>FIR #092/2026 — Aligarh (04:30 AM)</strong>
-          <span>"Hinglish narrative: 'Ek safed Scorpio jiska piche ka shisha toota tha', 3 suspects looted petrol pump attendant at gunpoint."</span>
-        </div>
-      </div>
-      <div class="nk-loophole-widget-insight">
-        <strong>⚡ AI Semantic Insight:</strong> CCTNS missed correlation due to linguistic variance ("cracked windshield" vs "shisha toota tha"). Graph Neural Network confirms 100% vehicle anomaly match and identical exit trajectory toward Agra Zone.
-      </div>
-      <button class="nk-loophole-widget-action-btn" onclick="nkLoopholeWidget.dispatchSTF(this, 'Meerut-Aligarh')">
-        <span>⚡ Intercept Broadcast: Alert Agra Highway Patrol & STF</span>
-      </button>
-    </div>
-
-    <div class="nk-loophole-widget-card gold-tier" data-zone="central">
-      <div class="nk-loophole-widget-card-header">
-        <div>
-          <h4 class="nk-loophole-widget-card-title">ATM Manipulation Ring — "Glue & Tap" Method</h4>
-          <span class="nk-loophole-widget-card-meta">Flagged 42 mins ago • Range: Lucknow-Kanpur Sector</span>
-        </div>
-        <div class="nk-loophole-widget-match-score">87% MO MATCH</div>
-      </div>
-      <div class="nk-loophole-widget-grid">
-        <div class="nk-loophole-widget-district-box">
-          <strong>FIR #412/2026 — Lucknow North (Yesterday)</strong>
-          <span>"Suspect applied industrial adhesive to ATM cash dispenser shutter. Wore yellow helmet, departed on black Pulsar without plates."</span>
-        </div>
-        <div class="nk-loophole-widget-district-box">
-          <strong>FIR #205/2026 — Unnao (08:15 AM Today)</strong>
-          <span>"SBI kiosk CCTV shows suspect in yellow helmet jamming cash slot with glue. Fled towards Kanpur highway on black motorcycle."</span>
-        </div>
-      </div>
-      <div class="nk-loophole-widget-insight">
-        <strong>⚡ AI Semantic Insight:</strong> Spatio-temporal mapping indicates suspect is moving southwest along NH-27. Behavioral signature (yellow helmet + adhesive jamming) matches 3 unsolved cases in Ayodhya from previous month.
-      </div>
-      <button class="nk-loophole-widget-action-btn" onclick="nkLoopholeWidget.dispatchSTF(this, 'Lucknow-Kanpur')">
-        <span>⚡ Intercept Broadcast: Alert Kanpur Toll Plazas & STF</span>
-      </button>
-    </div>
-
-  </div>
-</div>
-
-<script>
-  /* Isolated JavaScript: Immediately Invoked Function Expression (IIFE) 
-     creates a private scope to prevent collisions with existing dashboard scripts. */
-  const nkLoopholeWidget = (function() {
-    
-    // Internal state
-    let patternCount = 2;
-    let newAlertTriggered = false;
-
-    // Function to handle filtering
-    function filterFeed(zone, buttonElement) {
-      // Update button styling
-      const buttons = document.querySelectorAll('.nk-loophole-widget-filter-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      if (buttonElement) buttonElement.classList.add('active');
-
-      // Filter cards
-      const cards = document.querySelectorAll('.nk-loophole-widget-card');
-      cards.forEach(card => {
-        if (zone === 'all' || card.getAttribute('data-zone') === zone) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
+    <style>
+        :root {
+            --police-red: #dc2626;
+            --police-blue: #0b2545;
+            --accent-blue: #00f0ff;
+            --gold: #d4af37;
+            --bg-dark: #050b14;
+            --card-bg: #0f223d;
+            --border-color: rgba(212, 175, 55, 0.4);
+            --text-light: #ffffff;
+            --success: #00ff88;
         }
-      });
-    }
 
-    // Function to simulate STF Dispatch
-    function dispatchSTF(buttonElement, sector) {
-      buttonElement.disabled = true;
-      buttonElement.style.backgroundColor = '#10b981'; // Success green
-      buttonElement.innerHTML = `<span>✓ STF & Border Units Dispatched (${sector})</span>`;
-      
-      // Optional trigger for presentation effect
-      alert(`[NYAYA-KAVACH HIGH-PRIORITY DIRECTIVE]\n\nAutomated Intercept Orders dispatched to District SSPs and STF Command for Sector: ${sector}.\n\nReal-time GPS tracking of border toll plazas initiated.`);
-    }
+        /* --- MODAL STYLES (NEW) --- */
+        .nk-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999; overflow-y: auto; padding: 20px; }
+        .nk-modal-content { max-width: 1000px; margin: 20px auto; background: #fff; color: #1f2937; padding: 30px; border-radius: 10px; position: relative; }
+        .nk-close-btn { position: absolute; top: 10px; right: 20px; color: #dc2626; cursor: pointer; font-size: 20px; font-weight: bold; }
+        
+        /* --- EXISTING STYLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-light); min-height: 100vh; padding: 20px; }
+        .top-police-strip { height: 6px; background: linear-gradient(90deg, var(--police-red) 50%, #0040ff 50%); border-radius: 5px 5px 0 0; }
+        .header { text-align: center; padding: 25px; background: #0b2545; border: 2px solid var(--gold); border-top: none; border-radius: 0 0 15px 15px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); margin-bottom: 30px; }
+        .header-content { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .up-logo-img { width: 80px; height: 80px; object-fit: contain; }
+        .header h1 { font-family: 'Rajdhani', sans-serif; font-size: 3rem; color: var(--gold); text-transform: uppercase; }
+        .badge { background: rgba(0, 240, 255, 0.15); border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; margin: 5px; display: inline-block;}
+        .card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 15px; padding: 25px; margin-bottom: 20px; }
+        .btn { padding: 12px 22px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .btn-ai-trigger { background: var(--gold); color: #000; font-weight: 700; margin-top: 15px; }
+    </style>
+</head>
+<body>
 
-    // Function to dynamically inject a new alert during the DGP demo (triggers after 8 seconds)
-    function simulateLiveDGPAlert() {
-      if (newAlertTriggered) return;
-      newAlertTriggered = true;
+    <div class="top-police-strip"></div>
 
-      const feed = document.getElementById('nk-loophole-feed-container');
-      const counterEl = document.getElementById('nk-pattern-count');
-      const statusEl = document.getElementById('nk-scan-status');
-
-      if (!feed) return;
-
-      // Update status temporarily to show ingestion
-      statusEl.innerText = "⚠️ NEW CROSS-BORDER PATTERN DETECTED";
-      statusEl.style.color = "#ffb300";
-
-      setTimeout(() => {
-        statusEl.innerText = "Scanning 75 Districts (Live)";
-        statusEl.style.color = "#e5e7eb";
-      }, 4000);
-
-      // Create new card HTML
-      const newCard = document.createElement('div');
-      newCard.className = 'nk-loophole-widget-card nk-animate-new';
-      newCard.setAttribute('data-zone', 'west');
-      newCard.innerHTML = `
-        <div class="nk-loophole-widget-card-header">
-          <div>
-            <h4 class="nk-loophole-widget-card-title" style="color:#c62828;">🚨 LIVE INTERCEPT: Cattle Smuggling Convoy</h4>
-            <span class="nk-loophole-widget-card-meta">Flagged JUST NOW • Range: Mathura-Agra Border</span>
-          </div>
-          <div class="nk-loophole-widget-match-score" style="background-color:#c62828; color:#fff;">98% REAL-TIME MATCH</div>
+    <div class="header">
+        <div class="header-content">
+            <img src="https://cdn-icons-png.flaticon.com/512/923/923181.png" alt="UP Police Logo" class="up-logo-img">
+            <div>
+                <h1>न्याय-कवच एआई</h1>
+                <p>उत्तर प्रदेश पुलिस स्मार्ट इन्वेस्टिगेशन एवं साक्ष्य पोर्टल</p>
+            </div>
         </div>
-        <div class="nk-loophole-widget-grid">
-          <div class="nk-loophole-widget-district-box">
-            <strong>FIR #512/2026 — Mathura Rural (10 mins ago)</strong>
-            <span>"Container truck (HR-38 reg partially mud-covered) broke police barricade at Kosi Kalan. Escorted by 2 armed youths on Apache bike."</span>
-          </div>
-          <div class="nk-loophole-widget-district-box">
-            <strong>Live CCTV AI Feed — Agra Toll Plaza (Just Now)</strong>
-            <span>"ANPR & Video Analytics identified HR-38 container truck moving at 90km/h on NH-19 towards Agra bypass. Apache escort confirmed."</span>
-          </div>
+        <div class="status-badges">
+            <span class="badge"><i class="fa-solid fa-robot"></i> एआई अवतार एक्टिव</span>
+            <button class="btn btn-ai-trigger" onclick="toggleAIModal()">
+                <i class="fa-solid fa-shield-halved"></i> न्याय-कवच प्रो-विजेट खोलें
+            </button>
         </div>
-        <div class="nk-loophole-widget-insight" style="background-color:#fef2f2; border-color:#c62828;">
-          <strong>⚡ AI Predictive Intercept:</strong> Convoy will reach Raibha Toll Plaza in approximately 11 minutes. Automated barricade lockdown protocol recommended immediately.
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h2>आपका मुख्य डैशबोर्ड</h2>
+            <p>यहाँ आपके पिछले कंटेंट्स मौजूद हैं। बटन दबाकर इंटेलिजेंस ग्रिड देखें।</p>
         </div>
-        <button class="nk-loophole-widget-action-btn" style="background-color:#c62828;" onclick="nkLoopholeWidget.dispatchSTF(this, 'Mathura-Agra Bypass')">
-          <span>🚨 EXECUTE TOLL LOCKDOWN & DISPATCH TACTICAL UNIT</span>
-        </button>
-      `;
+    </div>
 
-      // Prepend to top of feed
-      feed.insertBefore(newCard, feed.firstChild);
+    <div id="nk-ai-modal" class="nk-modal-overlay">
+        <div class="nk-modal-content">
+            <span class="nk-close-btn" onclick="toggleAIModal()">&times; बंद करें</span>
+            
+            <div style="text-align: center; color: #002e6e;">
+                <h2 style="text-transform: uppercase; border-bottom: 2px solid #002e6e; padding-bottom: 10px;">Chakravyuh-Net Intelligence Brief</h2>
+                <p>Live Cross-Border Correlated Threat Profiles</p>
+            </div>
 
-      // Update counter
-      patternCount++;
-      if (counterEl) counterEl.innerText = `${patternCount} Syndicates Tracked`;
-    }
+            <div style="background: #f8f9fc; border-left: 5px solid #c62828; padding: 20px; margin-top: 20px; border-radius: 5px;">
+                <h3 style="color: #c62828;">🚨 LIVE INTERCEPT: Cattle Smuggling Convoy</h3>
+                <p style="font-size: 0.9rem; color: #666;">Sector: Mathura-Agra Border | <b>98% REAL-TIME MATCH</b></p>
+                <div style="display: flex; gap: 20px; margin-top: 10px;">
+                    <div style="width: 50%; padding: 10px; background: #eee;"><strong>FIR:</strong> HR-38 container truck suspected.</div>
+                    <div style="width: 50%; padding: 10px; background: #eee;"><strong>CCTV:</strong> Identified at Agra Toll Plaza.</div>
+                </div>
+                <div style="margin-top: 15px; background: #fee2e2; padding: 10px; color: #991b1b; font-weight: bold;">
+                    TACTICAL DIRECTIVE: Execute immediate Toll Plaza lockdown.
+                </div>
+            </div>
+        </div>
+    </div>
 
-    // Trigger the simulated live alert after 8 seconds of viewing the dashboard
-    setTimeout(simulateLiveDGPAlert, 8000);
-
-    // Expose public methods to DOM events
-    return {
-      filterFeed: filterFeed,
-      dispatchSTF: dispatchSTF
-    };
-
-  })();
-</script>
+    <script>
+        function toggleAIModal() {
+            const modal = document.getElementById('nk-ai-modal');
+            modal.style.display = (modal.style.display === 'block') ? 'none' : 'block';
+        }
+    </script>
+</body>
+</html>
