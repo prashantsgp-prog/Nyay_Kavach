@@ -1,1 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NYAYA-KAVACH AI | UP POLICE SMART INVESTIGATION PLATFORM</title>
+<script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+<script src="[https://cdn.jsdelivr.net/npm/chart.js](https://cdn.jsdelivr.net/npm/chart.js)"></script>
+<link href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css)" rel="stylesheet">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+:root {
+--navy-dark: #0a192f;
+--police-red: #8b0000;
+--gold: #d4af37;
+--glass: rgba(10, 25, 47, 0.7);
+}
+body {
+background-color: var(--navy-dark);
+color: white;
+font-family: 'Inter', sans-serif;
+margin: 0;
+overflow-x: hidden;
+}
+.glass-card {
+background: var(--glass);
+backdrop-filter: blur(15px);
+border: 1px solid rgba(212, 175, 55, 0.3);
+border-radius: 16px;
+transition: all 0.3s ease;
+}
+.gold-border { border: 1px solid var(--gold); }
+.text-gold { color: var(--gold); }
+.bg-police-red { background-color: var(--police-red); }
+.sidebar { width: 280px; height: 100vh; position: fixed; border-right: 1px solid var(--gold); }
+.main-content { margin-left: 280px; padding: 20px; }
+.stat-card { animation: fadeIn 0.8s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.voice-btn:hover { box-shadow: 0 0 20px var(--gold); }
+.gradient-text { background: linear-gradient(to right, #d4af37, #f7d566); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+</style>
+</head>
+<body class="bg-slate-950">
+<div class="sidebar bg-slate-900 p-6 flex flex-col justify-between">
+<div>
+<h1 class="text-2xl font-bold text-gold mb-8 flex items-center gap-2">
+<i class="fas fa-shield-halved"></i> NYAYA-KAVACH
+</h1>
+<nav class="space-y-4">
+<a href="#" class="block p-3 rounded hover:bg-red-900 transition"><i class="fas fa-tachometer-alt mr-2"></i> Dashboard</a>
+<a href="#" class="block p-3 rounded hover:bg-red-900 transition"><i class="fas fa-file-contract mr-2"></i> FIR Analysis</a>
+<a href="#" class="block p-3 rounded hover:bg-red-900 transition"><i class="fas fa-network-wired mr-2"></i> Chakravyuh-Net</a>
+<a href="#" class="block p-3 rounded hover:bg-red-900 transition"><i class="fas fa-map-marked-alt mr-2"></i> Heatmap</a>
+<a href="#" class="block p-3 rounded hover:bg-red-900 transition"><i class="fas fa-gavel mr-2"></i> Op-Conviction</a>
+</nav>
+</div>
+<div class="glass-card p-4 text-center">
+<p class="text-xs text-gold">AI STATUS: <span id="ai-status" class="text-green-400">ONLINE</span></p>
+</div>
+</div>
+<div class="main-content">
+<header class="flex justify-between items-center mb-8">
+<div>
+<h2 class="text-3xl font-bold text-white">Investigation Command</h2>
+<p class="text-gold">Operational Dashboard - UP Police Intelligence</p>
+</div>
+<div class="flex gap-4">
+<button onclick="startVoiceRecognition()" class="voice-btn bg-gold text-black px-6 py-2 rounded-full font-bold">
+<i class="fas fa-microphone"></i> Voice Command
+</button>
+</div>
+</header>
+<section class="glass-card p-6 mb-8">
+<h3 class="text-xl font-bold mb-4 text-gold"><i class="fas fa-file-signature"></i> FIR Input & AI Analysis</h3>
+<textarea id="firInput" class="w-full bg-slate-900 border border-slate-700 p-4 rounded text-white h-32 focus:border-gold outline-none" placeholder="Enter FIR content here... e.g. Robbery in a truck on highway..."></textarea>
+<button onclick="analyzeFIR()" class="mt-4 bg-police-red hover:bg-red-800 text-white px-8 py-3 rounded font-bold transition">
+Execute AI Analysis
+</button>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+<div class="glass-card p-6">
+<h3 class="text-sm uppercase text-gray-400 mb-2">Conviction Score</h3>
+<div id="conviction-score" class="text-4xl font-bold text-gold">0%</div>
+</div>
+<div class="glass-card p-6">
+<h3 class="text-sm uppercase text-gray-400 mb-2">Evidence Completeness</h3>
+<div id="evidence-meter" class="text-4xl font-bold text-blue-400">0%</div>
+</div>
+<div class="glass-card p-6">
+<h3 class="text-sm uppercase text-gray-400 mb-2">Risk Prediction</h3>
+<div id="risk-level" class="text-4xl font-bold text-red-500">LOW</div>
+</div>
+</div>
+<div id="chakravyuh-widget" class="hidden glass-card p-6 mb-8 border-gold">
+<h3 class="text-2xl font-bold text-gold mb-4 animate-pulse"><i class="fas fa-circle-nodes"></i> CHAKRAVYUH-NET CORRELATOR</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div id="network-graph" class="h-64 bg-slate-950 rounded border border-slate-700 flex items-center justify-center">
+<p class="text-slate-500">Network Topology Visualizing...</p>
+</div>
+<div id="pattern-matches" class="space-y-4">
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="glass-card p-6">
+<canvas id="crimeChart"></canvas>
+</div>
+<div class="glass-card p-6">
+<h3 class="text-xl font-bold mb-4">District Intelligence Feed</h3>
+<div id="feed" class="space-y-2"></div>
+</div>
+</div>
+</div>
+<script>
+// Analysis Engine
+function analyzeFIR() {
+const input = document.getElementById('firInput').value.toLowerCase();
+const widget = document.getElementById('chakravyuh-widget');
+if(!input) return alert("Please enter FIR details");
+// UI Feedback
+widget.classList.remove('hidden');
+document.getElementById('conviction-score').innerText = "85%";
+document.getElementById('evidence-meter').innerText = "72%";
+document.getElementById('risk-level').innerText = "CRITICAL";
+// Populate Chakravyuh
+const matches = document.getElementById('pattern-matches');
+matches.innerHTML = <div class="p-3 bg-slate-800 rounded border-l-4 border-gold"> <p class="text-gold font-bold">MATCH: INTER-DISTRICT SYNDICATE</p> <p class="text-sm">Found similar Modus Operandi in 4 recent FIRs across Ghaziabad & Meerut.</p> </div>;
+// Voice Feedback
+speak("क्रॉस डिस्ट्रिक्ट अपराध पैटर्न का विश्लेषण पूर्ण हुआ। समान Modus Operandi वाले मामलों का मिलान किया गया है। यदि आवश्यक हो तो STF तथा संबंधित जनपदों को अलर्ट जारी किया जा सकता है।");
+updateChart();
+}
+// Speech Synthesis
+function speak(text) {
+const msg = new SpeechSynthesisUtterance(text);
+msg.lang = 'hi-IN';
+window.speechSynthesis.speak(msg);
+}
+// Voice Recognition
+function startVoiceRecognition() {
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+recognition.lang = 'hi-IN';
+recognition.start();
+recognition.onresult = (event) => {
+document.getElementById('firInput').value = event.results[0][0].transcript;
+analyzeFIR();
+};
+}
+// Charting
+const ctx = document.getElementById('crimeChart').getContext('2d');
+const chart = new Chart(ctx, {
+type: 'bar',
+data: {
+labels: ['Robbery', 'Cyber', 'Theft', 'Fraud'],
+datasets: [{ label: 'Crime Incidents', data: [12, 19, 3, 5], backgroundColor: '#8b0000' }]
+},
+options: { responsive: true, plugins: { legend: { labels: { color: 'white' } } } }
+});
+function updateChart() {
+chart.data.datasets[0].data = [25, 10, 8, 12];
+chart.update();
+}
+// Initialize Feeds
+const feed = document.getElementById('feed');
+setInterval(() => {
+const item = document.createElement('div');
+item.className = "text-xs border-b border-slate-700 py-1";
+item.innerText = [${new Date().toLocaleTimeString()}] STF Dispatch: Unit 7 Active in sector 4.;
+feed.prepend(item);
+}, 5000);
+</script>
+</body>
+</html>
 
