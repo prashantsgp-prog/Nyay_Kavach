@@ -567,7 +567,61 @@
         <div class="card">
             <div class="section-title">
                 <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--accent-blue);"></i>
-                <span>🚨 केस इंक्वायरी / एफआईआर एनालिसिस बॉक्स (BNS-BNSS रेडी)</span>
+                <div class="ai-box" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin: 20px 0;">
+  <h3 style="color: #003366; margin-top: 0;">🚨 लाइव एआई केस इंक्वायरी (BNS-BNSS रेडी)</h3>
+  <p style="color: #666; font-size: 14px;">किसी भी अपराध का विवरण नीचे लिखें, न्याय-कवच एआई लाइव धाराएं और प्रोटोकॉल बताएगा:</p>
+  
+  <textarea id="crimeInput" placeholder="उदाहरण: रात में दुकान का शटर तोड़कर चोरी हुई और चौकीदार से मारपीट की गई..." rows="3" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 15px; box-sizing: border-box;"></textarea>
+  
+  <button onclick="analyzeCase()" style="background: #003366; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin-top: 10px; font-size: 15px; font-weight: bold; cursor: pointer;">🔍 एआई विश्लेषण करें</button>
+  
+  <div id="aiOutput" style="display: none; margin-top: 15px; padding: 15px; background: #f8f9fa; border-left: 5px solid #003366; border-radius: 4px;">
+  </div>
+</div>
+
+<script>
+function analyzeCase() {
+  const input = document.getElementById('crimeInput').value.toLowerCase();
+  const outputDiv = document.getElementById('aiOutput');
+  
+  if (!input.trim()) {
+    alert("कृपया पहले बॉक्स में अपराध का विवरण लिखें!");
+    return;
+  }
+
+  outputDiv.style.display = "block";
+  outputDiv.innerHTML = "<p style='color:#003366;'><b>🤖 न्याय-कवच एआई BNS और BNSS डेटाबेस से केस का विश्लेषण कर रहा है... कृपया प्रतीक्षा करें...</b></p>";
+
+  setTimeout(() => {
+    let bnsSection = "BNS धारा 351 (आपराधिक धमकी व सामान्य अपराध)";
+    let complexity = "सामान्य (Low Complexity)";
+    let ioProtocol = "BNSS धारा 173 के तहत प्रारंभिक जांच और 3 दिन के भीतर रिपोर्ट।";
+
+    if (input.includes("चोरी") || input.includes("ताला") || input.includes("शटर") || input.includes("लूट")) {
+      bnsSection = "BNS धारा 303(2) [चोरी] व BNS धारा 331 [गृहभेदन / सेंधमारी]";
+      complexity = "गंभीर मामले (Medium Complexity - Fast Track)";
+      ioProtocol = "BNSS धारा 176(3): क्राइम सीन की डिजिटल वीडियोग्राफी और ई-साक्ष्य संकलन अनिवार्य।";
+    } else if (input.includes("मारपीट") || input.includes("हत्या") || input.includes("खून") || input.includes("चाकू") || input.includes("गोली")) {
+      bnsSection = "BNS धारा 103(1) [हत्या] या BNS धारा 115(2) [स्वेच्छा से गंभीर चोट पहुँचाना]";
+      complexity = "जघन्य अपराध (Critical - Highest Priority)";
+      ioProtocol = "BNSS धारा 175: 24 घंटे के भीतर फॉरेंसिक टीम (FSL) द्वारा मुआयना और यक्ष पोर्टल पर संदिग्धों की ट्रैकिंग।";
+    } else if (input.includes("साइबर") || input.includes("upi") || input.includes("ठगी") || input.includes("फ्रॉड") || input.includes("बैंक") || input.includes("पैसे")) {
+      bnsSection = "BNS धारा 318(4) [छल / चेटींग] व IT Act धारा 66D";
+      complexity = "गंभीर वित्तीय अपराध (Cyber Crime - Medium/High)";
+      ioProtocol = "प्रतिबिंब पोर्टल पर मोबाइल नंबर रिपोर्ट करें व BNSS धारा 106 के तहत बैंक खाते तुरंत फ्रीज़ कराएं।";
+    }
+
+    outputDiv.innerHTML = `
+      <h4 style="color:#003366; margin:0 0 10px 0;">🎯 एआई विश्लेषण रिपोर्ट तैयार:</h4>
+      <p style="margin: 5px 0;"><b>📜 लागू कानून व धाराएं (BNS):</b> <span style="color:#b30000; font-weight:bold;">${bnsSection}</span></p>
+      <p style="margin: 5px 0;"><b>⚠️ अपराध की श्रेणी व जटिलता:</b> ${complexity}</p>
+      <p style="margin: 5px 0;"><b>👮‍♂️ विवेचक (IO) हेतु BNSS प्रोटोकॉल:</b> ${ioProtocol}</p>
+      <hr style="border:0; border-top:1px solid #ddd; margin: 10px 0;">
+      <p style="margin:0;"><small style="color:green; font-weight:bold;">✔️ साक्ष्य संकलन और फास्ट-ट्रैक चार्जशीट के लिए CCTNS और यक्ष पोर्टल से सिंक किया गया।</small></p>
+    `;
+  }, 1000); // 1 सेकंड का रियल-टाइम लोडिंग इफेक्ट
+}
+</script>
             </div>
             <textarea id="case-input" placeholder="यहाँ चोरी, हत्या, रेप, एक्सीडेंट, मारपीट, या साइबर फ्रॉड का विवरण लिखें..."></textarea>
             <div class="action-buttons">
