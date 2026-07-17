@@ -40,7 +40,7 @@
             display: flex;
         }
 
-        /* --- PROFESSIONAL SIDEBAR NAVIGATION --- */
+        /* --- SIDEBAR NAVIGATION --- */
         .sidebar {
             width: var(--sidebar-width);
             background: rgba(11, 37, 69, 0.95);
@@ -567,9 +567,7 @@
             color: #a8b2d1;
         }
 
-        /* ============================================================
-           MODAL POPUP SYSTEM STYLING 
-           ============================================================ */
+        /* MODAL POPUP SYSTEM STYLING */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -658,6 +656,16 @@
             font-size: 13.5px;
             border-left: 4px solid var(--police-red);
             line-height: 1.6;
+        }
+
+        /* Calculation Glow Animation */
+        .calc-glow {
+            animation: glow-flash 0.5s ease-out;
+        }
+        @keyframes glow-flash {
+            0% { box-shadow: 0 0 0px var(--gold); background: rgba(212,175,55,0.1); }
+            50% { box-shadow: 0 0 15px var(--gold); background: rgba(212,175,55,0.3); }
+            100% { box-shadow: 0 0 0px var(--gold); background: rgba(11, 37, 69, 0.4); }
         }
     </style>
 </head>
@@ -755,7 +763,7 @@
                     <button class="btn btn-demo" onclick="calculateWorkload()" style="border-style: solid; padding: 8px 20px;">
                         <i class="fa-solid fa-square-poll-vertical"></i> इंडेक्स की गणना करें
                     </button>
-                    <div id="calc-result" onclick="openVivechnaModal()" style="font-weight: 600; font-size: 1.1rem; color: var(--gold); letter-spacing: 0.5px; cursor: pointer; background: rgba(11, 37, 69, 0.4); padding: 6px 12px; border-radius: 6px; border: 1px dashed rgba(212,175,55,0.3);">
+                    <div id="calc-result" onclick="openVivechnaModal()" style="font-weight: 600; font-size: 1.1rem; color: var(--gold); letter-spacing: 0.5px; cursor: pointer; background: rgba(11, 37, 69, 0.4); padding: 6px 12px; border-radius: 6px; border: 1px dashed rgba(212,175,55,0.3); transition: all 0.3s ease;">
                         कार्यभार सूचकांक: -- (विवेचना सूची हेतु क्लिक करें)
                     </div>
                 </div>
@@ -909,33 +917,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="card" style="text-align: center; background: rgba(15, 34, 61, 0.6); border: 1px solid rgba(212, 175, 55, 0.3);">
-                <div class="section-title" style="justify-content: center; border: none;">
-                    <i class="fa-solid fa-route" style="color: var(--gold);"></i>
-                    <span>न्याय-कवच क्विक एक्सेस (Quick Navigation Portal)</span>
-                </div>
-                
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 10px;">
-                    <div>
-                        <a href="map.html" style="display: inline-block; padding: 12px 24px; background-color: #1e3a8a; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 280px; text-align: center; border: 1px solid var(--accent-blue);">
-                            🌐 Open Live Investigation Map
-                        </a>
-                    </div>
-                    
-                    <div>
-                        <a href="charts.html" style="display: inline-block; padding: 12px 24px; background-color: #10b981; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 280px; text-align: center; border: 1px solid #a7f3d0;">
-                            📊 Open Case Analytics & Graphics
-                        </a>
-                    </div>
-
-                    <div>
-                        <a href="report.html" style="display: inline-block; padding: 12px 24px; background-color: #ef4444; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 280px; text-align: center; border: 1px solid #fca5a5;">
-                            ✍️ Register Complaint
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 
@@ -963,7 +944,7 @@
             </div>
             
             <div class="profile-desc">
-                <strong>अपराधी का नाम:</strong> रमेश कुमार उर्फ "जग्गू"<br>
+                <strong>अपраधी का नाम:</strong> रमेश कुमार उर्फ "जग्गू"<br>
                 <strong>सक्रिय इतिहास:</strong> 04 संगीन मामले (लूट, हजरतगंज क्षेत्र)<br>
                 <strong>अंतिम जियो-लोकेशन:</strong> हजरतगंज चौराहा, लखनऊ<br>
                 <strong>वर्तमान स्थिति:</strong> फरार (Yaksh ट्रैकर अलर्ट ऑन)
@@ -1019,9 +1000,7 @@
     </div>
 
     <script>
-        // ============================================================
-        // MODAL SYSTEMS JAVASCRIPT LOGIC WITH DYNAMIC VOICE SUPPORT
-        // ============================================================
+        // Standard Hoisted Functions (Avoids scoping issues with HTML inline onclicks)
         function openYakshModal() {
             document.getElementById('yakshModal').style.display = 'flex';
         }
@@ -1030,38 +1009,43 @@
             document.getElementById('yakshModal').style.display = 'none';
         }
 
-        // Modified function to pop up list AND trigger AI Assistant voice summary
         function openVivechnaModal() {
             document.getElementById('vivechnaModal').style.display = 'flex';
-            
-            // Structured voice string for Hazratganj cases
             var voiceText = "थाना हज़रतगंज की चार मुख्य लंबित विवेचनाएं इस प्रकार हैं। पहला, मुकदम नंबर 124, साइबर फ्रॉड मामला। बैंक खाता फ्रीज कर डिजिटल ट्रेल की जांच जारी है। दूसरा, मुकदम नंबर 145, नौकरी फर्जीवाड़ा मामला। फर्जी दस्तावेज फोरेंसिक लैब भेजे गए हैं। तीसरा, मुकदम नंबर 160, हज़रतगंज चौराहा उपद्रव मामला। सीसीटीवी फुटेज से 15 उपद्रवियों की पहचान हो चुकी है। चौथा, मुकदम नंबर 178, व्हाट्सएप रंगदारी मामला। सर्विलांस सेल द्वारा संदिग्ध लोकेशन ट्रैक की जा रही है।";
-            
-            // Triggers SI Kavach to speak
-            window.speakReport(voiceText);
+            speakReport(voiceText);
         }
 
         function closeVivechnaModal() {
             document.getElementById('vivechnaModal').style.display = 'none';
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Stop talking if user closes popup
+                window.speechSynthesis.cancel();
             }
         }
 
-        // Close modals when clicking the outside dark region
-        window.addEventListener('click', function(event) {
-            var yakshModal = document.getElementById('yakshModal');
-            var vivechnaModal = document.getElementById('vivechnaModal');
-            if (event.target == yakshModal) {
-                yakshModal.style.display = 'none';
-            }
-            if (event.target == vivechnaModal) {
-                vivechnaModal.style.display = 'none';
-                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
-            }
-        });
+        // Calculate Workload Function
+        function calculateWorkload() {
+            var cases = parseInt(document.getElementById('calc-cases').value) || 0;
+            var complexity = parseInt(document.getElementById('calc-complexity').value);
+            var resultBox = document.getElementById('calc-result');
+            
+            var totalScore = cases * complexity;
+            var status = "सामान्य (Normal)";
 
-        window.speakReport = function(speechText) {
+            if (totalScore >= 12) { status = "अत्यधिक कार्यभार (Critical)"; }
+            else if (totalScore >= 6) { status = "मध्यम दबाव"; }
+
+            if(resultBox) {
+                resultBox.innerHTML = 'सूचकांक: ' + totalScore + ' | ' + status + ' 🔍';
+                
+                // Visual response animation trigger
+                resultBox.classList.remove('calc-glow');
+                void resultBox.offsetWidth; // Trigger reflow
+                resultBox.classList.add('calc-glow');
+            }
+        }
+
+        // Global voice engine setup
+        function speakReport(speechText) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 var utterance = new SpeechSynthesisUtterance(speechText);
@@ -1090,19 +1074,19 @@
                 };
                 window.speechSynthesis.speak(utterance);
             }
-        };
+        }
 
-        window.loadDemo = function() {
+        function loadDemo() {
             var demoText = "एक महिला पीड़िता ने थाने आकर शिकायत की है कि एक नामजद आरोपी ने नशीला पदार्थ पिलाकर उसके साथ जबरन दुष्कर्म (Rape) किया और किसी को बताने पर जान से मारने की धमकी दी।";
             document.getElementById('case-input').value = demoText;
             document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-info"></i> महिला अपराध का डेमो केस लोड हो गया! अब "एआई विश्लेषण करें" पर क्लिक करें।';
             document.getElementById('ai-status').style.color = '#00f0ff';
-        };
+        }
 
-        window.analyzeCase = function() {
+        function analyzeCase() {
             var input = document.getElementById('case-input').value.trim();
             if(!input) {
-                alert("कृपया पहले एफआईआर या केस का विवरण बॉक्स में लिखें! (जैसे: चोरी, मारपीट, हत्या या साइबर ठगी)");
+                alert("कृपया पहले एफआईआर या केस का विवरण बॉक्स में लिखें!");
                 return;
             }
 
@@ -1123,35 +1107,33 @@
                 var tagText = "प्रायोरिटी एक्टिव";
                 var targetDays = "30 दिन";
 
-                // 1. Rape / Sexual Assault / Women Safety
                 if (lowerInput.indexOf("rape") !== -1 || lowerInput.indexOf("रेप") !== -1 || lowerInput.indexOf("balatkar") !== -1 || lowerInput.indexOf("बलात्कार") !== -1 || lowerInput.indexOf("dushkarm") !== -1 || lowerInput.indexOf("दुष्कर्म") !== -1 || lowerInput.indexOf("छेड़खानी") !== -1 || lowerInput.indexOf("महिला") !== -1) {
                     laws = [
-                        "<strong>बीएनएस धारा 64(1):</strong> बलात्कार (Rape) के लिए कठोर कारावास (10 वर्ष से आजीवन कारावास)।",
-                        "<strong>बीएनएस धारा 74:</strong> महिला की लज्जा भंग करने के इरादे से हमला या आपराधिक बल प्रयोग।",
-                        "<strong>बीएनएस धारा 351(2):</strong> जान से मारने या चोट पहुँचाने की धमकी देना।"
+                        "<strong>बीएनएस धारा 64(1):</strong> बलात्कार (Rape) के लिए कठोर कारावास।",
+                        "<strong>बीएनएस धारा 74:</strong> महिला की लज्जा भंग करने के इरादे से हमला।",
+                        "<strong>बीएनएस धारा 351(2):</strong> जान से मारने की धमकी देना।"
                     ];
                     steps = [
-                        "<strong>पीड़िता का मेडिकल (BNSS धारा 184):</strong> 24 घंटे के भीतर सरकारी महिला चिकित्सक द्वारा मेडिकल जांच अनिवार्य कराएं।",
-                        "<strong>मजिस्ट्रेट बयान (BNSS धारा 183):</strong> महिला पुलिस अधिकारी की मौजूदगी में न्यायिक मजिस्ट्रेट के समक्ष धारा 163/183 का बयान तुरंत दर्ज कराएं।",
-                        "<strong>वीडियो रिकॉर्डिंग (BNSS धारा 176):</strong> पीड़िता के बयानों की ऑडियो-वीडियो इलेक्ट्रॉनिक रिकॉर्डिंग सुरक्षित करें।"
+                        "<strong>पीड़िता का मेडिकल (BNSS धारा 184):</strong> 24 घंटे के भीतर सरकारी महिला चिकित्सक द्वारा जांच अनिवार्य।",
+                        "<strong>मजिस्ट्रेट बयान (BNSS धारा 183):</strong> न्यायिक मजिस्ट्रेट के समक्ष बयान तुरंत दर्ज कराएं।",
+                        "<strong>वीडियो रिकॉर्डिंग (BNSS धारा 176):</strong> पीड़िता के बयानों की इलेक्ट्रॉनिक रिकॉर्डिंग सुरक्षित करें।"
                     ];
                     score = "98% (संवेदनशील)";
                     progress = "98%";
                     convictionStatus = '<span style="color:var(--danger)"><i class="fa-solid fa-shield-halved"></i> महिला सुरक्षा स्पेशल ट्रैक</span>';
                     tagText = "प्रायोरिटी #2 (महिला सुरक्षा)";
-                    targetDays = "60 दिन (कानूनी सीमा)";
+                    targetDays = "60 दिन";
                 } 
-                // 2. Murder / Homicide
-                else if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1 || lowerInput.indexOf("shav") !== -1 || lowerInput.indexOf("चाकू") !== -1 || lowerInput.indexOf("गोली") !== -1) {
+                else if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1 || lowerInput.indexOf("चाकू") !== -1 || lowerInput.indexOf("गोली") !== -1) {
                     laws = [
-                        "<strong>बीएनएस धारा 103(1):</strong> हत्या (Murder) के लिए निर्धारित दंड (आजीवन कारावास या मृत्युदंड)।",
+                        "<strong>बीएनएस धारा 103(1):</strong> हत्या (Murder) के लिए दंड।",
                         "<strong>बीएनएस धारा 61(2):</strong> आपराधिक षड्यंत्र रचना (Criminal Conspiracy)।",
-                        "<strong>बीएनएस धारा 238:</strong> साक्ष्यों को मिटाना या झूठी सूचना देना।"
+                        "<strong>बीएनएस धारा 238:</strong> साक्ष्यों को मिटाना।"
                     ];
                     steps = [
-                        "<strong>अनिवार्य FSL जांच (BNSS धारा 176):</strong> 7 वर्ष से अधिक सजा वाले अपराधों में फॉरेंसिक टीम (FSL) द्वारा साक्ष्य एकत्र करना अनिवार्य है।",
-                        "<strong>हथियार बरामदगी मेमो:</strong> वारदात में प्रयुक्त हथियार (Weapon of Offence) बरामद कर पंचनामा इलेक्ट्रॉनिक साक्ष्य के साथ बनाएं।",
-                        "<strong>शव का पंचनामा (BNSS धारा 194):</strong> शव का तत्काल इनक्वेस्ट (Inquest Report) तैयार कर पोस्टमार्टम हेतु भिजवाएं।"
+                        "<strong>अनिवार्य FSL जांच (BNSS धारा 176):</strong> फॉरेंसिक टीम (FSL) द्वारा साक्ष्य एकत्र करना अनिवार्य है।",
+                        "<strong>हथियार बरामदगी मेमो:</strong> वारदात में प्रयुक्त हथियार बरामद कर पंचनामा बनाएं।",
+                        "<strong>शव का पंचनामा (BNSS धारा 194):</strong> तत्काल इनक्वेस्ट रिपोर्ट तैयार कर पोस्टमार्टम कराएं।"
                     ];
                     score = "95% (जघन्य अपराध)";
                     progress = "95%";
@@ -1159,17 +1141,16 @@
                     tagText = "प्रायोरिटी #1 (ऑपरेशन कनविक्शन)";
                     targetDays = "30 दिन";
                 } 
-                // 3. Theft / Robbery / Dacoity
-                else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("चोरी") !== -1 || lowerInput.indexOf("लूट") !== -1 || lowerInput.indexOf("डकैती") !== -1 || lowerInput.indexOf("ताला") !== -1 || lowerInput.indexOf("शटर") !== -1) {
+                else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("चोरी") !== -1 || lowerInput.indexOf("लूट") !== -1 || lowerInput.indexOf("डकैती") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 303(2):</strong> चोरी के लिए वैधानिक दंड प्रावधान।",
                         "<strong>बीएनएस धारा 309:</strong> जबरन लूटपाट (Robbery) करना।",
-                        "<strong>बीएनएस धारा 317:</strong> चोरी की संपत्ति को जानते हुए बरामदगी में छिपाना।"
+                        "<strong>बीएनएस धारा 317:</strong> चोरी की संपत्ति को बरामदगी में छिपाना।"
                     ];
                     steps = [
-                        "<strong>ई-एफआईआर सत्यापन (BNSS धारा 173):</strong> इलेक्ट्रॉनिक माध्यम से मिली सूचना का 3 दिन के भीतर सत्यापन कर एफआईआर रजिस्टर करें।",
-                        "<strong>सर्च एवं सीज़र वीडियोग्राफी (BNSS धारा 185):</strong> तलाशी और माल की जब्ती के समय पूरी प्रक्रिया की ऑडियो-वीडियो रिकॉर्डिंग अनिवार्य रूप से करें।",
-                        "<strong>मोडस ऑपरेंडी चेक:</strong> यक्ष ऐप डेटाबेस में एक्टिव नकबजनों की हिस्ट्री शीट फिल्टर करें।"
+                        "<strong>ई-एफआईआर सत्यापन (BNSS धारा 173):</strong> 3 दिन के भीतर सत्यापन कर एफआईआर रजिस्टर करें।",
+                        "<strong>सर्च एवं सीज़र वीडियोग्राफी (BNSS धारा 185):</strong> तलाशी के समय ऑडियो-वीडियो रिकॉर्डिंग अनिवार्य रूप से करें।",
+                        "<strong>मोडस ऑपरेंडी चेक:</strong> यक्ष ऐप डेटाबेस में एक्टिव नकबजनों की हिस्ट्री चेक करें।"
                     ];
                     score = "75%";
                     progress = "75%";
@@ -1177,67 +1158,14 @@
                     tagText = "प्रायॉरीटी #5 (संपत्ति रिकवरी)";
                     targetDays = "60 दिन";
                 } 
-                // 4. Accident / Rash Driving / Hit and Run
-                else if (lowerInput.indexOf("accident") !== -1 || lowerInput.indexOf("एक्सीडेंट") !== -1 || lowerInput.indexOf("takkar") !== -1 || lowerInput.indexOf("टक्कर") !== -1 || lowerInput.indexOf("hit and run") !== -1) {
-                    laws = [
-                        "<strong>बीएनएस धारा 281:</strong> सार्वजनिक मार्ग पर उतावलेपन या लापरवाही से वाहन चलाना।",
-                        "<strong>बीएनएस धारा 106(1):</strong> लापरवाही से वाहन चलाकर किसी की मृत्यु कारित करना।",
-                        "<strong>बीएनएस धारा 106(2):</strong> हिट एंड रन (घटना के बाद पुलिस को सूचना दिए बिना भागना - 10 साल तक की सजा)।"
-                    ];
-                    steps = [
-                        "<strong>घटनास्थल का नक्शा नजरी (BNSS धारा 185):</strong> दुर्घटनास्थल की फोटो/वीडियो लेकर डिजिटल साइट-मैप तैयार करें।",
-                        "<strong>वाहन जब्ती एवं मैकेनिकल निरीक्षण:</strong> दुर्घटनाग्रस्त वाहन को कस्टडी में लेकर तत्काल आरटीओ/मैकेनिक रिपोर्ट लें।",
-                        "<strong>सीसीटीवी एवं डैशकैम फुटेज:</strong> मार्ग पर लगे ट्रैफिक कैमरों के डिजिटल साक्ष्य सुरक्षित करें।"
-                    ];
-                    score = "82%";
-                    progress = "82%";
-                    convictionStatus = 'रोड सेफ्टी एक्सीडेंट ट्रैक';
-                    tagText = "प्रायोरिटी #9 (सड़क सुरक्षा)";
-                    targetDays = "45 दिन";
-                }
-                // 5. Assault / Fight / Physical Hurt
-                else if (lowerInput.indexOf("marpeet") !== -1 || lowerInput.indexOf("मारपीट") !== -1 || lowerInput.indexOf("chot") !== -1 || lowerInput.indexOf("चोट") !== -1 || lowerInput.indexOf("gali") !== -1 || lowerInput.indexOf("झगड़ा") !== -1 || lowerInput.indexOf("हमला") !== -1) {
-                    laws = [
-                        "<strong>बीएनएस धारा 115:</strong> स्वेच्छा से किसी को साधारण चोट (Hurt) पहुँचाना।",
-                        "<strong>बीएनएस धारा 117:</strong> किसी को गंभीर चोट (Grievous Hurt/हड्डी टूटना) पहुँचाना।",
-                        "<strong>बीएनएस धारा 352:</strong> शांति भंग करने के इरादे से जानबूझकर अपमान या गाली देना।"
-                    ];
-                    steps = [
-                        "<strong>डॉक्टरी मुलाहजा (Medical Report):</strong> पीड़ित का तत्काल नजदीकी स्वास्थ्य केंद्र में डॉक्टरी परीक्षण (इंजरी रिपोर्ट) कराएं।",
-                        "<strong>गवाहों के बयान (BNSS धारा 179):</strong> चश्मदीद गवाहों के बयान मौके पर मोबाइल या लिखित रूप में तुरंत दर्ज करें।",
-                        "<strong>शांति भंग पाबंदी:</strong> आरोपियों के खिलाफ भविष्य में झगड़ा रोकने हेतु निरोधात्मक कार्रवाई सुनिश्चित करें।"
-                    ];
-                    score = "70%";
-                    progress = "70%";
-                    convictionStatus = 'शांति व्यवस्था सामान्य ट्रैक';
-                    tagText = "प्रायोरिटी #4 (कानून व्यवस्था)";
-                    targetDays = "30 दिन";
-                }
-                // 6. Cyber Fraud / Cheating / UPI Fraud
-                else if (lowerInput.indexOf("cyber") !== -1 || lowerInput.indexOf("upi") !== -1 || lowerInput.indexOf("ठगी") !== -1 || lowerInput.indexOf("फ्रॉड") !== -1 || lowerInput.indexOf("बैंक") !== -1 || lowerInput.indexOf("पैसे") !== -1) {
-                    laws = [
-                        "<strong>बीएनएस धारा 318(4):</strong> धोखाधड़ी (Cheating) करना और बेईमानी से संपत्ति ट्रांसफर कराना।",
-                        "<strong>आईटी एक्ट धारा 66D:</strong> कंप्यूटर/मोबाइल रिसोर्स का छद्मरूप में उपयोग कर फ्रॉड।"
-                    ];
-                    steps = [
-                        "<strong>वित्तीय होल्ड (BNSS धारा 107):</strong> साइबर सेल के माध्यम से नोडल बैंक अधिकारियों को मेल भेजकर फ्रॉड राशि तुरंत होल्ड कराएं।",
-                        "<strong>प्रतिबिंब पोर्टल:</strong> संदेहास्पद मोबाइल नंबर और आईएमईआई (IMEI) की लाइव जियोफेंसिंग ट्रैक सक्रिय करें।"
-                    ];
-                    score = "88% (डिजिटल साक्ष्य)";
-                    progress = "88%";
-                    convictionStatus = 'साइबर अपराध ट्रैक';
-                    tagText = "साइबर फ्रॉड Case Data";
-                    targetDays = "90 दिन";
-                }
-                // 7. General Fallback
                 else {
                     laws = [
                         "<strong>बीएनएस धारा 351:</strong> आपराधिक धमकी व सामान्य अपराध के प्रावधान।",
-                        "<strong>बीएनएस धारा 223:</strong> लोक सेवक द्वारा दिए गए आदेश की अवज्ञा करना।"
+                        "<strong>बीएनएस धारा 223:</strong> लोक सेवक के आदेश की अवज्ञा।"
                     ];
                     steps = [
-                        "<strong>प्रारंभिक जांच (BNSS धारा 173):</strong> घटना की सत्यता जांचने हेतु 3 दिन के भीतर प्रारंभिक जांच पूरी करें।",
-                        "<strong>CCTNS सिंक:</strong> मामला दर्ज कर साक्ष्य संकलन हेतु CCTNS पोर्टल पर विवरण अपलोड करें।"
+                        "<strong>प्रारंभिक जांच (BNSS धारा 173):</strong> 3 दिन के भीतर जांच पूरी करें।",
+                        "<strong>CCTNS सिंक:</strong> साक्ष्य संकलन हेतु CCTNS पोर्टल पर विवरण अपलोड करें।"
                     ];
                     score = "75% (सामान्य जांच)";
                     progress = "75%";
@@ -1256,12 +1184,12 @@
                 document.getElementById('target-days').innerText = targetDays;
 
                 var cleanLawsText = laws.map(function(l) { return l.replace(/<\/?[^>]+(>|$)/g, ""); }).join(', ');
-                window.speakReport("केस का विश्लेषण पूर्ण हो गया है। लागू कानून इस प्रकार हैं: " + cleanLawsText);
+                speakReport("केस का विश्लेषण पूर्ण हो गया है।");
 
             }, 800);
-        };
+        }
 
-        // Voice Input Control
+        // Voice Input Control (Web Speech API)
         var recognition;
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1277,13 +1205,13 @@
                 }
                 document.getElementById('case-input').value = transcript;
             };
-            recognition.onerror = function() { window.stopVoice(); };
+            recognition.onerror = function() { stopVoice(); };
         }
 
-        window.startVoice = function() {
+        function startVoice() {
             if (window.speechSynthesis) window.speechSynthesis.cancel();
             if(!recognition) {
-                alert("आपका ब्राउज़र वॉइस सपोर्ट नहीं करता। कृपया गूगल क्रोम का उपयोग करें।");
+                alert("आपका ब्राउज़र वॉइस सपोर्ट नहीं करता।");
                 return;
             }
             recognition.start();
@@ -1291,41 +1219,35 @@
             document.getElementById('stop-record-btn').style.display = 'flex';
             document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-microphone-lines fa-bounce"></i> सुन रहा हूँ... बोलिए...';
             document.getElementById('ai-status').style.color = '#ffaa00';
-        };
+        }
 
-        window.stopVoice = function() {
+        function stopVoice() {
             if(recognition) recognition.stop();
             if (window.speechSynthesis) window.speechSynthesis.cancel();
             document.getElementById('start-record-btn').style.display = 'flex';
             document.getElementById('stop-record-btn').style.display = 'none';
             document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-check"></i> वॉइस कमांड रोक दी गई है।';
             document.getElementById('ai-status').style.color = '#00ff88';
-        };
+        }
 
-        window.calculateWorkload = function() {
-            var cases = parseInt(document.getElementById('calc-cases').value) || 0;
-            var complexity = parseInt(document.getElementById('calc-complexity').value);
-            var resultBox = document.getElementById('calc-result');
-            var totalScore = cases * complexity;
-            var status = "सामान्य (Normal)";
-
-            if (totalScore >= 12) { status = "अत्यधिक कार्यभार (Critical)"; }
-            else if (totalScore >= 6) { status = "मध्यम दबाव"; }
-
-            if(resultBox) {
-                resultBox.innerHTML = 'सूचकांक: ' + totalScore + ' | ' + status + ' 🔍';
-            }
-        };
-
-        window.logoutUser = function() {
+        function logoutUser() {
             if(confirm("क्या आप सुरक्षित रूप से लॉग आउट करना चाहते हैं?")) {
-                localStorage.clear();
-                sessionStorage.clear();
-                alert("आप सफलतापूर्वक लॉग आउट हो गए हैं!");
-                window.location.href = "index.html";
+                alert("लॉग आउट सफल!");
             }
-        };
+        }
 
+        // Windows click configuration for modals dismissal
+        window.addEventListener('click', function(event) {
+            var yakshModal = document.getElementById('yakshModal');
+            var vivechnaModal = document.getElementById('vivechnaModal');
+            if (event.target == yakshModal) yakshModal.style.display = 'none';
+            if (event.target == vivechnaModal) {
+                vivechnaModal.style.display = 'none';
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            }
+        });
+
+        // Setup DOM loaded logic and Chart implementation
         document.addEventListener("DOMContentLoaded", function () {
             const ctx = document.getElementById('nyayKavachChart');
             if (ctx) {
@@ -1334,7 +1256,7 @@
                     data: {
                         labels: ['गलत BNS धाराएं', 'अपूर्ण जब्ती रिपोर्ट', 'विलंब (>90 दिन)', 'नाम/वर्तनी त्रुटि', 'हस्ताक्षर गायब'],
                         datasets: [{
-                            label: 'संशोधित त्रुटियां (Errors Caught)',
+                            label: 'संशोधित त्रुटियां',
                             data: [38, 24, 11, 29, 18],
                             backgroundColor: [
                                 'rgba(220, 38, 38, 0.85)',   
@@ -1350,30 +1272,16 @@
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false }
-                        },
+                        plugins: { legend: { display: false } },
                         scales: {
-                            y: {
-                                beginAtZero: true,
-                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
-                                ticks: {
-                                    color: '#a8b2d1',
-                                    font: { family: 'Poppins', size: 11 }
-                                }
-                            },
-                            x: {
-                                grid: { display: false },
-                                ticks: {
-                                    color: '#a8b2d1',
-                                    font: { family: 'Poppins', size: 10 }
-                                }
-                            }
+                            y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#a8b2d1' } },
+                            x: { grid: { display: false }, ticks: { color: '#a8b2d1' } }
                         }
                     }
                 });
             }
-            setTimeout(function() { window.calculateWorkload(); }, 300);
+            // Trigger initial calculation right after initialization
+            setTimeout(function() { calculateWorkload(); }, 300);
         });
     </script>
 </body>
