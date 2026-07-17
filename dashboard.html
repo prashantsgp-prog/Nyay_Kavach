@@ -594,7 +594,7 @@
             color: #a8b2d1;
         }
 
-        /* --- FAKE INTERACTIVE MAP GRAPHICS --- */
+        /* --- INTERACTIVE MAP GRAPHICS --- */
         .map-mock-bg {
             background: radial-gradient(circle, #0c2b4e 10%, #050b14 80%);
             height: 350px;
@@ -921,7 +921,7 @@
                     <span class="priority-tag" id="priority-tag-text">प्रायोरिटी एक्टिव</span>
                 </div>
                 <p style="color: #c5d1eb; font-size: 0.95rem; margin-bottom: 15px;">
-                    <strong>डीजीपी यूपी विशेष निर्देश:</strong> नए BNS/BNSS कानूनों के तहत फ़ास्ट-ट्रैक साक्ष्य प्रबंधन और <strong>यक्ष ऐप / प्रतिबिंब portal</strong> से संदिग्धों की रियल-टाइम निगरानी।
+                    <strong>डीजीपी यूपी निर्देश:</strong> नए BNS/BNSS कानूनों के तहत फ़ास्ट-ट्रैक साक्ष्य प्रबंधन और <strong>यक्ष ऐप / प्रतिबिंब portal</strong> से संदिग्धों की रियल-टाइम निगरानी।
                 </p>
 
                 <div class="priority-grid">
@@ -1033,7 +1033,7 @@
                     </div>
                     <div class="nk-insight-card">
                         <h3><i class="fa-solid fa-ban"></i> तकनीकी दोषमुक्ति रोकथाम</h3>
-                        <p>न्यायालयों में अधिकतर केस दस्तावेजी त्रुटियों या गायब साक्ष्यों के कारण कमजोर होते हैं। यह एआई मॉड्यूल उसे 100% अभेद्य बनाता है।</p>
+                        <p>न्यायालयों में अधिकतर केसेस दस्तावेजी त्रुटियों या गायब साक्ष्यों के कारण कमजोर होते हैं। यह एआई मॉड्यूल उसे 100% अभेद्य बनाता है।</p>
                     </div>
                 </div>
             </div>
@@ -1059,7 +1059,7 @@
                     <span style="font-size: 11px; color: var(--success); font-weight: bold;">Match</span>
                 </div>
                 <div class="criminal-box">
-                    <img src="criminal2.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200'" alt="CCTNS Criminal Database Profile">
+                    <img src="criminal2.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200'" alt="CCTNS Database Record">
                     <p>CCTNS Photo Record</p>
                 </div>
             </div>
@@ -1114,7 +1114,7 @@
                         <span>⚖️ धारा: 308(2), 351(2) BNS</span>
                     </div>
                     <strong style="color: #fff; font-size: 1rem; display: block; margin-bottom: 4px;">4. रंगदारी और जान से मारने की धमकी (Extortion Threat)</strong>
-                    <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.5;"><strong>विवेचना की स्थिति:</strong> सर्विलांस सेल की मदद से वर्चुअल नंबर का IP एड्रेस और कॉल CDR (Call Detail Record) ट्रेस कर लिया गया है। संदिग्ध लोकेशन के आधार पर पुलिस टीम रवाना की गई है।</p>
+                    <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.5;"><strong>विवेचना की स्थिति:</strong> सर्विलांस सेल की मदद से वर्चुअल नंबर का IP एड्रेस और कॉल CDR ट्रेस कर लिया गया है। संदिग्ध लोकेशन के आधार पर पुलिस टीम रवाना की गई है।</p>
                 </div>
             </div>
         </div>
@@ -1208,6 +1208,7 @@
             document.getElementById('ai-status').style.color = '#00f0ff';
         }
 
+        // REFACTORED ANALYZE FUNCTION FOR DETAILED VOICE REPORT
         function analyzeCase() {
             var input = document.getElementById('case-input').value.trim();
             if(!input) {
@@ -1231,6 +1232,9 @@
                 var convictionStatus = '<i class="fa-solid fa-gavel"></i> फास्ट-ट्रैक योग्य';
                 var tagText = "प्रायोरिटी एक्टिव";
                 var targetDays = "30 दिन";
+                
+                // Base text to be spoken by AI
+                var voiceReportText = "केस का विश्लेषण पूर्ण हो गया है। ";
 
                 if (lowerInput.indexOf("rape") !== -1 || lowerInput.indexOf("रेप") !== -1 || lowerInput.indexOf("balatkar") !== -1 || lowerInput.indexOf("बलात्कार") !== -1 || lowerInput.indexOf("dushkarm") !== -1 || lowerInput.indexOf("दुष्कर्म") !== -1 || lowerInput.indexOf("छेड़खानी") !== -1 || lowerInput.indexOf("महिला") !== -1) {
                     laws = [
@@ -1248,6 +1252,8 @@
                     convictionStatus = '<span style="color:var(--danger)"><i class="fa-solid fa-shield-halved"></i> महिला सुरक्षा स्पेशल ट्रैक</span>';
                     tagText = "प्रायोरिटी #2 (महिला सुरक्षा)";
                     targetDays = "60 दिन";
+                    
+                    voiceReportText += "यह महिला सुरक्षा से जुड़ा एक संवेदनशील मामला है। इस केस में भारतीय न्याय संहिता की धारा 64 उपधारा 1, धारा 74 और धारा 351 उपधारा 2 के तहत कार्रवाई बनती है। विवेचना अधिकारी के लिए आवश्यक कदम इस प्रकार हैं: पहला, बी एन एस एस धारा 184 के तहत 24 घंटे के भीतर पीड़िता का मेडिकल टेस्ट कराएं। दूसरा, बी एन एस एस धारा 183 के तहत मजिस्ट्रेट के समक्ष बयान दर्ज कराएं। तीसरा, पीड़िता के बयानों की वीडियो रिकॉर्डिंग सुरक्षित करें।";
                 } 
                 else if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1 || lowerInput.indexOf("चाकू") !== -1 || lowerInput.indexOf("गोली") !== -1) {
                     laws = [
@@ -1265,6 +1271,8 @@
                     convictionStatus = 'जघन्य अपराध ट्रैक एक्टिव';
                     tagText = "प्रायोरिटी #1 (ऑपरेशन कनविक्शन)";
                     targetDays = "30 दिन";
+
+                    voiceReportText += "यह एक जघन्य अपराध यानी हत्या का मामला है। इसमें बी एन एस की धारा 103 उपधारा 1, धारा 61 उपधारा 2 और धारा 238 लागू होती हैं। ऑपरेशन कनविक्शन के तहत इसके आवश्यक कदम ये हैं: पहला, बी एन एस एस धारा 176 के तहत फोरेंसिक टीम द्वारा साक्ष्य जुटाना अनिवार्य है। दूसरा, वारदात में इस्तेमाल हथियार बरामद कर मेमो तैयार करें। तीसरा, इनक्वेस्ट रिपोर्ट बनाकर शव को तुरंत पोस्टमार्टम के लिए भेजें।";
                 } 
                 else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("चोरी") !== -1 || lowerInput.indexOf("लूट") !== -1 || lowerInput.indexOf("डकैती") !== -1) {
                     laws = [
@@ -1282,6 +1290,8 @@
                     convictionStatus = 'संपत्ति अपराध ट्रैक';
                     tagText = "प्रायॉरीटी #5 (संपत्ति रिकवरी)";
                     targetDays = "60 दिन";
+
+                    voiceReportText += "यह चोरी या लूटपाट का संपत्ति संबंधी अपराध है। इसमें बी एन एस की धारा 303, 309 और 317 के तहत कार्रवाई की जाएगी। जांच प्रोटोकॉल के अनुसार: पहला, बी एन एस एस धारा 173 के तहत तीन दिन में सत्यापन कर एफआईआर दर्ज करें। दूसरा, बी एन एस एस धारा 185 के तहत तलाशी की वीडियोग्राफी करें। तीसरा, यक्ष ऐप पर पुराने अपराधियों की मोडस ऑपरेंडी चेक करें।";
                 } 
                 else {
                     laws = [
@@ -1297,6 +1307,8 @@
                     convictionStatus = 'सामान्य इन्वेस्टिगेशन ट्रैक';
                     tagText = "सामान्य केस DATA";
                     targetDays = "30 दिन";
+
+                    voiceReportText += "यह एक सामान्य श्रेणी का अपराध है। इसमें बी एन एस की धारा 351 और 223 लागू हो सकती हैं। कृपया बी एन एस एस धारा 173 के तहत प्रारंभिक जांच तीन दिन में पूरी कर साक्ष्य सी सी टी एन एस पोर्टल पर अपलोड करें।";
                 }
 
                 document.getElementById('laws-list').innerHTML = laws.map(function(l) { return '<li>' + l + '</li>'; }).join('');
@@ -1308,7 +1320,8 @@
                 document.getElementById('priority-tag-text').innerText = tagText;
                 document.getElementById('target-days').innerText = targetDays;
 
-                speakReport("केस का विश्लेषण पूर्ण हो गया है।");
+                // Trigger complete audio report
+                speakReport(voiceReportText);
 
             }, 800);
         }
@@ -1360,7 +1373,6 @@
             }
         }
 
-        // Windows click configuration for modals dismissal
         window.addEventListener('click', function(event) {
             var yakshModal = document.getElementById('yakshModal');
             var vivechnaModal = document.getElementById('vivechnaModal');
@@ -1371,7 +1383,6 @@
             }
         });
 
-        // Setup DOM loaded logic and Chart implementation
         document.addEventListener("DOMContentLoaded", function () {
             const ctx = document.getElementById('nyayKavachChart');
             if (ctx) {
@@ -1404,10 +1415,8 @@
                     }
                 });
             }
-            // Trigger initial calculation right after initialization
             setTimeout(function() { calculateWorkload(); }, 300);
 
-            // Handle sidebar active link toggle based on hash scrolling
             const navLinks = document.querySelectorAll('.sidebar-nav .nav-item');
             navLinks.forEach(link => {
                 link.addEventListener('click', function() {
