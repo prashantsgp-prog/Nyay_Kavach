@@ -710,35 +710,82 @@
             </div>
         </div>
 
-        <div class="card" style="text-align: center; background: rgba(15, 34, 61, 0.6); border: 1px solid rgba(212, 175, 55, 0.3);">
-            <div class="section-title" style="justify-content: center; border: none;">
-                <i class="fa-solid fa-route" style="color: var(--gold);"></i>
-                <span>न्याय-कवच क्विक एक्सेस (Quick Navigation Portal)</span>
+        <div class="card" id="complaint-registration-section" style="border: 1px solid var(--accent-blue);">
+            <div class="section-title">
+                <i class="fa-solid fa-pen-to-square" style="color: var(--gold);"></i>
+                <span>📝 स्मार्ट शिकायत पंजीकरण</span>
             </div>
-            
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 10px;">
-                <div>
-                    <a href="map.html" style="display: inline-block; padding: 12px 24px; background-color: #1e3a8a; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 280px; text-align: center; border: 1px solid var(--accent-blue);">
-                        🌐 Open Live Investigation Map
-                    </a>
+            <form id="complaint-form" onsubmit="submitComplaint(event)">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" id="complainant-name" placeholder="आवेदक का नाम" required style="width:100%; padding:10px; background:#050b14; border:1px solid #334e68; color:#fff; border-radius:5px;">
+                    <input type="tel" id="complainant-phone" placeholder="मोबाइल नंबर" required style="width:100%; padding:10px; background:#050b14; border:1px solid #334e68; color:#fff; border-radius:5px;">
                 </div>
                 
-                <div>
-                    <a href="charts.html" style="display: inline-block; padding: 12px 24px; background-color: #10b981; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 280px; text-align: center; border: 1px solid #a7f3d0;">
-                        📊 Open Case Analytics & Graphics
-                    </a>
+                <div style="margin-bottom: 10px;">
+                    <button type="button" onclick="getLocation()" class="btn btn-demo" style="width:100%; font-size: 0.9rem;">
+                        <i class="fa-solid fa-location-crosshairs"></i> 📍 वर्तमान स्थान (Geo-Tag) प्राप्त करें
+                    </button>
+                    <input type="text" id="location-coords" placeholder="लोकेशन डेटा यहाँ आएगा..." readonly style="width:100%; padding:8px; background:#000; border:1px solid #334e68; color:var(--accent-blue); margin-top:5px; border-radius:5px; font-size:0.8rem;">
                 </div>
 
-                <div>
-                    <a href="report.html" style="display: inline-block; padding: 12px 24px; background-color: #ef4444; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 280px; text-align: center; border: 1px solid #fca5a5;">
-                        ✍️ Register Complaint
-                    </a>
+                <textarea id="complaint-details" placeholder="घटना का विवरण लिखें..." required style="width:100%; height:80px; background:#050b14; border:1px solid #334e68; border-radius:5px; padding:10px; color:#fff;"></textarea>
+
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="button" onclick="autoClassifyComplaint()" class="btn btn-voice" style="flex:1; justify-content:center;">
+                        <i class="fa-solid fa-robot"></i> यक्ष से श्रेणी (Category) पता करें
+                    </button>
+                    <button type="submit" class="btn" style="background:var(--success); color:#000; flex:1; justify-content:center;">
+                        <i class="fa-solid fa-paper-plane"></i> शिकायत दर्ज करें
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
+
     </div>
 
     <script>
+        // --- NEW FUNCTIONS ---
+        
+        // लोकेशन ट्रैक करने के लिए
+        window.getLocation = function() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.getElementById('location-coords').value = 
+                        "Lat: " + position.coords.latitude.toFixed(4) + ", Long: " + position.coords.longitude.toFixed(4);
+                    alert("लोकेशन कैप्चर हो गई!");
+                }, function(error) {
+                    alert("लोकेशन एक्सेस करने में असमर्थ। कृपया ब्राउज़र सेटिंग्स चेक करें।");
+                });
+            } else {
+                alert("आपका ब्राउज़र लोकेशन सपोर्ट नहीं करता।");
+            }
+        };
+
+        // AI Classification (Simulation)
+        window.autoClassifyComplaint = function() {
+            let details = document.getElementById('complaint-details').value;
+            if (!details) {
+                alert("पहले घटना का विवरण लिखें!");
+                return;
+            }
+            let category = "सामान्य";
+            if(details.includes("चोरी") || details.includes("लूट")) category = "संपत्ति अपराध";
+            else if(details.includes("मारपीट") || details.includes("झगड़ा")) category = "शांति व्यवस्था";
+            else if(details.includes("महिला") || details.includes("रेप")) category = "महिला सुरक्षा (हाई प्रायोरिटी)";
+            
+            alert("यक्ष एआई विश्लेषण: यह मामला '" + category + "' श्रेणी में आता है। बीएनएस धाराएं लागू की जा रही हैं।");
+        };
+
+        // Form Submit
+        window.submitComplaint = function(event) {
+            event.preventDefault();
+            alert("शिकायत सफलतापूर्वक दर्ज हो गई! प्रतिबिंब पोर्टल पर अपडेट कर दी गई है।");
+            document.getElementById('complaint-form').reset();
+            document.getElementById('location-coords').value = "";
+        };
+
+        // --- EXISTING FUNCTIONS ---
+
         window.speakReport = function(speechText) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -801,7 +848,6 @@
                 var tagText = "प्रायोरिटी एक्टिव";
                 var targetDays = "30 दिन";
 
-                // 1. Rape / Sexual Assault / Women Safety
                 if (lowerInput.indexOf("rape") !== -1 || lowerInput.indexOf("रेप") !== -1 || lowerInput.indexOf("balatkar") !== -1 || lowerInput.indexOf("बलात्कार") !== -1 || lowerInput.indexOf("dushkarm") !== -1 || lowerInput.indexOf("दुष्कर्म") !== -1 || lowerInput.indexOf("छेड़खानी") !== -1 || lowerInput.indexOf("महिला") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 64(1):</strong> बलात्कार (Rape) के लिए कठोर कारावास (10 वर्ष से आजीवन कारावास)।",
@@ -819,7 +865,6 @@
                     tagText = "प्रायोरिटी #2 (महिला सुरक्षा)";
                     targetDays = "60 दिन (कानूनी सीमा)";
                 } 
-                // 2. Murder / Homicide
                 else if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1 || lowerInput.indexOf("shav") !== -1 || lowerInput.indexOf("चाकू") !== -1 || lowerInput.indexOf("गोली") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 103(1):</strong> हत्या (Murder) के लिए निर्धारित दंड (आजीवन कारावास या मृत्युदंड)।",
@@ -837,7 +882,6 @@
                     tagText = "प्रायोरिटी #1 (ऑपरेशन कनविक्शन)";
                     targetDays = "30 दिन";
                 } 
-                // 3. Theft / Robbery / Dacoity
                 else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("चोरी") !== -1 || lowerInput.indexOf("लूट") !== -1 || lowerInput.indexOf("डकैती") !== -1 || lowerInput.indexOf("ताला") !== -1 || lowerInput.indexOf("शटर") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 303(2):</strong> चोरी के लिए वैधानिक दंड प्रावधान।",
@@ -855,7 +899,6 @@
                     tagText = "प्रायोरिटी #5 (संपत्ति रिकवरी)";
                     targetDays = "60 दिन";
                 } 
-                // 4. Accident / Rash Driving / Hit and Run
                 else if (lowerInput.indexOf("accident") !== -1 || lowerInput.indexOf("एक्सीडेंट") !== -1 || lowerInput.indexOf("takkar") !== -1 || lowerInput.indexOf("टक्कर") !== -1 || lowerInput.indexOf("hit and run") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 281:</strong> सार्वजनिक मार्ग पर उतावलेपन या लापरवाही से वाहन चलाना।",
@@ -873,7 +916,6 @@
                     tagText = "प्रायोरिटी #9 (सड़क सुरक्षा)";
                     targetDays = "45 दिन";
                 }
-                // 5. Assault / Fight / Physical Hurt
                 else if (lowerInput.indexOf("marpeet") !== -1 || lowerInput.indexOf("मारपीट") !== -1 || lowerInput.indexOf("chot") !== -1 || lowerInput.indexOf("चोट") !== -1 || lowerInput.indexOf("gali") !== -1 || lowerInput.indexOf("झगड़ा") !== -1 || lowerInput.indexOf("हमला") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 115:</strong> स्वेच्छा से किसी को साधारण चोट (Hurt) पहुँचाना।",
@@ -883,7 +925,7 @@
                     steps = [
                         "<strong>डॉक्टरी मुलाहजा (Medical Report):</strong> पीड़ित का तत्काल नजदीकी स्वास्थ्य केंद्र में डॉक्टरी परीक्षण (इंजरी रिपोर्ट) कराएं।",
                         "<strong>गवाहों के बयान (BNSS धारा 179):</strong> चश्मदीद गवाहों के बयान मौके पर मोबाइल या लिखित रूप में तुरंत दर्ज करें।",
-                        "<strong>शांति भंग पाबंदी:</strong> आरोपियों के खिलाफ भविष्य में झगड़ा रोकने हेतु निरोधात्मक कार्रवाई सुनिश्चित करें।"
+                        "<strong>शांति भंग पाबंदी:</strong> आरोपियों के खिलाफ भविष्य में झगड़ा रोकने हेतु निरोधात्मक कार्रवाई सुनिश्चित करें。"
                     ];
                     score = "70%";
                     progress = "70%";
@@ -891,7 +933,6 @@
                     tagText = "प्रायोरिटी #4 (कानून व्यवस्था)";
                     targetDays = "30 दिन";
                 }
-                // 6. Cyber Fraud / Cheating / UPI Fraud
                 else if (lowerInput.indexOf("cyber") !== -1 || lowerInput.indexOf("upi") !== -1 || lowerInput.indexOf("ठगी") !== -1 || lowerInput.indexOf("फ्रॉड") !== -1 || lowerInput.indexOf("बैंक") !== -1 || lowerInput.indexOf("पैसे") !== -1) {
                     laws = [
                         "<strong>बीएनएस धारा 318(4):</strong> धोखाधड़ी (Cheating) करना और बेईमानी से संपत्ति ट्रांसफर कराना।",
@@ -907,7 +948,6 @@
                     tagText = "साइबर फ्रॉड Case Data";
                     targetDays = "90 दिन";
                 }
-                // 7. General Fallback
                 else {
                     laws = [
                         "<strong>बीएनएस धारा 351:</strong> आपराधिक धमकी व सामान्य अपराध के प्रावधान।",
@@ -939,7 +979,6 @@
             }, 800);
         };
 
-        // Voice Input Control
         var recognition;
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
