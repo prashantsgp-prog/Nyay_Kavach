@@ -2,18 +2,19 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <title>Nyaya-Kavach | UP Police</title>
+    <title>Nyaya-Kavach AI | UP Police Portal</title>
     <style>
         :root { --up-blue: #002e6e; --up-gold: #ffb300; --up-red: #c62828; }
         
         body { 
             margin: 0; 
             position: relative; 
-            background: linear-gradient(rgba(10, 15, 29, 0.85), rgba(10, 15, 29, 0.85)), 
+            /* Background me default hq.jpg rahega aur JS se har 6 second me change hoga */
+            background: linear-gradient(rgba(10, 15, 29, 0.88), rgba(10, 15, 29, 0.88)), 
                         url('hq.jpg') no-repeat center center fixed;
             background-size: cover;
             color: white; 
-            font-family: sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
@@ -21,58 +22,63 @@
             min-height: 100vh; 
             padding: 15px; 
             box-sizing: border-box;
+            transition: background-image 1.5s ease-in-out; /* Background badalteen waqt smooth animation */
         }
         
         /* Logo & Header */
-        .logo { width: 100px; margin-bottom: 5px; } /* Logo thoda bada kiya */
-        h1 { color: var(--up-gold); font-size: 28px; margin: 0; text-transform: uppercase; letter-spacing: 1.5px; } /* Heading badi ki */
-        .desc { color: #ccc; font-size: 14px; margin-bottom: 20px; text-align: center; max-width: 400px; line-height: 1.5; }
+        .logo { width: 90px; margin-bottom: 5px; filter: drop-shadow(0 0 10px rgba(255,179,0,0.4)); }
+        h1 { color: var(--up-gold); font-size: 28px; margin: 0; text-transform: uppercase; letter-spacing: 1.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+        .desc { color: #ccc; font-size: 14px; margin-bottom: 15px; text-align: center; max-width: 450px; line-height: 1.5; }
 
         /* VIP Container */
-        .vip-container { display: flex; gap: 25px; margin-bottom: 20px; justify-content: center; flex-wrap: wrap; }
-        .vip-box { text-align: center; max-width: 150px; }
-        .vip-box img { width: 80px; height: 80px; border: 2.5px solid var(--up-gold); border-radius: 50%; object-fit: cover; background: #333; box-shadow: 0 4px 8px rgba(0,0,0,0.5); }
+        .vip-container { display: flex; gap: 25px; margin-bottom: 15px; justify-content: center; flex-wrap: wrap; }
+        .vip-box { text-align: center; max-width: 140px; transition: transform 0.3s; }
+        .vip-box:hover { transform: translateY(-5px); }
+        .vip-box img { width: 75px; height: 75px; border: 2.5px solid var(--up-gold); border-radius: 50%; object-fit: cover; background: #333; box-shadow: 0 4px 10px rgba(0,0,0,0.6); }
         
         /* VIP Formatting */
-        .label { font-size: 12px; color: #fff; margin-top: 6px; font-weight: bold; line-height: 1.3; }
+        .label { font-size: 11.5px; color: #fff; margin-top: 6px; font-weight: bold; line-height: 1.3; }
         .label span { color: var(--up-gold); display: block; font-weight: normal; font-size: 11px; margin-top: 2px; }
 
         /* ==========================================
-           BADA LOGIN CARD (UPDATED SIZE & PADDING)
+           BADA LOGIN CARD (UPDATED WITH EXTRA FIELDS)
            ========================================== */
         .login-card { 
-            background: rgba(0, 46, 110, 0.65); /* Thoda jyada readable kiya background */
-            padding: 35px 40px; /* Padding badhakar bada kiya */
-            border-radius: 24px; /* Border corners smooth kiye */
-            border: 2.5px solid var(--up-gold); 
-            width: 400px; /* Pehle 300px tha, ab 400px kar diya */
+            background: rgba(0, 46, 110, 0.75); 
+            padding: 30px 35px; 
+            border-radius: 20px; 
+            border: 2px solid var(--up-gold); 
+            width: 420px; 
             text-align: center; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-            backdrop-filter: blur(6px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
             margin-top: 5px; 
-            box-sizing: border-box; /* Padding alignment theek rakhne ke liye */
+            box-sizing: border-box; 
         }
         
-        /* Inputs Bade Kiye */
-        input[type="text"], input[type="password"] { 
-            width: 100%; /* Form ke pure size me fit hoga */
+        /* Inputs & Dropdowns Bade Kiye */
+        input[type="text"], input[type="password"], select { 
+            width: 100%; 
             box-sizing: border-box;
-            padding: 13px 15px; /* Height badhane ke liye padding */
-            margin: 8px 0; 
-            font-size: 15px; /* Text thoda bada kiya */
-            background: #000; 
+            padding: 12px 14px; 
+            margin: 6px 0; 
+            font-size: 14.5px; 
+            background: rgba(0, 0, 0, 0.85); 
             border: 1.5px solid var(--up-gold); 
             color: white; 
             border-radius: 8px; 
             outline: none; 
         }
-        input[type="text"]:focus, input[type="password"]:focus { border-color: #fff; }
+        input[type="text"]:focus, input[type="password"]:focus, select:focus { border-color: #fff; box-shadow: 0 0 8px rgba(255,179,0,0.5); }
         
+        /* Dropdown options text color fix */
+        select option { background: #001e47; color: white; padding: 10px; }
+
         /* Buttons Bade Kiye */
         button { 
             width: 100%; 
-            padding: 13px; /* Touch target aur look bada karne ke liye */
-            font-size: 16px; /* Bold aur bada font */
+            padding: 12px; 
+            font-size: 15px; 
             background: var(--up-red); 
             color: white; 
             border: none; 
@@ -80,20 +86,23 @@
             font-weight: bold; 
             cursor: pointer; 
             transition: 0.2s; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        button:hover { opacity: 0.9; }
+        button:hover { background: #e53935; box-shadow: 0 0 12px rgba(198, 40, 40, 0.6); }
         
         /* Bada Captcha Display */
         #captcha-display { 
-            font-size: 24px; /* Pehle 20px tha */
+            font-size: 22px; 
             font-weight: bold; 
             letter-spacing: 6px; 
             color: var(--up-gold); 
             background: #000; 
-            padding: 10px; 
-            border: 1.5px solid var(--up-gold); 
-            margin: 10px 0; 
+            padding: 8px; 
+            border: 1.5px dashed var(--up-gold); 
+            margin: 8px 0; 
             border-radius: 8px;
+            user-select: none;
         }
 
         /* Checkbox Text Size */
@@ -101,8 +110,8 @@
             display: flex;
             align-items: center;
             justify-content: flex-start;
-            margin: 12px 0 16px 5px;
-            font-size: 13.5px; /* Thoda readable kiya */
+            margin: 10px 0 14px 5px;
+            font-size: 13px; 
             color: #ddd;
             cursor: pointer;
             user-select: none;
@@ -110,73 +119,106 @@
         .checkbox-container input {
             margin-right: 8px;
             cursor: pointer;
-            width: 16px; /* Checkbox box ka size bada kiya */
+            width: 16px; 
             height: 16px;
             accent-color: var(--up-gold);
         }
 
-        /* Police Theme Live Clock Styling */
-        .top-police-clock {
+        /* Top Bar with Clock & AI Status */
+        .top-bar-container {
             position: absolute;
             top: 15px;
+            left: 15px;
             right: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .ai-status-badge {
+            font-size: 12px;
+            font-weight: bold;
+            color: #00ff80;
+            background: rgba(0, 33, 71, 0.9);
+            border: 1px solid #00ff80;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+        }
+
+        .blink-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #00ff80;
+            border-radius: 50%;
+            display: inline-block;
+            animation: blink 1.2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* Police Theme Live Clock Styling */
+        .top-police-clock {
             font-size: 13px; 
             font-weight: bold; 
             color: #FFFFFF; 
-            background-color: #002147; 
+            background-color: rgba(0, 33, 71, 0.9); 
             border-left: 4px solid #C8102E; 
             padding: 6px 12px; 
             border-radius: 4px; 
-            font-family: 'Segoe UI', Arial, sans-serif;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-            z-index: 1000;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
             white-space: nowrap;
         }
 
         /* Mobile Screens ke liye Scaling settings */
         @media (max-width: 480px) {
-            .login-card {
-                width: 100%; /* Mobile par full screen size adjust kar lega */
-                padding: 25px 20px;
-            }
-            .top-police-clock {
-                font-size: 10px;
-                top: 10px;
-                right: 10px;
-                padding: 4px 8px;
-                border-left-width: 3px;
-            }
-            body {
-                padding-top: 60px;
-            }
+            .login-card { width: 100%; padding: 20px 15px; }
+            .top-bar-container { flex-direction: column; gap: 8px; align-items: center; top: 8px; }
+            body { padding-top: 80px; }
+            .vip-container { gap: 10px; }
+            .vip-box { max-width: 100px; }
+            .vip-box img { width: 60px; height: 60px; }
         }
     </style>
 </head>
 <body>
 
-    <div id="live-clock" class="top-police-clock">Loading...</div>
+    <div class="top-bar-container">
+        <div class="ai-status-badge">
+            <span class="blink-dot"></span> AI Engine: ONLINE | CCTNS Connected
+        </div>
+        <div id="live-clock" class="top-police-clock">Loading...</div>
+    </div>
 
-    <img src="logo.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png'" class="logo">
+    <img src="logo.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/b/bc/Uttar_Pradesh_Police_Seal.png'" class="logo" alt="UP Police Logo">
     <h1>NYAYA-KAVACH AI</h1>
     <p class="desc">Smart AI-driven portal for UP Police to analyze crime records, manage case files, and provide real-time investigation assistance.</p>
 
     <div class="vip-container">
         <div class="vip-box">
-            <img src="pm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg'">
+            <img src="pm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c3/Narendra_Modi_2023.jpg'" alt="PM Modi">
             <div class="label">
                 1- SHRI NARENDRA MODI
                 <span>Hon'ble Prime Minister India</span>
             </div>
         </div>
         <div class="vip-box">
-            <img src="cm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg'">
+            <img src="cm.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/e/e0/Yogi_Adityanath.jpg'" alt="CM Yogi">
             <div class="label">
                 2- YOGI ADITYANATH
                 <span>Hon'ble Chief Minister Uttar Pradesh</span>
             </div>
         </div>
         <div class="vip-box">
-            <img src="dgp.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Rajeev_Krishna.jpg/300px-Rajeev_Krishna.jpg'">
+            <img src="dgp.jpg" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Rajeev_Krishna.jpg/300px-Rajeev_Krishna.jpg'" alt="DGP UP">
             <div class="label">
                 3- RAJEEV KRISHNA
                 <span style="font-weight: bold; color: #fff; margin: 2px 0;">(IPS)</span>
@@ -186,22 +228,49 @@
     </div>
 
     <div class="login-card">
-        <input type="text" placeholder="Officer ID" id="officer-id">
-        <input type="password" placeholder="Password" id="officer-password">
+        <input type="text" placeholder="PNO / Officer CUG ID (e.g. admin)" id="officer-id" required>
+        
+        <select id="officer-dept">
+            <option value="">-- Select Department / Wing --</option>
+            <option value="stf">Special Task Force (STF)</option>
+            <option value="cyber">Cyber Crime Branch</option>
+            <option value="civil">Civil Police / Thana Level</option>
+            <option value="ai">AI & Data Analytics Cell</option>
+        </select>
+
+        <input type="password" placeholder="Password (e.g. admin)" id="officer-password" required>
         
         <div id="captcha-display">------</div>
-        <button style="background:var(--up-blue);" onclick="generateCaptcha()">Generate Captcha</button>
-        <input type="text" placeholder="Enter Captcha" id="user-captcha">
+        <button type="button" style="background:var(--up-blue); margin-bottom: 6px;" onclick="generateCaptcha()">↻ Generate Captcha</button>
+        <input type="text" placeholder="Enter Captcha" id="user-captcha" required>
         
         <label class="checkbox-container">
-            <input type="checkbox" id="remember-me"> मुझे याद रखें / Remember Me
+            <input type="checkbox" id="remember-me"> मुझे याद रखें / Remember Me (2FA OTP)
         </label>
         
-        <button onclick="checkLogin()">LOGIN</button>
+        <button type="button" onclick="checkLogin()">SECURE LOGIN</button>
     </div>
 
     <script>
-        // === CAPTCHA GENERATION ===
+        // === 1. AUTOMATIC BACKGROUND IMAGE SLIDER (Har 6 Second me Badlega) ===
+        const backgroundImages = [
+            'hq.jpg', // Aapki original image
+            'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1920&q=80', // Police/Justice Theme 1
+            'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1920&q=80', // Legal/Shield Theme 2
+            'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1920&q=80'  // Dark Cyber Security Theme 3
+        ];
+        
+        let currentBgIndex = 0;
+        function startBackgroundSlider() {
+            setInterval(() => {
+                currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
+                const nextImage = backgroundImages[currentBgIndex];
+                // Linear gradient overlay wahi rahega, sirf image URL badlega
+                document.body.style.backgroundImage = `linear-gradient(rgba(10, 15, 29, 0.88), rgba(10, 15, 29, 0.88)), url('${nextImage}')`;
+            }, 6000); // 6000 miliseconds = 6 Seconds
+        }
+
+        // === 2. CAPTCHA GENERATION ===
         function generateCaptcha() {
             const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             let captcha = "";
@@ -209,26 +278,38 @@
             document.getElementById('captcha-display').innerText = captcha;
         }
 
-        // === LOGIN VALIDATION ===
+        // === 3. LOGIN VALIDATION (With Department Check) ===
         function checkLogin() {
-            const id = document.getElementById('officer-id').value;
-            const pass = document.getElementById('officer-password').value;
-            const uCaptcha = document.getElementById('user-captcha').value;
+            const id = document.getElementById('officer-id').value.trim();
+            const dept = document.getElementById('officer-dept').value;
+            const pass = document.getElementById('officer-password').value.trim();
+            const uCaptcha = document.getElementById('user-captcha').value.trim();
             const rCaptcha = document.getElementById('captcha-display').innerText;
+
+            if (id === "" || pass === "") {
+                alert("कृपया Officer ID और Password दोनों दर्ज करें!");
+                return;
+            }
+
+            if (dept === "") {
+                alert("कृपया अपना Department / Wing सेलेक्ट करें!");
+                return;
+            }
 
             if (id === "admin" && pass === "admin") {
                 if (uCaptcha === rCaptcha) {
+                    alert("Swagat hai! Connecting to UP Police CCTNS Server...");
                     window.location.href = 'dashboard.html';
                 } else {
-                    alert("गलत Captcha!");
+                    alert("गलत Captcha! कृपया सही कोड डालें।");
                     generateCaptcha(); 
                 }
             } else {
-                alert("गलत Officer ID या Password!");
+                alert("गलत Officer ID या Password! (Hint: admin / admin का उपयोग करें)");
             }
         }
 
-        // === ENGLISH LIVE CLOCK ===
+        // === 4. ENGLISH LIVE CLOCK ===
         function startLiveClock() {
             setInterval(() => {
                 const now = new Date();
@@ -252,6 +333,7 @@
         window.addEventListener("DOMContentLoaded", () => {
             generateCaptcha();
             startLiveClock();
+            startBackgroundSlider(); // Background slider ko chalu karne ke liye
         });
     </script>
 </body>
