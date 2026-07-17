@@ -829,7 +829,7 @@
             </div>
             <div class="status-badges">
                 <span class="badge"><i class="fa-solid fa-robot"></i> एआई अवतार एक्टिव</span>
-                <span class="badge" id="offline-badge" style="border-color: #00ff88; color: #00ff88;"><i class="fa-solid fa-wifi"></i> रूरल ऑफलाइन मोड रेडी</span>
+                <span class="badge" id="offline-badge" style="border-color: #00ff88; color: #00ff88;"><i class="fa-solid fa-wifi"></i> नेटवर्क चेक हो रहा है...</span>
                 <span class="badge gold-badge"><i class="fa-solid fa-star"></i> यूपी पुलिस BNS/BNSS इंटीग्रेटेड</span>
             </div>
         </div>
@@ -1310,6 +1310,21 @@
             document.getElementById('ai-status').style.color = '#00f0ff';
         }
 
+        // --- OFFLINE/ONLINE FEATURE ---
+        function updateNetworkStatus() {
+            const badge = document.getElementById('offline-badge');
+            if (navigator.onLine) {
+                badge.innerHTML = '<i class="fa-solid fa-wifi"></i> CCTNS ऑनलाइन सिंक';
+                badge.style.borderColor = '#00ff88'; badge.style.color = '#00ff88';
+            } else {
+                badge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> रूरल ऑफलाइन मोड सक्रिय';
+                badge.style.borderColor = '#ffaa00'; badge.style.color = '#ffaa00';
+            }
+        }
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        updateNetworkStatus();
+
         // --- NEW FEATURE 3: BAIL PREDICTOR LOGIC ---
         function updateBailRisk() {
             var checkboxes = document.querySelectorAll('#evidence-checklist-box input[type="checkbox"]');
@@ -1436,7 +1451,7 @@
                         "क्या इस जघन्य अपराध में कोई अन्य साथी या षड्यंत्रकारी भी शामिल था?",
                         "वारदात के बाद खून से सने कपड़े और साक्ष्य कहाँ छुपाए या नष्ट किए गए?"
                     ];
-                    timeline = '<div class="timeline-item"><strong>क्राइम सीन (0 घंटा):</strong> घटना की सूचना प्राप्त होते ही पुलिस टीम व FSL का घटनास्थल पर पहुंचना।</div><div class="timeline-item"><strong>साक्ष्य संकलन:</strong> हथियार बरामदगी और घटनास्थल की वीडियोग्राफी (BNSS 185)।</div><div class="timeline-item"><strong>पोस्टमार्टम:</strong> शव का इनक्वेस्ट रिपोर्ट तैयार कर डॉक्टर पैनल से पोस्टमार्टम।</div>';
+                    timeline = '<div class="timeline-item"><strong>क्राइम सीन (0 घंटा):</strong> घटना की सूचना प्राप्त होते ही पुलिस टीम व FSL का घटनास्थल पर पहुंचना।</div><div class="timeline-item"><strong>साक्ष्य संकलन:</strong> हथियार बरामदगी और घटनास्थल की वीडियोग्राफी (BNSS 185)。</div><div class="timeline-item"><strong>पोस्टमार्टम:</strong> शव का इनक्वेस्ट रिपोर्ट तैयार कर डॉक्टर पैनल से पोस्टमार्टम।</div>';
 
                     score = "95% (जघन्य अपराध)";
                     progress = "95%";
@@ -1450,12 +1465,12 @@
                     laws = [
                         "<strong>बीएनएस धारा 303(2):</strong> चोरी के लिए वैधानिक दंड प्रावधान।",
                         "<strong>बीएनएस धारा 309:</strong> जबरन लूटपाट (Robbery) करना।",
-                        "<strong>बीएनएस धारा 317:</strong> चोरी की संपत्ति को बरामदगी में छिपाना।"
+                        "<strong>बीएनएस धारा 317:</strong> चोरी की संपत्ति को बरामदगी में छिपाना。"
                     ];
                     steps = [
                         "<strong>ई-एफआईआर सत्यापन (BNSS धारा 173):</strong> 3 दिन के भीतर सत्यापन कर एफआईआर रजिस्टर करें।",
                         "<strong>सर्च एवं सीज़र वीडियोग्राफी (BNSS धारा 185):</strong> तलाशी के समय ऑडियो-वीडियो रिकॉर्डिंग अनिवार्य रूप से करें।",
-                        "<strong>मोडस ऑपरेंडी चेक:</strong> यक्ष ऐप डेटाबेस में एक्टिव नकबजनों की हिस्ट्री चेक करें।"
+                        "<strong>मोडस ऑपरेंडी चेक:</strong> यक्ष ऐप डेटाबेस में एक्टिव नकबजनों की हिस्ट्री चेक करें。"
                     ];
                     questions = [
                         "चोरी या लूट की संपत्ति (गहने, कैश, वाहन) वर्तमान में किस स्थान पर या किस कबाड़ी को बेची गई है?",
@@ -1480,7 +1495,7 @@
                     ];
                     steps = [
                         "<strong>प्रारंभिक जांच (BNSS धारा 173):</strong> 3 दिन के भीतर जांच पूरी करें।",
-                        "<strong>CCTNS सिंक:</strong> साक्ष्य संकलन हेतु CCTNS पोर्टल पर विवरण अपलोड करें।"
+                        "<strong>CCTNS सिंक:</strong> साक्ष्य संकलन हेतु CCTNS पोर्टल पर विवरण अपलोड करें。"
                     ];
                     questions = [
                         "विवाद का मुख्य कारण और दोनों पक्षों के बीच पुराना संबंध क्या है?",
@@ -1570,16 +1585,6 @@
                 vivechnaModal.style.display = 'none';
                 if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             }
-        });
-
-        // --- NEW FEATURE 6: OFFLINE MODE MONITORING ---
-        window.addEventListener('online', function() {
-            var badge = document.getElementById('offline-badge');
-            if(badge) { badge.style.borderColor = '#00ff88'; badge.style.color = '#00ff88'; badge.innerHTML = '<i class="fa-solid fa-wifi"></i> CCTNS ऑनलाइन सिंक'; }
-        });
-        window.addEventListener('offline', function() {
-            var badge = document.getElementById('offline-badge');
-            if(badge) { badge.style.borderColor = '#ffaa00'; badge.style.color = '#ffaa00'; badge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> रूरल ऑफलाइन मोड सक्रिय'; }
         });
 
         document.addEventListener("DOMContentLoaded", function () {
