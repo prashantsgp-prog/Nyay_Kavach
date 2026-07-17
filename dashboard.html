@@ -4,315 +4,1093 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>न्याय-कवच एआई | यूपी पुलिस स्मार्ट डैशबोर्ड</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-    
+
     <style>
-        :root { 
-            --bg-dark: #050b14; 
-            --card-bg: #0f223d; 
-            --gold: #d4af37; 
-            --accent-blue: #00f0ff; 
-            --success-green: #00ff88;
-            --danger-red: #ff3366;
-            --text-white: #ffffff; 
-            --text-muted: #a8b2d1;
+        :root {
+            --police-red: #dc2626;
+            --police-blue: #0b2545;
+            --accent-blue: #00f0ff;
+            --gold: #d4af37;
+            --gold-glow: rgba(212, 175, 55, 0.4);
+            --bg-dark: #050b14;
+            --card-bg: #0f223d;
+            --border-color: rgba(212, 175, 55, 0.4);
+            --text-light: #ffffff;
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --danger: #ff3366;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg-dark); color: var(--text-white); font-family: 'Poppins', sans-serif; padding: 20px; line-height: 1.6; }
-        
-        /* Layout Grid */
-        .header-banner { text-align: center; padding: 20px; background: linear-gradient(135deg, #0b1d3a 0%, #050b14 100%); border: 2px solid var(--gold); border-radius: 15px; margin-bottom: 25px; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
-        .header-banner h1 { font-family: 'Rajdhani', sans-serif; font-size: 2.5rem; color: var(--gold); letter-spacing: 2px; }
-        .header-banner p { color: var(--accent-blue); font-size: 1.1rem; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin-bottom: 25px; }
-        .card { background: var(--card-bg); border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 15px; padding: 25px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); transition: 0.3s; }
-        .card:hover { border-color: var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
-        
-        .section-title { font-size: 1.3rem; color: var(--gold); margin-bottom: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
-        
-        /* AI Assistant Section */
-        .ai-assistant-box { display: flex; align-items: center; gap: 20px; background: rgba(0, 240, 255, 0.05); padding: 15px; border-radius: 10px; border: 1px dashed var(--accent-blue); }
-        .ai-avatar { font-size: 3rem; color: var(--gold); animation: pulse 2s infinite; }
-        
-        /* Chart Styles */
-        .chart-wrapper { width: 100%; max-width: 320px; height: 320px; margin: 0 auto; cursor: pointer; }
-        
-        /* Legal Cards (From Screenshot) */
-        .legal-list { list-style: none; }
-        .legal-list li { margin-bottom: 12px; font-size: 0.95rem; background: rgba(0,0,0,0.3); padding: 10px; border-left: 3px solid var(--gold); border-radius: 4px; }
-        .legal-list li b { color: var(--accent-blue); }
+        body {
+            background-color: var(--bg-dark);
+            background-image: linear-gradient(135deg, #050b14 0%, #0b2545 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-        /* Form & Buttons */
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: var(--text-muted); font-size: 0.9rem; }
-        input, textarea, select { width: 100%; padding: 12px; background: #050b14; border: 1px solid #334e68; color: #fff; border-radius: 8px; font-family: inherit; font-size: 0.95rem; }
-        input:focus, textarea:focus { outline: none; border-color: var(--accent-blue); }
-        
-        .btn { padding: 12px 20px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; font-size: 1rem; }
-        .btn-gold { background: var(--gold); color: #000; }
-        .btn-gold:hover { background: #e5c158; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
-        .btn-blue { background: var(--accent-blue); color: #000; width: 100%; justify-content: center; margin-top: 10px; }
-        .btn-blue:hover { background: #33f3ff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.5); }
+        .top-police-strip {
+            height: 6px;
+            background: linear-gradient(90deg, var(--police-red) 0%, var(--police-red) 50%, #0040ff 50%, #0040ff 100%);
+            border-radius: 5px 5px 0 0;
+        }
 
-        /* Modal Overlay (New Page Effect) */
-        #details-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 11, 20, 0.98); z-index: 9999; padding: 40px; overflow-y: auto; backdrop-filter: blur(10px); }
-        .modal-content { max-width: 800px; margin: 0 auto; background: var(--card-bg); border: 2px solid var(--gold); border-radius: 15px; padding: 30px; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
-        
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .header {
+            text-align: center;
+            padding: 25px;
+            background: #0b2545;
+            border: 2px solid var(--gold);
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .up-logo-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 3rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .header p {
+            font-size: 1.15rem;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .status-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(0, 240, 255, 0.15);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge.gold-badge {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            display: block !important;
+        }
+
+        .avatar-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            border-left: 6px solid var(--police-red);
+            border-right: 6px solid #0040ff;
+            background: #11294a;
+        }
+
+        .avatar-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .avatar-icon {
+            width: 85px;  
+            height: 85px;
+            background: linear-gradient(135deg, var(--gold), var(--police-red));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; 
+            border: 3px solid var(--gold); 
+        }
+
+        .ai-avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+
+        .voice-controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 22px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-voice {
+            background: #0040ff;
+            border: 1px solid var(--accent-blue);
+            color: #fff;
+        }
+
+        .btn-voice:hover {
+            background: var(--accent-blue);
+            color: #000;
+        }
+
+        .btn-stop {
+            background: var(--police-red);
+            border: 1px solid #ff6680;
+            color: #fff;
+            display: none;
+        }
+
+        .btn-logout {
+            background: #800000;
+            border: 1px solid var(--gold);
+            color: #fff;
+        }
+        .btn-logout:hover {
+            background: var(--police-red);
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            padding-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            background: #050b14;
+            border: 1px solid #334e68;
+            border-radius: 10px;
+            padding: 15px;
+            color: #fff;
+            font-size: 1.05rem;
+            resize: vertical;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        textarea:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .btn-demo {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px dashed var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-demo:hover {
+            background: rgba(212, 175, 55, 0.25);
+            color: #fff;
+        }
+
+        .btn-analyze {
+            background: var(--gold);
+            color: #000;
+            font-size: 1.1rem;
+            padding: 12px 35px;
+            font-weight: 700;
+        }
+
+        .btn-analyze:hover {
+            background: #f3e5ab;
+        }
+
+        .priority-box {
+            border: 2px solid var(--accent-blue);
+            background: #11294a;
+            position: relative;
+        }
+
+        .priority-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .priority-tag {
+            background: linear-gradient(90deg, var(--police-red), #0040ff);
+            color: #fff;
+            font-weight: 700;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            border: 1px solid var(--gold);
+        }
+
+        .priority-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .priority-item {
+            background: #050b14;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        .priority-item h4 {
+            color: #a8b2d1;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .priority-item p {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .progress-container {
+            margin-top: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--success));
+            width: 85%;
+        }
+
+        #report-section {
+            display: none;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media(max-width: 768px) {
+            .report-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 2.2rem; }
+        }
+
+        .report-card {
+            background: #050b14;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #334e68;
+            border-top: 3px solid var(--gold);
+        }
+
+        .report-card h3 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-size: 1.15rem;
+        }
+
+        .report-card ul {
+            list-style-position: inside;
+            color: #d1d5db;
+            line-height: 1.8;
+        }
+
+        .loader {
+            display: none;
+            text-align: center;
+            padding: 25px;
+            font-size: 1.3rem;
+            color: var(--gold);
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--gold);
+        }
+
+        .pulse {
+            animation: pulse-effect 1.5s infinite;
+        }
+
+        @keyframes pulse-effect {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        .nk-insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .nk-insight-card {
+            background: #050b14;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nk-insight-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--gold);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .nk-insight-card h3 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nk-insight-card p {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .nk-dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 900px) {
+            .nk-dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        .nk-chart-container {
+            background-color: #050b14;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .nk-metrics-container {
+            background-color: #050b14;
+            border-radius: 10px;
+            padding: 25px;
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .nk-metrics-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+        }
+
+        .nk-metrics-desc {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .nk-metric-row {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px;
+        }
+
+        .nk-metric-item span:first-child {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--success);
+        }
+
+        .nk-metric-item span:last-child {
+            font-size: 0.8rem;
+            color: #a8b2d1;
+        }
     </style>
 </head>
 <body>
 
-    <div class="header-banner">
-        <h1><i class="fa-solid fa-shield-halved"></i> न्याय-कवच एआई</h1>
-        <p>उत्तर प्रदेश पुलिस | भारतीय नागरिक सुरक्षा संहिता (BNSS) एवं BNS स्मार्ट जांच पोर्टल</p>
-    </div>
+    <div class="top-police-strip"></div>
 
-    <div class="card" style="margin-bottom: 25px;">
-        <div class="section-title"><i class="fa-solid fa-robot"></i> एसआई कवच - 24/7 एआई विवेचना सहायक</div>
-        <div class="ai-assistant-box">
-            <div class="ai-avatar"><i class="fa-solid fa-user-shield"></i></div>
-            <div style="flex-grow: 1;">
-                <h4 style="color: var(--gold); margin-bottom: 5px;">सिस्टम लाइव है: वॉयस कमांड का उपयोग करें</h4>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">किसी भी धारा, केस स्टेटस या कानूनी प्रक्रिया के बारे में बोलकर जानकारी प्राप्त करें।</p>
-                <button class="btn btn-gold" style="margin-top: 10px;" onclick="startVoice()">
-                    <i class="fa-solid fa-microphone"></i> बोलकर प्रश्न पूछें (Voice Command)
-                </button>
+    <div class="header">
+        <div class="header-content">
+            <img src="uppolice_logo.png" alt="UP Police Logo" class="up-logo-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/923/923181.png'">
+            <div>
+                <h1>न्याय-कवच एआई</h1>
+                <p>उत्तर प्रदेश पुलिस स्मार्ट इन्वेस्टिगेशन एवं साक्ष्य पोर्टल</p>
             </div>
-            <div id="ai-status" style="color: var(--success-green); font-weight: bold; background: rgba(0,255,136,0.1); padding: 10px 15px; border-radius: 5px;">
-                🟢 तैयार (Ready)
-            </div>
+        </div>
+        <div class="status-badges">
+            <span class="badge"><i class="fa-solid fa-robot"></i> एआई अवतार एक्टिव</span>
+            <span class="badge"><i class="fa-solid fa-database"></i> CCTNS रेडी</span>
+            <span class="badge gold-badge"><i class="fa-solid fa-star"></i> यूपी पुलिस BNS/BNSS इंटीग्रेटेड</span>
         </div>
     </div>
 
-    <div class="grid-container">
+    <div class="container">
         
+        <div class="card avatar-section">
+            <div class="avatar-info">
+                <div class="avatar-icon" id="avatar-icon-box">
+                    <img src="avatar.jpg" alt="AI Avatar" class="ai-avatar-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png'">
+                </div>
+                <div>
+                    <h2 style="color: #fff; font-size: 1.4rem;">👮‍♂️ एसआई कवच (एआई असिस्टेंट)</h2>
+                    <p style="color: #00ff88; font-size: 0.95rem; margin-top: 4px;" id="ai-status">
+                        <i class="fa-solid fa-circle-check"></i> वर्दी में आपका digital सहायक तैयार है
+                    </p>
+                </div>
+            </div>
+            <div class="voice-controls">
+                <button class="btn btn-voice" id="start-record-btn" onclick="startVoice()">
+                    <i class="fa-solid fa-microphone"></i> बोलकर पूछिए
+                </button>
+                <button class="btn btn-stop" id="stop-record-btn" onclick="stopVoice()">
+                    <i class="fa-solid fa-stop"></i> आवाज़ रोकें
+                </button>
+                <button class="btn btn-logout" onclick="logoutUser()">
+                    <i class="fa-solid fa-power-off"></i> लॉग आउट
+                </button>
+            </div>
+        </div>
+
         <div class="card">
-            <div class="section-title"><i class="fa-solid fa-chart-pie"></i> रीयल-टाइम एआई एनालिटिक्स सैंडबॉक्स</div>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">
-                <i class="fa-solid fa-circle-info" style="color:var(--accent-blue);"></i> <b>निर्देश:</b> एआई द्वारा सुधारी गई त्रुटियों की विस्तृत रिपोर्ट देखने के लिए चार्ट के किसी भी रंगीन हिस्से पर <b>क्लिक करें</b>।
+            <div class="section-title">
+                <i class="fa-solid fa-calculator" style="color: var(--gold);"></i>
+                <span>📊 डेयता कार्यभार कैलकुलेटर (Deyta Workload Calculator)</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 15px;">
+                <div>
+                    <label style="display:block; font-size:0.9rem; margin-bottom:8px; color:#a8b2d1;">लंबित विवेचनाएं / केस संख्या:</label>
+                    <input type="number" id="calc-cases" value="4" min="0" style="width:100%; padding:11px; background:#050b14; border:1px solid #334e68; border-radius:8px; color:#fff; outline:none; font-size:1rem;">
+                </div>
+                <div>
+                    <label style="display:block; font-size:0.9rem; margin-bottom:8px; color:#a8b2d1;">अपराध की श्रेणी व जटिलता:</label>
+                    <select id="calc-complexity" style="width:100%; padding:11px; background:#050b14; border:1px solid #334e68; border-radius:8px; color:#fff; outline:none; font-size:1rem;">
+                        <option value="1">सामान्य अपराध (Low Complexity)</option>
+                        <option value="2" selected>गंभीर मामले (Medium)</option>
+                        <option value="3">जघन्य / बॉर्डर क्राइम (Critical)</option>
+                    </select>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; background: rgba(0,0,0,0.3); padding: 12px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                <button class="btn btn-demo" onclick="calculateWorkload()" style="border-style: solid; padding: 8px 20px;">
+                    <i class="fa-solid fa-square-poll-vertical"></i> इंडेक्स की गणना करें
+                </button>
+                <div id="calc-result" style="font-weight: 600; font-size: 1.1rem; color: var(--gold); letter-spacing: 0.5px;">
+                    कार्यभार सूचकांक: --
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">
+                <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--accent-blue);"></i>
+                <span>🚨 लाइव एआई केस इंक्वायरी / एफआईआर एनालिसिस (BNS-BNSS रेडी)</span>
+            </div>
+            <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 15px;">
+                किसी भी अपराध का विवरण नीचे बॉक्स में लिखें या बोलकर बताएं। न्याय-कवच एआई लाइव BNS धाराएं, BNSS विवेचना प्रोटोकॉल और कनविक्शन स्कोर जनरेट करेगा:
             </p>
-            <div class="chart-wrapper">
-                <canvas id="nyayKavachChart"></canvas>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="section-title"><i class="fa-solid fa-scale-balanced"></i> लागू कानून (BNS और विशेष अधिनियम)</div>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">एआई द्वारा वर्तमान मामलों में सुझाई गई सटीक धाराएं:</p>
-            <ul class="legal-list">
-                <li>
-                    <b>बीएनएस धारा 64(1):</b> बलात्कार (Rape) के लिए कठोर कारावास (10 वर्ष से आजीवन कारावास तक) एवं जुर्माना।
-                </li>
-                <li>
-                    <b>बीएनएस धारा 74:</b> महिला की लज्जा भंग करने के इरादे से हमला या आपराधिक बल प्रयोग।
-                </li>
-                <li>
-                    <b>बीएनएस धारा 351(2):</b> आपराधिक अभित्रास - जान से मारने या गंभीर चोट पहुँचाने की धमकी देना।
-                </li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <div class="section-title"><i class="fa-solid fa-list-check"></i> अगले अनिवार्य कदम (BNSS प्रोटोकॉल)</div>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 15px;">जांच अधिकारी (IO) के लिए त्वरित कार्रवाई सूची:</p>
-            <ul class="legal-list">
-                <li>
-                    <b>पीड़िता का बयान:</b> BNSS धारा 183 के तहत मजिस्ट्रेट के समक्ष शीघ्रता से बयान दर्ज कराएं।
-                </li>
-                <li>
-                    <b>मेडिकल जांच:</b> घटना की सूचना के 24 घंटे के भीतर सरकारी अस्पताल में अनिवार्य मेडिकल परीक्षण कराएं।
-                </li>
-                <li>
-                    <b>डिजिटल साक्ष्य:</b> घटनास्थल की वीडियोग्राफी एवं ऑडियो-वीडियो साक्ष्यों का सुरक्षित संग्रहण सुनिश्चित करें।
-                </li>
-            </ul>
-        </div>
-
-    </div>
-
-    <div class="card">
-        <div class="section-title"><i class="fa-solid fa-file-pen"></i> स्मार्ट शिकायत पंजीकरण (Geo-Tagging के साथ)</div>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">घटनास्थल से सीधे रिपोर्ट दर्ज करने के लिए लाइव जीपीएस (GPS) कोऑर्डिनेट्स का प्रयोग करें:</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-            <div class="form-group">
-                <label>आवेदक / शिकायतकर्ता का नाम</label>
-                <input type="text" id="complainant-name" placeholder="पूरा नाम दर्ज करें">
-            </div>
-            <div class="form-group">
-                <label>मोबाइल नंबर</label>
-                <input type="tel" id="complainant-mobile" placeholder="+91 XXXXX XXXXX">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>घटनास्थल की लाइव लोकेशन (Geo-Tag)</label>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button type="button" class="btn btn-gold" onclick="getLocation()" style="flex-shrink: 0;">
-                    <i class="fa-solid fa-location-crosshairs"></i> वर्तमान स्थान प्राप्त करें
+            
+            <textarea id="case-input" placeholder="उदाहरण: रात में दुकान का शटर तोड़कर चोरी हुई और चौकीदार से मारपीट की गई, या किसी महिला से छेड़खानी/साइबर ठगी का मामला..."></textarea>
+            
+            <div class="action-buttons">
+                <button class="btn btn-demo" id="demo-btn" onclick="loadDemo()">
+                    <i class="fa-solid fa-bolt"></i> ⚡ ऑटो डेमो उदाहरण (लाइव test)
                 </button>
-                <input type="text" id="loc-display" placeholder="बटन दबाते ही अक्षांश और देशांतर (Lat/Long) यहाँ स्वतः भर जाएंगे..." readonly style="flex-grow: 1; color: var(--accent-blue); font-weight: bold;">
+                <button class="btn btn-analyze" id="analyze-btn" onclick="analyzeCase()">
+                    <i class="fa-solid fa-brain"></i> 🔍 एआई विश्लेषण करें
+                </button>
             </div>
         </div>
 
-        <div class="form-group">
-            <label>घटना का संक्षिप्त विवरण एवं साक्ष्य नोट</label>
-            <textarea rows="4" placeholder="घटना का समय, स्थान और मुख्य तथ्य यहाँ लिखें..."></textarea>
+        <div class="loader pulse" id="loader">
+            <i class="fa-solid fa-spinner fa-spin"></i> न्याय-कवच एआई केस की गहन जांच कर रहा है... कृपया प्रतीक्षा करें...
         </div>
 
-        <button type="button" class="btn btn-blue" onclick="submitComplaint()">
-            <i class="fa-solid fa-cloud-arrow-up"></i> एआई सर्वर पर सुरक्षित दर्ज करें (Submit Report)
-        </button>
-    </div>
+        <div class="card">
+            <div class="section-title">
+                <i class="fa-solid fa-map-location-dot" style="color: var(--accent-blue);"></i>
+                <span>📍 प्रेडिक्टिव हॉटस्पॉट एवं इंटेलिजेंस ग्रिड (Live Grid Analysis)</span>
+            </div>
+            <div style="height: 140px; background: #061224; border: 1px solid #334e68; border-radius: 10px; display: flex; align-items: center; padding: 20px;">
+                <div style="background: #050b14; padding: 12px; font-size: 0.95rem; border-radius: 6px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; width: 100%;">
+                    <i class="fa-solid fa-circle-nodes" style="color: var(--police-red);"></i>
+                    <span><strong>जियो-फेंस अलर्ट:</strong> यक्ष AI द्वारा चिन्हित हॉटस्पॉट ज़ोन-४ में रात्रिकालीन गश्ती सक्रिय करने की सलाह।</span>
+                </div>
+            </div>
+        </div>
 
-    <div id="details-overlay">
-        <div class="modal-content">
-            <button class="btn btn-gold" onclick="closeDetails()" style="margin-bottom: 20px;">
-                <i class="fa-solid fa-arrow-left"></i> डैशबोर्ड पर वापस जाएं
-            </button>
-            
-            <h2 style="color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-bottom: 20px;">
-                <i class="fa-solid fa-magnifying-glass-chart"></i> एआई विस्तृत विश्लेषण रिपोर्ट
-            </h2>
-            
-            <div id="report-content">
+        <div class="card priority-box" id="priority-section">
+            <div class="priority-header">
+                <div class="section-title" style="margin-bottom: 0; border: none;">
+                    <i class="fa-solid fa-crosshairs" style="color: var(--accent-blue);"></i>
+                    <span style="color: #fff;">यूपी पुलिस 10-प्रायोरिटी फीचर: <span style="color: var(--accent-blue);">ऑपरेशन कनविक्शन और यक्ष एआई</span></span>
+                </div>
+                <span class="priority-tag" id="priority-tag-text">प्रायोरिटी एक्टिव</span>
+            </div>
+            <p style="color: #c5d1eb; font-size: 0.95rem; margin-bottom: 15px;">
+                <strong>डीजीपी यूपी विशेष निर्देश:</strong> नए BNS/BNSS कानूनों के तहत फ़ास्ट-ट्रैक साक्ष्य प्रबंधन और <strong>यक्ष ऐप / प्रतिबिंब पोर्टल</strong> से संदिग्धों की रियल-टाइम निगरानी।
+            </p>
+
+            <div class="priority-grid">
+                <div class="priority-item">
+                    <h4>⚖️ ऑपरेशन कनविक्शन स्थिति</h4>
+                    <p id="conviction-status-text" style="color: var(--success);"><i class="fa-solid fa-gavel"></i> फास्ट-ट्रैक योग्य</p>
+                    <small style="color: #a8b2d1;">टारगेट charge-sheet: <strong id="target-days">30 दिन</strong></small>
+                </div>
+                <div class="priority-item">
+                    <h4>📲 यक्ष ऐप क्रिमिनल डेटाबेस</h4>
+                    <p id="yaksh-status-text" style="color: var(--warning);"><i class="fa-solid fa-triangle-exclamation"></i> 2 मैच प्रोफाइल मिले</p>
+                    <small style="color: #a8b2d1;">प्रतिबिंब जियो-फेंस: <strong>सक्रिय</strong></small>
+                </div>
+                <div class="priority-item">
+                    <h4>🎯 कनविक्शन रेडीनेस स्कोर</h4>
+                    <p id="score-text">85%</p>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="conviction-progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">
+                <i class="fa-solid fa-shield-halved" style="color: var(--gold);"></i>
+                <span>🛡️ अपराध नियंत्रण एवं न्यायिक दक्षता अंतर्दृष्टि (Crime Control Insights)</span>
+            </div>
+            <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 10px;">
+                त्रुटिहीन चार्जशीट किस तरह त्वरित कनविक्शन और अपराध रोकथाम को सुनिश्चित करती है, इसके मुख्य पहलू:
+            </p>
+            <div class="nk-insights-grid">
+                <div class="nk-insight-card">
+                    <h3><i class="fa-solid fa-hourglass-half"></i> ज़ीरो डिले कनविक्शन</h3>
+                    <p>प्रक्रियात्मक खामियों और तकनीकी बचावों को रोककर, न्याय-कवच कोर्ट ट्रायल को गति देता है तथा जमानत की संभावनाओं को कम करता है।</p>
+                </div>
+                <div class="nk-insight-card">
+                    <h3><i class="fa-solid fa-chart-pie"></i> BNS अपराध मैपिंग</h3>
+                    <p>चार्जशीट डेटा का सीधा BNS वर्गीकरण कर मुख्यालय को जिलेवार आपराधिक प्रवृत्तियों की तत्काल विज़ुअलाइज़ेशन रिपोर्ट देता है।</p>
+                </div>
+                <div class="nk-insight-card">
+                    <h3><i class="fa-solid fa-ban"></i> तकनीकी दोषमुक्ति रोकथाम</h3>
+                    <p>न्यायालयों में अधिकतर केस दस्तावेजी त्रुटियों या गायब साक्ष्यों के कारण कमजोर होते हैं। यह एआई मॉड्यूल उसे 100% अभेद्य बनाता है।</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">
+                <i class="fa-solid fa-chart-line" style="color: var(--accent-blue);"></i>
+                <span>📊 रीयल-टाइम एआई एनालिटिक्स सैंडबॉक्स (Interactive AI Analytics)</span>
+            </div>
+            <div class="nk-dashboard-grid">
+                <div class="nk-chart-container">
+                    <h3 style="font-size: 14px; margin-bottom: 15px; color: #fff; font-weight: 500;">
+                        <i class="fa-solid fa-chart-bar" style="color: var(--gold);"></i> एआई द्वारा रोकी गई सामान्य त्रुटियों का वितरण
+                    </h3>
+                    <div style="position: relative; height: 260px; width: 100%;">
+                        <canvas id="nyayKavachChart"></canvas>
+                    </div>
                 </div>
 
-            <div style="margin-top: 25px; background: rgba(0, 240, 255, 0.05); padding: 15px; border-radius: 8px; border: 1px solid var(--accent-blue);">
-                <h4 style="color: var(--accent-blue); margin-bottom: 5px;"><i class="fa-solid fa-lightbulb"></i> एसआई कवच सुझाव:</h4>
-                <p style="font-size: 0.9rem; color: #fff;">इस श्रेणी के सभी मामलों में 48 घंटे के भीतर साक्ष्य पुनः सत्यापित (Re-verify) करें ताकि चार्जशीट दाखिल करते समय कोई तकनीकी त्रुटि न रहे।</p>
+                <div class="nk-metrics-container">
+                    <h3 class="nk-metrics-title">⚡ रीयल-टाइम इंपैक्ट मैट्रिक्स</h3>
+                    <p class="nk-metrics-desc">प्री-कोर्ट एआई सर्टिफिकेशन और डॉक्यूमेंट वेरिफिकेशन के बाद प्राप्त होने वाले सुधारात्मक आंकड़े:</p>
+                    
+                    <div class="nk-metric-row">
+                        <div class="nk-metric-item">
+                            <span>98.4%</span>
+                            <span>प्रथम प्रयास सफलता दर</span>
+                        </div>
+                        <div class="nk-metric-item">
+                            <span>14 दिन</span>
+                            <span>औसत समय की बचत</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div class="card" id="report-section">
+            <div class="section-title">
+                <i class="fa-solid fa-file-shield" style="color: var(--success);"></i>
+                <span>🛡️ न्याय-कवच एआई जांच रिपोर्ट</span>
+            </div>
+            <div class="report-grid">
+                <div class="report-card">
+                    <h3>📜 लागू कानून (BNS और विशेष अधिनियम)</h3>
+                    <ul id="laws-list">
+                    </ul>
+                </div>
+                <div class="report-card">
+                    <h3>🔍 अगले जरूरी कदम (IO प्रोटोकॉल - BNSS)</h3>
+                    <ul id="steps-list">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" id="complaint-registration-section" style="border: 1px solid var(--accent-blue);">
+            <div class="section-title">
+                <i class="fa-solid fa-pen-to-square" style="color: var(--gold);"></i>
+                <span>📝 स्मार्ट शिकायत पंजीकरण</span>
+            </div>
+            <form id="complaint-form" onsubmit="submitComplaint(event)">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" id="complainant-name" placeholder="आवेदक का नाम" required style="width:100%; padding:10px; background:#050b14; border:1px solid #334e68; color:#fff; border-radius:5px;">
+                    <input type="tel" id="complainant-phone" placeholder="मोबाइल नंबर" required style="width:100%; padding:10px; background:#050b14; border:1px solid #334e68; color:#fff; border-radius:5px;">
+                </div>
+                
+                <div style="margin-bottom: 10px;">
+                    <button type="button" onclick="getLocation()" class="btn btn-demo" style="width:100%; font-size: 0.9rem;">
+                        <i class="fa-solid fa-location-crosshairs"></i> 📍 वर्तमान स्थान (Geo-Tag) प्राप्त करें
+                    </button>
+                    <input type="text" id="location-coords" placeholder="लोकेशन डेटा यहाँ आएगा..." readonly style="width:100%; padding:8px; background:#000; border:1px solid #334e68; color:var(--accent-blue); margin-top:5px; border-radius:5px; font-size:0.8rem;">
+                </div>
+
+                <textarea id="complaint-details" placeholder="घटना का विवरण लिखें..." required style="width:100%; height:80px; background:#050b14; border:1px solid #334e68; border-radius:5px; padding:10px; color:#fff;"></textarea>
+
+                <div style="display: flex; gap: 10px; margin-top: 10px;">
+                    <button type="button" onclick="autoClassifyComplaint()" class="btn btn-voice" style="flex:1; justify-content:center;">
+                        <i class="fa-solid fa-robot"></i> यक्ष से श्रेणी (Category) पता करें
+                    </button>
+                    <button type="submit" class="btn" style="background:var(--success); color:#000; flex:1; justify-content:center;">
+                        <i class="fa-solid fa-paper-plane"></i> शिकायत दर्ज करें
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
 
     <script>
-        // 1. Interactive Doughnut Chart Configuration (With Corrected Labels)
-        const chartData = {
-            labels: [
-                'गलत धारा का चयन (Wrong Section)', 
-                'अपूर्ण जब्ती रिपोर्ट (Seizure Error)', 
-                'प्रक्रिया में देरी (>90 दिन)', 
-                'नाम / वर्तनी त्रुटि (Typo Error)', 
-                'हस्ताक्षर गायब (Missing Sign)'
-            ],
-            datasets: [{
-                data: [38, 24, 11, 29, 18],
-                backgroundColor: [
-                    '#ff3366', // Red
-                    '#d4af37', // Gold
-                    '#00f0ff', // Blue
-                    '#00ff88', // Green
-                    '#ffaa00'  // Orange
-                ],
-                borderWidth: 2,
-                borderColor: '#050b14'
-            }]
-        };
-
-        const ctx = document.getElementById('nyayKavachChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: chartData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { color: '#a8b2d1', font: { size: 11, family: 'Poppins' }, padding: 15 }
-                    }
-                },
-                onClick: (event, elements) => {
-                    if (elements.length > 0) {
-                        const index = elements[0].index;
-                        const label = chartData.labels[index];
-                        const value = chartData.datasets[0].data[index];
-                        showDetails(label, value);
-                    }
-                }
-            }
-        });
-
-        // 2. Modal ("New Page") Open & Close Logic
-        function showDetails(label, value) {
-            document.getElementById('details-overlay').style.display = 'block';
-            document.getElementById('report-content').innerHTML = `
-                <div style="background: #050b14; padding: 20px; border-radius: 10px; border-left: 4px solid var(--gold);">
-                    <h3 style="color: #fff; margin-bottom: 10px;">चयनित त्रुटि श्रेणी: <span style="color: var(--accent-blue);">${label}</span></h3>
-                    <p style="font-size: 1.1rem; margin-bottom: 15px;">वर्तमान में सिस्टम द्वारा इस श्रेणी के अंतर्गत कुल <b>${value} फाइलों</b> को स्वतः सुधारा गया है।</p>
-                    
-                    <h4 style="color: var(--gold); margin-top: 15px; margin-bottom: 8px;">एआई ऑडिट विवरण (AI Audit Breakdown):</h4>
-                    <ul style="list-style-type: disc; margin-left: 20px; color: var(--text-muted); line-height: 1.8;">
-                        <li><b>सटीकता दर (Accuracy Rate):</b> 99.4% (एआई द्वारा समय रहते पकड़ा गया)</li>
-                        <li><b>कानूनी जोखिम (Legal Risk):</b> उच्च (यदि न्यायालय में पेश किया जाता तो केस कमजोर हो सकता था)</li>
-                        <li><b>स्थिति (Current Status):</b> संबंधित जांच अधिकारियों (IO) को सुधार हेतु वापस भेजा गया।</li>
-                    </ul>
-                </div>
-            `;
-        }
-
-        function closeDetails() {
-            document.getElementById('details-overlay').style.display = 'none';
-        }
-
-        // 3. Live Location (GPS Geo-Tagging) Logic
-        function getLocation() {
-            const locInput = document.getElementById('loc-display');
-            locInput.value = "लोकेशन ट्रैक की जा रही है... कृपया प्रतीक्षा करें...";
-            
+        // --- NEW FUNCTIONS ---
+        
+        // लोकेशन ट्रैक करने के लिए
+        window.getLocation = function() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    const lat = position.coords.latitude.toFixed(6);
-                    const lng = position.coords.longitude.toFixed(6);
-                    locInput.value = `📍 Lat: ${lat} | Long: ${lng} (सत्यापित जीपीएस)`;
-                }, (error) => {
-                    alert("लोकेशन प्राप्त नहीं हो सकी! कृपया ब्राउज़र में Location/GPS की अनुमति (Permission) ऑन करें।");
-                    locInput.value = "";
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.getElementById('location-coords').value = 
+                        "Lat: " + position.coords.latitude.toFixed(4) + ", Long: " + position.coords.longitude.toFixed(4);
+                    alert("लोकेशन कैप्चर हो गई!");
+                }, function(error) {
+                    alert("लोकेशन एक्सेस करने में असमर्थ। कृपया ब्राउज़र सेटिंग्स चेक करें।");
                 });
             } else {
-                alert("आपका वर्तमान ब्राउज़र जियोलोकेशन (GPS) को सपोर्ट नहीं करता है।");
-                locInput.value = "";
+                alert("आपका ब्राउज़र लोकेशन सपोर्ट नहीं करता।");
             }
-        }
+        };
 
-        // 4. Voice Command Simulation
-        function startVoice() {
-            const status = document.getElementById('ai-status');
-            status.innerHTML = '🔴 सुन रहा हूँ... बोलिए...';
-            status.style.color = '#ff3366';
-            status.style.background = 'rgba(255, 51, 102, 0.1)';
-            
-            setTimeout(() => {
-                status.innerHTML = '🟡 एआई विश्लेषण कर रहा है...';
-                status.style.color = '#d4af37';
-                status.style.background = 'rgba(212, 175, 55, 0.1)';
-            }, 3000);
-
-            setTimeout(() => {
-                status.innerHTML = '🟢 तैयार (Ready)';
-                status.style.color = '#00ff88';
-                status.style.background = 'rgba(0,255,136,0.1)';
-                alert("एसआई कवच: आपकी कमांड सुन ली गई है। वर्तमान में आप डैशबोर्ड का अवलोकन कर रहे हैं।");
-            }, 5000);
-        }
-
-        // 5. Submit Complaint Alert
-        function submitComplaint() {
-            const name = document.getElementById('complainant-name').value;
-            const loc = document.getElementById('loc-display').value;
-            
-            if (!name || !loc) {
-                alert("कृपया आवेदक का नाम भरें और 'वर्तमान स्थान प्राप्त करें' बटन दबाकर लोकेशन दर्ज करें!");
+        // AI Classification (Simulation)
+        window.autoClassifyComplaint = function() {
+            let details = document.getElementById('complaint-details').value;
+            if (!details) {
+                alert("पहले घटना का विवरण लिखें!");
                 return;
             }
-            alert(`धन्यवाद! श्री/श्रीमती ${name} की शिकायत एवं जीपीएस लोकेशन (${loc}) सुरक्षा कवच एआई सर्वर पर सफलतापूर्वक दर्ज कर ली गई है।`);
+            let category = "सामान्य";
+            if(details.includes("चोरी") || details.includes("लूट")) category = "संपत्ति अपराध";
+            else if(details.includes("मारपीट") || details.includes("झगड़ा")) category = "शांति व्यवस्था";
+            else if(details.includes("महिला") || details.includes("रेप")) category = "महिला सुरक्षा (हाई प्रायोरिटी)";
+            
+            alert("यक्ष एआई विश्लेषण: यह मामला '" + category + "' श्रेणी में आता है। बीएनएस धाराएं लागू की जा रही हैं।");
+        };
+
+        // Form Submit
+        window.submitComplaint = function(event) {
+            event.preventDefault();
+            alert("शिकायत सफलतापूर्वक दर्ज हो गई! प्रतिबिंब पोर्टल पर अपडेट कर दी गई है।");
+            document.getElementById('complaint-form').reset();
+            document.getElementById('location-coords').value = "";
+        };
+
+        // --- EXISTING FUNCTIONS ---
+
+        window.speakReport = function(speechText) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                var utterance = new SpeechSynthesisUtterance(speechText);
+                utterance.lang = 'hi-IN';
+                utterance.pitch = 1.0;
+                utterance.rate = 0.95;
+                
+                utterance.onstart = function() {
+                    var status = document.getElementById('ai-status');
+                    if(status) {
+                        status.innerHTML = '<i class="fa-solid fa-volume-high fa-bounce"></i> एसआई कवच रिपोर्ट पढ़ रहा है...';
+                        status.style.color = '#ffaa00';
+                    }
+                    document.getElementById('start-record-btn').style.display = 'none';
+                    document.getElementById('stop-record-btn').style.display = 'flex';
+                };
+
+                utterance.onend = function() {
+                    var status = document.getElementById('ai-status');
+                    if(status) {
+                        status.innerHTML = '<i class="fa-solid fa-circle-check"></i> रिपोर्ट वाचन पूर्ण। डिजिटल सहायक तैयार है।';
+                        status.style.color = '#00ff88';
+                    }
+                    document.getElementById('start-record-btn').style.display = 'flex';
+                    document.getElementById('stop-record-btn').style.display = 'none';
+                };
+                window.speechSynthesis.speak(utterance);
+            }
+        };
+
+        window.loadDemo = function() {
+            var demoText = "एक महिला पीड़िता ने थाने आकर शिकायत की है कि एक नामजद आरोपी ने नशीला पदार्थ पिलाकर उसके साथ जबरन दुष्कर्म (Rape) किया और किसी को बताने पर जान से मारने की धमकी दी।";
+            document.getElementById('case-input').value = demoText;
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-info"></i> महिला अपराध का डेमो केस लोड हो गया! अब "एआई विश्लेषण करें" पर क्लिक करें।';
+            document.getElementById('ai-status').style.color = '#00f0ff';
+        };
+
+        window.analyzeCase = function() {
+            var input = document.getElementById('case-input').value.trim();
+            if(!input) {
+                alert("कृपया पहले एफआईआर या केस का विवरण बॉक्स में लिखें! (जैसे: चोरी, मारपीट, हत्या या साइबर ठगी)");
+                return;
+            }
+
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('report-section').style.display = 'none';
+
+            var lowerInput = input.toLowerCase();
+
+            setTimeout(function() {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('report-section').style.display = 'block';
+
+                var laws = [];
+                var steps = [];
+                var score = "80%";
+                var progress = "80%";
+                var convictionStatus = '<i class="fa-solid fa-gavel"></i> फास्ट-ट्रैक योग्य';
+                var tagText = "प्रायोरिटी एक्टिव";
+                var targetDays = "30 दिन";
+
+                if (lowerInput.indexOf("rape") !== -1 || lowerInput.indexOf("रेप") !== -1 || lowerInput.indexOf("balatkar") !== -1 || lowerInput.indexOf("बलात्कार") !== -1 || lowerInput.indexOf("dushkarm") !== -1 || lowerInput.indexOf("दुष्कर्म") !== -1 || lowerInput.indexOf("छेड़खानी") !== -1 || lowerInput.indexOf("महिला") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 64(1):</strong> बलात्कार (Rape) के लिए कठोर कारावास (10 वर्ष से आजीवन कारावास)।",
+                        "<strong>बीएनएस धारा 74:</strong> महिला की लज्जा भंग करने के इरादे से हमला या आपराधिक बल प्रयोग।",
+                        "<strong>बीएनएस धारा 351(2):</strong> जान से मारने या चोट पहुँचाने की धमकी देना।"
+                    ];
+                    steps = [
+                        "<strong>पीड़िता का मेडिकल (BNSS धारा 184):</strong> 24 घंटे के भीतर सरकारी महिला चिकित्सक द्वारा मेडिकल जांच अनिवार्य कराएं।",
+                        "<strong>मजिस्ट्रेट बयान (BNSS धारा 183):</strong> महिला पुलिस अधिकारी की मौजूदगी में न्यायिक मजिस्ट्रेट के समक्ष धारा 163/183 का बयान तुरंत दर्ज कराएं।",
+                        "<strong>वीडियो रिकॉर्डिंग (BNSS धारा 176):</strong> पीड़िता के बयानों की ऑडियो-वीडियो इलेक्ट्रॉनिक रिकॉर्डिंग सुरक्षित करें।"
+                    ];
+                    score = "98% (संवेदनशील)";
+                    progress = "98%";
+                    convictionStatus = '<span style="color:var(--danger)"><i class="fa-solid fa-shield-halved"></i> महिला सुरक्षा स्पेशल ट्रैक</span>';
+                    tagText = "प्रायोरिटी #2 (महिला सुरक्षा)";
+                    targetDays = "60 दिन (कानूनी सीमा)";
+                } 
+                else if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1 || lowerInput.indexOf("shav") !== -1 || lowerInput.indexOf("चाकू") !== -1 || lowerInput.indexOf("गोली") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 103(1):</strong> हत्या (Murder) के लिए निर्धारित दंड (आजीवन कारावास या मृत्युदंड)।",
+                        "<strong>बीएनएस धारा 61(2):</strong> आपराधिक षड्यंत्र रचना (Criminal Conspiracy)।",
+                        "<strong>बीएनएस धारा 238:</strong> साक्ष्यों को मिटाना या झूठी सूचना देना।"
+                    ];
+                    steps = [
+                        "<strong>अनिवार्य FSL जांच (BNSS धारा 176):</strong> 7 वर्ष से अधिक सजा वाले अपराधों में फॉरेंसिक टीम (FSL) द्वारा साक्ष्य एकत्र करना अनिवार्य है।",
+                        "<strong>हथियार बरामदगी मेमो:</strong> वारदात में प्रयुक्त हथियार (Weapon of Offence) बरामद कर पंचनामा इलेक्ट्रॉनिक साक्ष्य के साथ बनाएं।",
+                        "<strong>शव का पंचनामा (BNSS धारा 194):</strong> शव का तत्काल इनक्वेस्ट (Inquest Report) तैयार कर पोस्टमार्टम हेतु भिजवाएं।"
+                    ];
+                    score = "95% (जघन्य अपराध)";
+                    progress = "95%";
+                    convictionStatus = 'जघन्य अपराध ट्रैक एक्टिव';
+                    tagText = "प्रायोरिटी #1 (ऑपरेशन कनविक्शन)";
+                    targetDays = "30 दिन";
+                } 
+                else if (lowerInput.indexOf("chori") !== -1 || lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("theft") !== -1 || lowerInput.indexOf("चोरी") !== -1 || lowerInput.indexOf("लूट") !== -1 || lowerInput.indexOf("डकैती") !== -1 || lowerInput.indexOf("ताला") !== -1 || lowerInput.indexOf("शटर") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 303(2):</strong> चोरी के लिए वैधानिक दंड प्रावधान।",
+                        "<strong>बीएनएस धारा 309:</strong> जबरन लूटपाट (Robbery) करना।",
+                        "<strong>बीएनएस धारा 317:</strong> चोरी की संपत्ति को जानते हुए बरामदगी में छिपाना।"
+                    ];
+                    steps = [
+                        "<strong>ई-एफआईआर सत्यापन (BNSS धारा 173):</strong> इलेक्ट्रॉनिक माध्यम से मिली सूचना का 3 दिन के भीतर सत्यापन कर एफआईआर रजिस्टर करें।",
+                        "<strong>सर्च एवं सीज़र वीडियोग्राफी (BNSS धारा 185):</strong> तलाशी और माल की जब्ती के समय पूरी प्रक्रिया की ऑडियो-वीडियो रिकॉर्डिंग अनिवार्य रूप से करें।",
+                        "<strong>मोडस ऑपरेंडी चेक:</strong> यक्ष ऐप डेटाबेस में एक्टिव नकबजनों की हिस्ट्री शीट फिल्टर करें।"
+                    ];
+                    score = "75%";
+                    progress = "75%";
+                    convictionStatus = 'संपत्ति अपराध ट्रैक';
+                    tagText = "प्रायोरिटी #5 (संपत्ति रिकवरी)";
+                    targetDays = "60 दिन";
+                } 
+                else if (lowerInput.indexOf("accident") !== -1 || lowerInput.indexOf("एक्सीडेंट") !== -1 || lowerInput.indexOf("takkar") !== -1 || lowerInput.indexOf("टक्कर") !== -1 || lowerInput.indexOf("hit and run") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 281:</strong> सार्वजनिक मार्ग पर उतावलेपन या लापरवाही से वाहन चलाना।",
+                        "<strong>बीएनएस धारा 106(1):</strong> लापरवाही से वाहन चलाकर किसी की मृत्यु कारित करना।",
+                        "<strong>बीएनएस धारा 106(2):</strong> हिट एंड रन (घटना के बाद पुलिस को सूचना दिए बिना भागना - 10 साल तक की सजा)।"
+                    ];
+                    steps = [
+                        "<strong>घटनास्थल का नक्शा नजरी (BNSS धारा 185):</strong> दुर्घटनास्थल की फोटो/वीडियो लेकर डिजिटल साइट-मैप तैयार करें।",
+                        "<strong>वाहन जब्ती एवं मैकेनिकल निरीक्षण:</strong> दुर्घटनाग्रस्त वाहन को कस्टडी में लेकर तत्काल आरटीओ/मैकेनिक रिपोर्ट लें।",
+                        "<strong>सीसीटीवी एवं डैशकैम फुटेज:</strong> मार्ग पर लगे ट्रैफिक कैमरों के डिजिटल साक्ष्य सुरक्षित करें।"
+                    ];
+                    score = "82%";
+                    progress = "82%";
+                    convictionStatus = 'रोड सेफ्टी एक्सीडेंट ट्रैक';
+                    tagText = "प्रायोरिटी #9 (सड़क सुरक्षा)";
+                    targetDays = "45 दिन";
+                }
+                else if (lowerInput.indexOf("marpeet") !== -1 || lowerInput.indexOf("मारपीट") !== -1 || lowerInput.indexOf("chot") !== -1 || lowerInput.indexOf("चोट") !== -1 || lowerInput.indexOf("gali") !== -1 || lowerInput.indexOf("झगड़ा") !== -1 || lowerInput.indexOf("हमला") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 115:</strong> स्वेच्छा से किसी को साधारण चोट (Hurt) पहुँचाना।",
+                        "<strong>बीएनएस धारा 117:</strong> किसी को गंभीर चोट (Grievous Hurt/हड्डी टूटना) पहुँचाना।",
+                        "<strong>बीएनएस धारा 352:</strong> शांति भंग करने के इरादे से जानबूझकर अपमान या गाली देना।"
+                    ];
+                    steps = [
+                        "<strong>डॉक्टरी मुलाहजा (Medical Report):</strong> पीड़ित का तत्काल नजदीकी स्वास्थ्य केंद्र में डॉक्टरी परीक्षण (इंजरी रिपोर्ट) कराएं।",
+                        "<strong>गवाहों के बयान (BNSS धारा 179):</strong> चश्मदीद गवाहों के बयान मौके पर मोबाइल या लिखित रूप में तुरंत दर्ज करें।",
+                        "<strong>शांति भंग पाबंदी:</strong> आरोपियों के खिलाफ भविष्य में झगड़ा रोकने हेतु निरोधात्मक कार्रवाई सुनिश्चित करें。"
+                    ];
+                    score = "70%";
+                    progress = "70%";
+                    convictionStatus = 'शांति व्यवस्था सामान्य ट्रैक';
+                    tagText = "प्रायोरिटी #4 (कानून व्यवस्था)";
+                    targetDays = "30 दिन";
+                }
+                else if (lowerInput.indexOf("cyber") !== -1 || lowerInput.indexOf("upi") !== -1 || lowerInput.indexOf("ठगी") !== -1 || lowerInput.indexOf("फ्रॉड") !== -1 || lowerInput.indexOf("बैंक") !== -1 || lowerInput.indexOf("पैसे") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 318(4):</strong> धोखाधड़ी (Cheating) करना और बेईमानी से संपत्ति ट्रांसफर कराना।",
+                        "<strong>आईटी एक्ट धारा 66D:</strong> कंप्यूटर/मोबाइल रिसोर्स का छद्मरूप में उपयोग कर फ्रॉड।"
+                    ];
+                    steps = [
+                        "<strong>वित्तीय होल्ड (BNSS धारा 107):</strong> साइबर सेल के माध्यम से नोडल बैंक अधिकारियों को मेल भेजकर फ्रॉड राशि तुरंत होल्ड कराएं।",
+                        "<strong>प्रतिबिंब पोर्टल:</strong> संदेहास्पद मोबाइल नंबर और आईएमईआई (IMEI) की लाइव जियोफेंसिंग ट्रैक सक्रिय करें।"
+                    ];
+                    score = "88% (डिजिटल साक्ष्य)";
+                    progress = "88%";
+                    convictionStatus = 'साइबर अपराध ट्रैक';
+                    tagText = "साइबर फ्रॉड Case Data";
+                    targetDays = "90 दिन";
+                }
+                else {
+                    laws = [
+                        "<strong>बीएनएस धारा 351:</strong> आपराधिक धमकी व सामान्य अपराध के प्रावधान।",
+                        "<strong>बीएनएस धारा 223:</strong> लोक सेवक द्वारा दिए गए आदेश की अवज्ञा करना।"
+                    ];
+                    steps = [
+                        "<strong>प्रारंभिक जांच (BNSS धारा 173):</strong> घटना की सत्यता जांचने हेतु 3 दिन के भीतर प्रारंभिक जांच पूरी करें।",
+                        "<strong>CCTNS सिंक:</strong> मामला दर्ज कर साक्ष्य संकलन हेतु CCTNS पोर्टल पर विवरण अपलोड करें।"
+                    ];
+                    score = "75% (सामान्य जांच)";
+                    progress = "75%";
+                    convictionStatus = 'सामान्य इन्वेस्टिगेशन ट्रैक';
+                    tagText = "सामान्य केस डाटा";
+                    targetDays = "30 दिन";
+                }
+
+                document.getElementById('laws-list').innerHTML = laws.map(function(l) { return '<li>' + l + '</li>'; }).join('');
+                document.getElementById('steps-list').innerHTML = steps.map(function(s) { return '<li>' + s + '</li>'; }).join('');
+                
+                document.getElementById('score-text').innerText = score;
+                document.getElementById('conviction-progress').style.width = progress;
+                document.getElementById('conviction-status-text').innerHTML = convictionStatus;
+                document.getElementById('priority-tag-text').innerText = tagText;
+                document.getElementById('target-days').innerText = targetDays;
+
+                var cleanLawsText = laws.map(function(l) { return l.replace(/<\/?[^>]+(>|$)/g, ""); }).join(', ');
+                window.speakReport("केस का विश्लेषण पूर्ण हो गया है। लागू कानून इस प्रकार हैं: " + cleanLawsText);
+
+            }, 800);
+        };
+
+        var recognition;
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'hi-IN';
+
+            recognition.onresult = function(event) {
+                var transcript = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    transcript += event.results[i][0].transcript;
+                }
+                document.getElementById('case-input').value = transcript;
+            };
+            recognition.onerror = function() { window.stopVoice(); };
         }
+
+        window.startVoice = function() {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            if(!recognition) {
+                alert("आपका ब्राउज़र वॉइस सपोर्ट नहीं करता। कृपया गूगल क्रोम का उपयोग करें।");
+                return;
+            }
+            recognition.start();
+            document.getElementById('start-record-btn').style.display = 'none';
+            document.getElementById('stop-record-btn').style.display = 'flex';
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-microphone-lines fa-bounce"></i> सुन रहा हूँ... बोलिए...';
+            document.getElementById('ai-status').style.color = '#ffaa00';
+        };
+
+        window.stopVoice = function() {
+            if(recognition) recognition.stop();
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            document.getElementById('start-record-btn').style.display = 'flex';
+            document.getElementById('stop-record-btn').style.display = 'none';
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-check"></i> वॉइस कमांड रोक दी गई है।';
+            document.getElementById('ai-status').style.color = '#00ff88';
+        };
+
+        window.calculateWorkload = function() {
+            var cases = parseInt(document.getElementById('calc-cases').value) || 0;
+            var complexity = parseInt(document.getElementById('calc-complexity').value);
+            var resultBox = document.getElementById('calc-result');
+            var totalScore = cases * complexity;
+            var status = "सामान्य (Normal)";
+            var color = "var(--success)";
+
+            if (totalScore >= 12) { status = "अत्यधिक कार्यभार (Critical)"; color = "var(--danger)"; }
+            else if (totalScore >= 6) { status = "मध्यम दबाव"; color = "var(--warning)"; }
+
+            if(resultBox) resultBox.innerHTML = 'सूचकांक: ' + totalScore + ' | स्थिति: ' + status;
+        };
+
+        window.logoutUser = function() {
+            if(confirm("क्या आप सुरक्षित रूप से लॉग आउट करना चाहते हैं?")) {
+                localStorage.clear();
+                sessionStorage.clear();
+                alert("आप सफलतापूर्वक लॉग आउट हो गए हैं!");
+                window.location.href = "index.html";
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('nyayKavachChart');
+            if (ctx) {
+                new Chart(ctx.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['गलत BNS धाराएं', 'अपूर्ण जब्ती रिपोर्ट', 'विलंब (>90 दिन)', 'नाम/वर्तनी त्रुटि', 'हस्ताक्षर गायब'],
+                        datasets: [{
+                            label: 'संशोधित त्रुटियां (Errors Caught)',
+                            data: [38, 24, 11, 29, 18],
+                            backgroundColor: [
+                                'rgba(220, 38, 38, 0.85)',   
+                                'rgba(214, 175, 55, 0.85)',  
+                                'rgba(0, 240, 255, 0.85)',   
+                                'rgba(0, 255, 136, 0.85)',   
+                                'rgba(255, 170, 0, 0.85)'    
+                            ],
+                            borderWidth: 0,
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                                ticks: {
+                                    color: '#a8b2d1',
+                                    font: { family: 'Poppins', size: 11 }
+                                }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: {
+                                    color: '#a8b2d1',
+                                    font: { family: 'Poppins', size: 10 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            setTimeout(function() { window.calculateWorkload(); }, 300);
+        });
     </script>
 </body>
 </html>
