@@ -30,6 +30,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -96,7 +97,7 @@
             transform: translateX(5px);
         }
 
-        .nav-item.gold-nav:hover, .nav-item.gold-nav.active {
+        .nav-item.gold-nav:hover {
             background: rgba(212, 175, 55, 0.15);
             color: var(--gold);
             border-color: var(--gold);
@@ -203,7 +204,6 @@
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-            display: block !important;
             transition: all 0.3s ease;
         }
 
@@ -287,6 +287,15 @@
             background: var(--police-red);
         }
 
+        .btn-submit {
+            background: var(--success);
+            color: #050b14;
+            font-weight: 700;
+        }
+        .btn-submit:hover {
+            background: #00cc66;
+        }
+
         .section-title {
             font-size: 1.35rem;
             color: var(--gold);
@@ -298,22 +307,40 @@
             padding-bottom: 10px;
         }
 
-        textarea {
+        textarea, input[type="text"], input[type="number"], select {
             width: 100%;
-            height: 120px;
             background: #050b14;
             border: 1px solid #334e68;
-            border-radius: 10px;
-            padding: 15px;
+            border-radius: 8px;
+            padding: 12px;
             color: #fff;
-            font-size: 1.05rem;
-            resize: vertical;
-            margin-bottom: 15px;
+            font-size: 1rem;
             outline: none;
+            transition: border-color 0.2s;
         }
 
-        textarea:focus {
+        textarea:focus, input:focus, select:focus {
             border-color: var(--accent-blue);
+        }
+
+        textarea {
+            height: 120px;
+            resize: vertical;
+            margin-bottom: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: #a8b2d1;
         }
 
         .action-buttons {
@@ -567,6 +594,52 @@
             color: #a8b2d1;
         }
 
+        /* --- FAKE INTERACTIVE MAP GRAPHICS --- */
+        .map-mock-bg {
+            background: radial-gradient(circle, #0c2b4e 10%, #050b14 80%);
+            height: 350px;
+            border-radius: 10px;
+            border: 1px solid var(--accent-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .map-grid-lines {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%; left: -50%;
+            background-image: linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            transform: rotate(15deg);
+        }
+
+        .map-pin {
+            position: absolute;
+            color: var(--police-red);
+            font-size: 1.5rem;
+            cursor: pointer;
+            animation: bouncePin 2s infinite;
+            text-shadow: 0 0 10px rgba(220, 38, 38, 0.6);
+        }
+
+        .map-label {
+            position: absolute;
+            background: rgba(5,11,20,0.85);
+            border: 1px solid var(--gold);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #fff;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        @keyframes bouncePin {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
         /* MODAL POPUP SYSTEM STYLING */
         .modal-overlay {
             position: fixed;
@@ -680,13 +753,12 @@
         
         <nav class="sidebar-nav">
             <a href="#" class="nav-item active"><i class="fa-solid fa-gauge-high"></i> मुख्य डैशबोर्ड</a>
-            <a href="#case-input" class="nav-item gold-nav"><i class="fa-solid fa-brain"></i> एआई FIR एनालिसिस</a>
+            <a href="#case-analysis-section" class="nav-item gold-nav"><i class="fa-solid fa-brain"></i> एआई FIR एनालिसिस</a>
             <a href="#priority-section" class="nav-item"><i class="fa-solid fa-crosshairs"></i> ऑपरेशन कनविक्शन</a>
             <a href="#" class="nav-item" onclick="openYakshModal(); return false;" style="color: var(--warning);"><i class="fa-solid fa-face-viewfinder"></i> YAKSH लाइव मैच</a>
-            <a href="#report-section" class="nav-item"><i class="fa-solid fa-file-shield"></i> जांच रिपोर्ट (BNS/BNSS)</a>
-            <a href="map.html" class="nav-item"><i class="fa-solid fa-map-location-dot"></i> लाइव जियो-फेंस मैप</a>
-            <a href="charts.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> अपराध एनालिटिक्स</a>
-            <a href="report.html" class="nav-item"><i class="fa-solid fa-pen-to-square"></i> नई शिकायत दर्ज करें</a>
+            <a href="#live-map-section" class="nav-item"><i class="fa-solid fa-map-location-dot"></i> लाइव जियो-फेंस मैप</a>
+            <a href="#analytics-section" class="nav-item"><i class="fa-solid fa-chart-pie"></i> अपराध एनालिटिक्स</a>
+            <a href="#complaint-section" class="nav-item"><i class="fa-solid fa-pen-to-square"></i> नई शिकायत दर्ज करें</a>
         </nav>
 
         <div class="sidebar-footer">
@@ -748,11 +820,11 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 15px;">
                     <div>
                         <label style="display:block; font-size:0.9rem; margin-bottom:8px; color:#a8b2d1;">लंबित विवेचनाएं / केस संख्या:</label>
-                        <input type="number" id="calc-cases" value="4" min="0" style="width:100%; padding:11px; background:#050b14; border:1px solid #334e68; border-radius:8px; color:#fff; outline:none; font-size:1rem;">
+                        <input type="number" id="calc-cases" value="4" min="0">
                     </div>
                     <div>
                         <label style="display:block; font-size:0.9rem; margin-bottom:8px; color:#a8b2d1;">अपराध की श्रेणी व जटिलता:</label>
-                        <select id="calc-complexity" style="width:100%; padding:11px; background:#050b14; border:1px solid #334e68; border-radius:8px; color:#fff; outline:none; font-size:1rem;">
+                        <select id="calc-complexity">
                             <option value="1">सामान्य अपराध (Low Complexity)</option>
                             <option value="2" selected>गंभीर मामले (Medium)</option>
                             <option value="3">जघन्य / बॉर्डर क्राइम (Critical)</option>
@@ -769,7 +841,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <div class="card" id="case-analysis-section">
                 <div class="section-title">
                     <i class="fa-solid fa-magnifying-glass-chart" style="color: var(--accent-blue);"></i>
                     <span>🚨 लाइव एआई केस इंक्वायरी / एफआईआर एनालिसिस (BNS-BNSS रेडी)</span>
@@ -794,16 +866,49 @@
                 <i class="fa-solid fa-spinner fa-spin"></i> न्याय-कवच एआई केस की गहन जांच कर रहा है... कृपया प्रतीक्षा करें...
             </div>
 
-            <div class="card">
+            <div class="card" id="report-section">
+                <div class="section-title">
+                    <i class="fa-solid fa-file-shield" style="color: var(--success);"></i>
+                    <span>🛡️ न्याय-कवच एआई जांच रिपोर्ट</span>
+                </div>
+                <div class="report-grid">
+                    <div class="report-card">
+                        <h3>📜 लागू कानून (BNS और विशेष अधिनियम)</h3>
+                        <ul id="laws-list">
+                        </ul>
+                    </div>
+                    <div class="report-card">
+                        <h3>🔍 अगले जरूरी कदम (IO प्रोटोकॉल - BNSS)</h3>
+                        <ul id="steps-list">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="live-map-section">
                 <div class="section-title">
                     <i class="fa-solid fa-map-location-dot" style="color: var(--accent-blue);"></i>
-                    <span>📍 प्रेडिक्टिव हॉटस्पॉट एवं इंटेलिजेंस ग्रिड (Live Grid Analysis)</span>
+                    <span>📍 प्रेडिक्टिव हॉटस्पॉट एवं इंटेलिजेंस लाइव जियो-फेंस ग्रिड</span>
                 </div>
-                <div style="height: 140px; background: #061224; border: 1px solid #334e68; border-radius: 10px; display: flex; align-items: center; padding: 20px;">
-                    <div style="background: #050b14; padding: 12px; font-size: 0.95rem; border-radius: 6px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; width: 100%;">
-                        <i class="fa-solid fa-circle-nodes" style="color: var(--police-red);"></i>
-                        <span><strong>जियो-फेंस अलर्ट:</strong> यक्ष AI द्वारा चिन्हित हॉटस्पॉट ज़ोन-४ में रात्रिकालीन गश्ती सक्रिय करने की सलाह।</span>
+                <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 15px;">
+                    यक्ष एआई द्वारा चिन्हित संवेदनशील और रात्रिकालीन गश्ती के रीयल-टाइम हॉटस्पॉट ज़ोन मानचित्र:
+                </p>
+                <div class="map-mock-bg">
+                    <div class="map-grid-lines"></div>
+                    
+                    <div class="map-pin" style="top: 30%; left: 45%;" onclick="alert('हॉटस्पॉट ज़ोन-४: हज़रतगंज चौराहा - संदिग्ध सक्रियता हाई')">
+                        <i class="fa-solid fa-location-dot"></i>
                     </div>
+                    <div class="map-label" style="top: 24%; left: 43%;">ज़ोन-४ (हज़रतगंज)</div>
+
+                    <div class="map-pin" style="top: 65%; left: 20%; color: var(--warning);" onclick="alert('सुरक्षित ज़ोन-२: गोमती नगर गश्ती दल सक्रिय')">
+                        <i class="fa-solid fa-location-shield"></i>
+                    </div>
+                    <div class="map-label" style="top: 59%; left: 17%;">पिकेट पॉइंट (गोमती नगर)</div>
+                </div>
+                <div style="background: #050b14; padding: 12px; font-size: 0.95rem; border-radius: 6px; border: 1px solid var(--border-color); display: flex; align-items: center; gap: 8px; margin-top: 15px;">
+                    <i class="fa-solid fa-circle-nodes" style="color: var(--police-red);"></i>
+                    <span><strong>लाइव इंटेलिजेंस अलर्ट:</strong> यक्ष AI द्वारा चिन्हित हॉटस्पॉट ज़ोन-४ में रात्रिकालीन गश्ती बढ़ा दी गई है। प्रतिबिंब पोर्टल द्वारा ट्रैकर्स एक्टिव हैं।</span>
                 </div>
             </div>
 
@@ -842,39 +947,15 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="section-title">
-                    <i class="fa-solid fa-shield-halved" style="color: var(--gold);"></i>
-                    <span>🛡️ अपराध नियंत्रण एवं न्यायिक दक्षता अंतर्दृष्टि (Crime Control Insights)</span>
-                </div>
-                <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 10px;">
-                    त्रुटिहीन चार्जशीट किस तरह त्वरित कनविक्शन और अपराध रोकथाम को सुनिश्चित करती है, इसके मुख्य पहलू:
-                </p>
-                <div class="nk-insights-grid">
-                    <div class="nk-insight-card">
-                        <h3><i class="fa-solid fa-hourglass-half"></i> ज़ीरो डिले कनविक्शन</h3>
-                        <p>प्रक्रियात्मक खामियों और तकनीकी बचावों को रोककर, न्याय-कवच कोर्ट ट्रायल को गति देता है तथा जमानत की संभावनाओं को कम करता है।</p>
-                    </div>
-                    <div class="nk-insight-card">
-                        <h3><i class="fa-solid fa-chart-pie"></i> BNS अपराध मैपिंग</h3>
-                        <p>चार्जशीट डेटा का सीधा BNS वर्गीकरण कर मुख्यालय को जिलेवार आपराधिक प्रवृत्तियों की तत्काल विज़ुअलाइज़ेशन रिपोर्ट देता है।</p>
-                    </div>
-                    <div class="nk-insight-card">
-                        <h3><i class="fa-solid fa-ban"></i> तकनीकी दोषमुक्ति रोकथाम</h3>
-                        <p>न्यायालयों में अधिकतर केस दस्तावेजी त्रुटियों या गायब साक्ष्यों के कारण कमजोर होते हैं। यह एआई मॉड्यूल उसे 100% अभेद्य बनाता है।</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
+            <div class="card" id="analytics-section">
                 <div class="section-title">
                     <i class="fa-solid fa-chart-line" style="color: var(--accent-blue);"></i>
-                    <span>📊 रीयल-टाइम एआई एनालिटिक्स सैंडबॉक्स (Interactive AI Analytics)</span>
+                    <span>📊 रीयल-टाइम एआई एनालिटिक्स एवं अपराध डिस्ट्रीब्यूशन (AI Charts)</span>
                 </div>
                 <div class="nk-dashboard-grid">
                     <div class="nk-chart-container">
                         <h3 style="font-size: 14px; margin-bottom: 15px; color: #fff; font-weight: 500;">
-                            <i class="fa-solid fa-chart-bar" style="color: var(--gold);"></i> एआई द्वारा रोकी गई सामान्य त्रुटियों का वितरण
+                            <i class="fa-solid fa-chart-bar" style="color: var(--gold);"></i> एआई द्वारा रोकी गई सामान्य विवेचना त्रुटियों का वितरण
                         </h3>
                         <div style="position: relative; height: 260px; width: 100%;">
                             <canvas id="nyayKavachChart"></canvas>
@@ -899,24 +980,64 @@
                 </div>
             </div>
 
-            <div class="card" id="report-section">
+            <div class="card" id="complaint-section">
                 <div class="section-title">
-                    <i class="fa-solid fa-file-shield" style="color: var(--success);"></i>
-                    <span>🛡️ न्याय-कवच एआई जांच रिपोर्ट</span>
+                    <i class="fa-solid fa-pen-to-square" style="color: var(--gold);"></i>
+                    <span>📝 नई शिकायत / अपराध पंजीकरण प्रपत्र (New Complaint Register)</span>
                 </div>
-                <div class="report-grid">
-                    <div class="report-card">
-                        <h3>📜 लागू कानून (BNS और विशेष अधिनियम)</h3>
-                        <ul id="laws-list">
-                        </ul>
+                <form id="new-complaint-form" onsubmit="submitComplaint(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>शिकायतकर्ता का पूरा नाम:</label>
+                            <input type="text" placeholder="नाम लिखें" required>
+                        </div>
+                        <div class="form-group">
+                            <label>मोबाइल नंबर / संपर्क:</label>
+                            <input type="text" placeholder="10 अंकों का नंबर" required>
+                        </div>
+                        <div class="form-group">
+                            <label>घटना का स्थान / क्षेत्र:</label>
+                            <select>
+                                <option>थाना हज़रतगंज</option>
+                                <option>थाना गोमती नगर</option>
+                                <option>थाना विभूति खंड</option>
+                                <option>अन्य पुलिस स्टेशन</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="report-card">
-                        <h3>🔍 अगले जरूरी कदम (IO प्रोटोकॉल - BNSS)</h3>
-                        <ul id="steps-list">
-                        </ul>
+                    <div class="form-group">
+                        <label>घटना का विस्तृत विवरण (यह विवरण सीधे FIR एनालिसिस इंजन में सिंक हो जाएगा):</label>
+                        <textarea placeholder="अपराध की पूरी घटना यहाँ विस्तार से लिखें..."></textarea>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fa-solid fa-folder-plus"></i> शिकायत सुरक्षित करें (Sync to CCTNS)
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="section-title">
+                    <i class="fa-solid fa-shield-halved" style="color: var(--gold);"></i>
+                    <span>🛡️ अपराध नियंत्रण एवं न्यायिक दक्षता अंतर्दृष्टि (Crime Control Insights)</span>
+                </div>
+                <div class="nk-insights-grid">
+                    <div class="nk-insight-card">
+                        <h3><i class="fa-solid fa-hourglass-half"></i> ज़ीरो डिले कनविक्शन</h3>
+                        <p>प्रक्रियात्मक खामियों और तकनीकी बचावों को रोककर, न्याय-कवच कोर्ट ट्रायल को गति देता है तथा जमानत की संभावनाओं को कम करता है।</p>
+                    </div>
+                    <div class="nk-insight-card">
+                        <h3><i class="fa-solid fa-chart-pie"></i> BNS अपराध मैपिंग</h3>
+                        <p>चार्जशीट डेटा का सीधा BNS वर्गीकरण कर मुख्यालय को जिलेवार आपराधिक प्रवृत्तियों की तत्काल विज़ुअलाइज़ेशन रिपोर्ट देता है।</p>
+                    </div>
+                    <div class="nk-insight-card">
+                        <h3><i class="fa-solid fa-ban"></i> तकनीकी दोषमुक्ति रोकथाम</h3>
+                        <p>न्यायालयों में अधिकतर केस दस्तावेजी त्रुटियों या गायब साक्ष्यों के कारण कमजोर होते हैं। यह एआई मॉड्यूल उसे 100% अभेद्य बनाता है।</p>
                     </div>
                 </div>
             </div>
+
         </div>
     </main>
 
@@ -944,7 +1065,7 @@
             </div>
             
             <div class="profile-desc">
-                <strong>अपраधी का नाम:</strong> रमेश कुमार उर्फ "जग्गू"<br>
+                <strong>अपराधी का नाम:</strong> रमेश कुमार उर्फ "जग्गू"<br>
                 <strong>सक्रिय इतिहास:</strong> 04 संगीन मामले (लूट, हजरतगंज क्षेत्र)<br>
                 <strong>अंतिम जियो-लोकेशन:</strong> हजरतगंज चौराहा, लखनऊ<br>
                 <strong>वर्तमान स्थिति:</strong> फरार (Yaksh ट्रैकर अलर्ट ऑन)
@@ -1000,7 +1121,6 @@
     </div>
 
     <script>
-        // Standard Hoisted Functions (Avoids scoping issues with HTML inline onclicks)
         function openYakshModal() {
             document.getElementById('yakshModal').style.display = 'flex';
         }
@@ -1036,12 +1156,17 @@
 
             if(resultBox) {
                 resultBox.innerHTML = 'सूचकांक: ' + totalScore + ' | ' + status + ' 🔍';
-                
-                // Visual response animation trigger
                 resultBox.classList.remove('calc-glow');
                 void resultBox.offsetWidth; // Trigger reflow
                 resultBox.classList.add('calc-glow');
             }
+        }
+
+        // Form submission logic
+        function submitComplaint(event) {
+            event.preventDefault();
+            alert("शिकायत सफलतापूर्वक दर्ज और CCTNS डेटाबेस के साथ सिंक हो गई है!");
+            document.getElementById('new-complaint-form').reset();
         }
 
         // Global voice engine setup
@@ -1170,7 +1295,7 @@
                     score = "75% (सामान्य जांच)";
                     progress = "75%";
                     convictionStatus = 'सामान्य इन्वेस्टिगेशन ट्रैक';
-                    tagText = "सामान्य केस डाटा";
+                    tagText = "सामान्य केस DATA";
                     targetDays = "30 दिन";
                 }
 
@@ -1183,7 +1308,6 @@
                 document.getElementById('priority-tag-text').innerText = tagText;
                 document.getElementById('target-days').innerText = targetDays;
 
-                var cleanLawsText = laws.map(function(l) { return l.replace(/<\/?[^>]+(>|$)/g, ""); }).join(', ');
                 speakReport("केस का विश्लेषण पूर्ण हो गया है।");
 
             }, 800);
@@ -1282,6 +1406,17 @@
             }
             // Trigger initial calculation right after initialization
             setTimeout(function() { calculateWorkload(); }, 300);
+
+            // Handle sidebar active link toggle based on hash scrolling
+            const navLinks = document.querySelectorAll('.sidebar-nav .nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(nl => nl.classList.remove('active'));
+                    if(!this.getAttribute('onclick')) {
+                        this.classList.add('active');
+                    }
+                });
+            });
         });
     </script>
 </body>
