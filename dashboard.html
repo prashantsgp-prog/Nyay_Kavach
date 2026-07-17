@@ -566,6 +566,99 @@
             font-size: 0.8rem;
             color: #a8b2d1;
         }
+
+        /* ============================================================
+           ADDED: YAKSH MODAL POPUP SYSTEM STYLING 
+           ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 11, 20, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(6px);
+        }
+
+        .modal-card {
+            background: var(--card-bg);
+            border: 2px solid var(--gold);
+            padding: 25px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 18px;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--gold);
+            transition: 0.2s;
+        }
+
+        .close-btn:hover { color: #fff; }
+
+        .criminal-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 12px;
+        }
+
+        .criminal-box {
+            width: 40%;
+            text-align: center;
+            background: rgba(0,0,0,0.25);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .criminal-box img {
+            width: 100%;
+            border-radius: 6px;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+            height: 135px;
+        }
+
+        .criminal-box p { font-size: 11px; margin-top: 6px; color: #a8b2d1; }
+
+        .match-score {
+            width: 20%;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .match-score h2 { margin: 0; font-size: 24px; font-family: 'Rajdhani', sans-serif; text-shadow: 0 0 10px rgba(0,255,136,0.4); }
+
+        .profile-desc {
+            background: rgba(5, 11, 20, 0.6);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 13.5px;
+            border-left: 4px solid var(--police-red);
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -581,6 +674,7 @@
             <a href="#" class="nav-item active"><i class="fa-solid fa-gauge-high"></i> मुख्य डैशबोर्ड</a>
             <a href="#case-input" class="nav-item gold-nav"><i class="fa-solid fa-brain"></i> एआई FIR एनालिसिस</a>
             <a href="#priority-section" class="nav-item"><i class="fa-solid fa-crosshairs"></i> ऑपरेशन कनविक्शन</a>
+            <a href="#" class="nav-item" onclick="openYakshModal(); return false;" style="color: var(--warning);"><i class="fa-solid fa-face-viewfinder"></i> YAKSH लाइव मैच</a>
             <a href="#report-section" class="nav-item"><i class="fa-solid fa-file-shield"></i> जांच रिपोर्ट (BNS/BNSS)</a>
             <a href="map.html" class="nav-item"><i class="fa-solid fa-map-location-dot"></i> लाइव जियो-फेंस मैप</a>
             <a href="charts.html" class="nav-item"><i class="fa-solid fa-chart-pie"></i> अपराध एनालिटिक्स</a>
@@ -714,7 +808,7 @@
                     <span class="priority-tag" id="priority-tag-text">प्रायोरिटी एक्टिव</span>
                 </div>
                 <p style="color: #c5d1eb; font-size: 0.95rem; margin-bottom: 15px;">
-                    <strong>डीजीपी यूपी विशेष निर्देश:</strong> नए BNS/BNSS कानूनों के तहत फ़ास्ट-ट्रैक साक्ष्य प्रबंधन और <strong>यक्ष ऐप / प्रतिबिंब पोर्टल</strong> से संदिग्धों की रियल-टाइम निगरानी।
+                    <strong>डीजीपी यूपी विशेष निर्देश:</strong> नए BNS/BNSS कानूनों के तहत फ़ास्ट-ट्रैक साक्ष्य प्रबंधन और <strong>यक्ष ऐप / प्रतिबिंब portal</strong> से संदिग्धों की रियल-टाइम निगरानी।
                 </p>
 
                 <div class="priority-grid">
@@ -723,11 +817,13 @@
                         <p id="conviction-status-text" style="color: var(--success);"><i class="fa-solid fa-gavel"></i> फास्ट-ट्रैक योग्य</p>
                         <small style="color: #a8b2d1;">टारगेट charge-sheet: <strong id="target-days">30 दिन</strong></small>
                     </div>
-                    <div class="priority-item">
-                        <h4>📲 यक्ष ऐप क्रिमिनल डेटाबेस</h4>
+                    
+                    <div class="priority-item" onclick="openYakshModal()" style="cursor: pointer; border: 1px solid var(--warning); background: rgba(212, 175, 55, 0.05);">
+                        <h4 style="color: var(--gold);"><i class="fa-solid fa-mouse-pointer"></i> 📲 यक्ष ऐप डेटाबेस</h4>
                         <p id="yaksh-status-text" style="color: var(--warning);"><i class="fa-solid fa-triangle-exclamation"></i> 2 मैच प्रोफाइल मिले</p>
-                        <small style="color: #a8b2d1;">प्रतिबिंब जियो-फेंस: <strong>सक्रिय</strong></small>
+                        <small style="color: #a8b2d1;">प्रतिबिंब जियो-फेंस: <strong style="color: var(--success);">सक्रिय (क्लिक करें)</strong></small>
                     </div>
+                    
                     <div class="priority-item">
                         <h4>🎯 कनविक्शन रेडीनेस स्कोर</h4>
                         <p id="score-text">85%</p>
@@ -843,7 +939,58 @@
         </div>
     </main>
 
+    <div id="yakshModal" class="modal-overlay">
+        <div class="modal-card">
+            <span class="close-btn" onclick="closeYakshModal()">&times;</span>
+            <h3 style="color: var(--gold); font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; letter-spacing: 0.5px;">
+                <i class="fa-solid fa-triangle-exclamation" style="color: var(--danger);"></i> YAKSH AI: FACE MATCH IDENTIFIED
+            </h3>
+            <p style="font-size: 11px; color: #a8b2d1; margin-top: 2px;">DGP Priority Monitoring System</p>
+            
+            <div class="criminal-flex">
+                <div class="criminal-box">
+                    <img src="criminal1.jpg" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200'" alt="CCTV Suspect Face">
+                    <p>CCTV Capture (Live)</p>
+                </div>
+                <div class="match-score">
+                    <h2>94%</h2>
+                    <span style="font-size: 11px; color: var(--success); font-weight: bold;">Match</span>
+                </div>
+                <div class="criminal-box">
+                    <img src="criminal2.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200'" alt="CCTNS Criminal Database Profile">
+                    <p>CCTNS Photo Record</p>
+                </div>
+            </div>
+            
+            <div class="profile-desc">
+                <strong>अपराधी का नाम:</strong> रमेश कुमार उर्फ "जग्गू"<br>
+                <strong>सक्रिय इतिहास:</strong> 04 संगीन मामले (लूट, हजरतगंज क्षेत्र)<br>
+                <strong>अंतिम जियो-लोकेशन:</strong> हजरतगंज चौराहा, लखनऊ<br>
+                <strong>वर्तमान स्थिति:</strong> फरार (Yaksh ट्रैकर अलर्ट ऑन)
+            </div>
+        </div>
+    </div>
+
     <script>
+        // ============================================================
+        // ADDED: JAVASCRIPT LOGIC FOR YAKSH MODAL POPUP
+        // ============================================================
+        function openYakshModal() {
+            document.getElementById('yakshModal').style.display = 'flex';
+        }
+
+        function closeYakshModal() {
+            document.getElementById('yakshModal').style.display = 'none';
+        }
+
+        // Close when clicking the outside dark region
+        window.addEventListener('click', function(event) {
+            var modal = document.getElementById('yakshModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+
         window.speakReport = function(speechText) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -957,7 +1104,7 @@
                     score = "75%";
                     progress = "75%";
                     convictionStatus = 'संपत्ति अपराध ट्रैक';
-                    tagText = "प्रायोरिटी #5 (संपत्ति रिकवरी)";
+                    tagText = "प्रायॉरीटी #5 (संपत्ति रिकवरी)";
                     targetDays = "60 दिन";
                 } 
                 // 4. Accident / Rash Driving / Hit and Run
