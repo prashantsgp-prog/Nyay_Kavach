@@ -568,7 +568,7 @@
         }
 
         /* ============================================================
-           ADDED: YAKSH MODAL POPUP SYSTEM STYLING 
+           MODAL POPUP SYSTEM STYLING 
            ============================================================ */
         .modal-overlay {
             position: fixed;
@@ -755,8 +755,8 @@
                     <button class="btn btn-demo" onclick="calculateWorkload()" style="border-style: solid; padding: 8px 20px;">
                         <i class="fa-solid fa-square-poll-vertical"></i> इंडेक्स की गणना करें
                     </button>
-                    <div id="calc-result" style="font-weight: 600; font-size: 1.1rem; color: var(--gold); letter-spacing: 0.5px;">
-                        कार्यभार सूचकांक: --
+                    <div id="calc-result" onclick="openVivechnaModal()" style="font-weight: 600; font-size: 1.1rem; color: var(--gold); letter-spacing: 0.5px; cursor: pointer; background: rgba(11, 37, 69, 0.4); padding: 6px 12px; border-radius: 6px; border: 1px dashed rgba(212,175,55,0.3);">
+                        कार्यभार सूचकांक: -- (विवेचना सूची हेतु क्लिक करें)
                     </div>
                 </div>
             </div>
@@ -825,7 +825,7 @@
                     </div>
                     
                     <div class="priority-item">
-                        <h4>🎯 कनविक्शन रेडीनेस स्कोर</h4>
+                        <h4>🎯 कनविक्शन रेेंडीनेस स्कोर</h4>
                         <p id="score-text">85%</p>
                         <div class="progress-container">
                             <div class="progress-bar" id="conviction-progress" style="width: 85%;"></div>
@@ -971,9 +971,56 @@
         </div>
     </div>
 
+    <div id="vivechnaModal" class="modal-overlay">
+        <div style="background: var(--card-bg); border: 2px solid var(--gold); padding: 25px; border-radius: 15px; width: 95%; max-width: 680px; color: #fff; position: relative; box-shadow: 0 10px 35px rgba(0, 0, 0, 0.7); animation: modalFadeIn 0.3s ease-out; max-height: 85vh; overflow-y: auto; text-align: left;">
+            <span class="close-btn" onclick="closeVivechnaModal()">&times;</span>
+            <h3 style="color: var(--gold); font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; letter-spacing: 0.5px; border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 10px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                <i class="fa-solid fa-building-shield"></i> थाना हज़रतगंज (लखनऊ) - 4 मुख्य विवेचनाएं
+            </h3>
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <div style="background: rgba(5, 11, 20, 0.6); padding: 15px; border-radius: 8px; border-left: 4px solid var(--accent-blue);">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--gold); margin-bottom: 6px; font-weight: 600;">
+                        <span>📌 मु.अ.सं.: 124/2026</span>
+                        <span>⚖️ धारा: 318(4) BNS, 66D IT Act</span>
+                    </div>
+                    <strong style="color: #fff; font-size: 1rem; display: block; margin-bottom: 4px;">1. साइबर/यूपीआई धोखाधड़ी (Cyber/UPI Fraud)</strong>
+                    <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.5;"><strong>विवेचना की स्थिति:</strong> संबंधित बैंक से नोडल अधिकारी के जरिए आरोपी के बैंक खाते की KYC और IP लॉग प्राप्त कर लिए गए हैं। संदेहास्पद बैंक खाते को तुरंत फ्रीज (Freeze) करा दिया गया है। अग्रिम डिजिटल ट्रेल की जांच जारी है।</p>
+                </div>
+
+                <div style="background: rgba(5, 11, 20, 0.6); padding: 15px; border-radius: 8px; border-left: 4px solid var(--warning);">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--gold); margin-bottom: 6px; font-weight: 600;">
+                        <span>📌 मु.अ.सं.: 145/2026</span>
+                        <span>⚖️ धारा: 318(4), 336, 340(2) BNS</span>
+                    </div>
+                    <strong style="color: #fff; font-size: 1rem; display: block; margin-bottom: 4px;">2. नौकरी के नाम पर फर्जीवाड़ा (Job Forgery Case)</strong>
+                    <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.5;"><strong>विवेचना की स्थिति:</strong> आरोपी द्वारा दिए गए फर्जी दस्तावेजों को कब्जे में लेकर फोरेंसिक लैब (FSL) जांच के लिए भेजा गया है। मुख्य आरोपी के संभावित ठिकानों पर दबिश दी जा रही है।</p>
+                </div>
+
+                <div style="background: rgba(5, 11, 20, 0.6); padding: 15px; border-radius: 8px; border-left: 4px solid var(--police-red);">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--gold); margin-bottom: 6px; font-weight: 600;">
+                        <span>📌 मु.अ.सं.: 160/2026</span>
+                        <span>⚖️ धारा: 189(2), 191(2), 324 BNS</span>
+                    </div>
+                    <strong style="color: #fff; font-size: 1rem; display: block; margin-bottom: 4px;">3. हज़रतगंज चौराहे पर उपद्रव (Public Order / Riot)</strong>
+                    <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.5;"><strong>विवेचना की स्थिति:</strong> चौराहे पर लगे स्मार्ट सिटी के CCTV कैमरों और वीडियो फुटेज के जरिए 15 मुख्य उपद्रवियों की पहचान (Video Mapping) कर ली गई है। नामजद आरोपियों की धरपकड़ जारी है।</p>
+                </div>
+
+                <div style="background: rgba(5, 11, 20, 0.6); padding: 15px; border-radius: 8px; border-left: 4px solid var(--success);">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--gold); margin-bottom: 6px; font-weight: 600;">
+                        <span>📌 मु.अ.सं.: 178/2026</span>
+                        <span>⚖️ धारा: 308(2), 351(2) BNS</span>
+                    </div>
+                    <strong style="color: #fff; font-size: 1rem; display: block; margin-bottom: 4px;">4. रंगदारी और जान से मारने की धमकी (Extortion Threat)</strong>
+                    <p style="font-size: 0.88rem; color: #cbd5e1; line-height: 1.5;"><strong>विवेचना की स्थिति:</strong> सर्विलांस सेल की मदद से वर्चुअल नंबर का IP एड्रेस और कॉल CDR (Call Detail Record) ट्रेस कर लिया गया है। संदिग्ध लोकेशन के आधार पर पुलिस टीम रवाना की गई है।</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ============================================================
-        // ADDED: JAVASCRIPT LOGIC FOR YAKSH MODAL POPUP
+        // MODAL SYSTEMS JAVASCRIPT LOGIC WITH DYNAMIC VOICE SUPPORT
         // ============================================================
         function openYakshModal() {
             document.getElementById('yakshModal').style.display = 'flex';
@@ -983,11 +1030,34 @@
             document.getElementById('yakshModal').style.display = 'none';
         }
 
-        // Close when clicking the outside dark region
+        // Modified function to pop up list AND trigger AI Assistant voice summary
+        function openVivechnaModal() {
+            document.getElementById('vivechnaModal').style.display = 'flex';
+            
+            // Structured voice string for Hazratganj cases
+            var voiceText = "थाना हज़रतगंज की चार मुख्य लंबित विवेचनाएं इस प्रकार हैं। पहला, मुकदम नंबर 124, साइबर फ्रॉड मामला। बैंक खाता फ्रीज कर डिजिटल ट्रेल की जांच जारी है। दूसरा, मुकदम नंबर 145, नौकरी फर्जीवाड़ा मामला। फर्जी दस्तावेज फोरेंसिक लैब भेजे गए हैं। तीसरा, मुकदम नंबर 160, हज़रतगंज चौराहा उपद्रव मामला। सीसीटीवी फुटेज से 15 उपद्रवियों की पहचान हो चुकी है। चौथा, मुकदम नंबर 178, व्हाट्सएप रंगदारी मामला। सर्विलांस सेल द्वारा संदिग्ध लोकेशन ट्रैक की जा रही है।";
+            
+            // Triggers SI Kavach to speak
+            window.speakReport(voiceText);
+        }
+
+        function closeVivechnaModal() {
+            document.getElementById('vivechnaModal').style.display = 'none';
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop talking if user closes popup
+            }
+        }
+
+        // Close modals when clicking the outside dark region
         window.addEventListener('click', function(event) {
-            var modal = document.getElementById('yakshModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
+            var yakshModal = document.getElementById('yakshModal');
+            var vivechnaModal = document.getElementById('vivechnaModal');
+            if (event.target == yakshModal) {
+                yakshModal.style.display = 'none';
+            }
+            if (event.target == vivechnaModal) {
+                vivechnaModal.style.display = 'none';
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             }
         });
 
@@ -1238,12 +1308,13 @@
             var resultBox = document.getElementById('calc-result');
             var totalScore = cases * complexity;
             var status = "सामान्य (Normal)";
-            var color = "var(--success)";
 
-            if (totalScore >= 12) { status = "अत्यधिक कार्यभार (Critical)"; color = "var(--danger)"; }
-            else if (totalScore >= 6) { status = "मध्यम दबाव"; color = "var(--warning)"; }
+            if (totalScore >= 12) { status = "अत्यधिक कार्यभार (Critical)"; }
+            else if (totalScore >= 6) { status = "मध्यम दबाव"; }
 
-            if(resultBox) resultBox.innerHTML = 'सूचकांक: ' + totalScore + ' | स्थिति: ' + status;
+            if(resultBox) {
+                resultBox.innerHTML = 'सूचकांक: ' + totalScore + ' | ' + status + ' 🔍';
+            }
         };
 
         window.logoutUser = function() {
