@@ -9,7 +9,7 @@
         body { 
             margin: 0; 
             position: relative; 
-            /* Background me default hq.jpg rahega aur JS se har 6 second me change hoga */
+            /* Background me default hq.jpg rahega aur JS se har 10 second me change hoga */
             background: linear-gradient(rgba(10, 15, 29, 0.88), rgba(10, 15, 29, 0.88)), 
                         url('hq.jpg') no-repeat center center fixed;
             background-size: cover;
@@ -248,13 +248,10 @@
 
     <script>
         // === 1. UP POLICE ECOSYSTEM BACKGROUND IMAGE SLIDER ===
-        // Isme wahi files set hain jo aap apne GitHub par upload karenge
+        // Ab yahan sirf HQ aur YAKSH ki images hi rotate hongi
         const backgroundImages = [
             'hq.jpg',          // UP Police Headquarters Photo
-            'dial112.jpg',     // UP Dial 112 Image
-            'wpl1090.jpg',     // 1090 Women Power Line Image
-            'yaksh.jpg',       // YAKSH Portal Image
-            'conviction.jpg'   // Conviction Portal Image
+            'yaksh.jpg'        // YAKSH Portal Image
         ];
         
         let currentBgIndex = 0;
@@ -264,7 +261,7 @@
                 const nextImage = backgroundImages[currentBgIndex];
                 // Background change logic with existing dark overlay tint
                 document.body.style.backgroundImage = `linear-gradient(rgba(10, 15, 29, 0.88), rgba(10, 15, 29, 0.88)), url('${nextImage}')`;
-            }, 6000); // Har 6 second me image slide hogi
+            }, 10000); // Har 10 second (10000ms) me image slide hogi
         }
 
         // === 2. CAPTCHA GENERATION ===
