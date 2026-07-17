@@ -22,7 +22,7 @@
             min-height: 100vh; 
             padding: 15px; 
             box-sizing: border-box;
-            transition: background-image 1.5s ease-in-out; /* Background badalteen waqt smooth animation */
+            transition: background-image 1.5s ease-in-out; /* Smooth transition animation */
         }
         
         /* Logo & Header */
@@ -40,9 +40,7 @@
         .label { font-size: 11.5px; color: #fff; margin-top: 6px; font-weight: bold; line-height: 1.3; }
         .label span { color: var(--up-gold); display: block; font-weight: normal; font-size: 11px; margin-top: 2px; }
 
-        /* ==========================================
-           BADA LOGIN CARD (UPDATED WITH EXTRA FIELDS)
-           ========================================== */
+        /* Bada Login Card */
         .login-card { 
             background: rgba(0, 46, 110, 0.75); 
             padding: 30px 35px; 
@@ -56,7 +54,7 @@
             box-sizing: border-box; 
         }
         
-        /* Inputs & Dropdowns Bade Kiye */
+        /* Inputs & Dropdowns */
         input[type="text"], input[type="password"], select { 
             width: 100%; 
             box-sizing: border-box;
@@ -71,10 +69,9 @@
         }
         input[type="text"]:focus, input[type="password"]:focus, select:focus { border-color: #fff; box-shadow: 0 0 8px rgba(255,179,0,0.5); }
         
-        /* Dropdown options text color fix */
         select option { background: #001e47; color: white; padding: 10px; }
 
-        /* Buttons Bade Kiye */
+        /* Buttons */
         button { 
             width: 100%; 
             padding: 12px; 
@@ -91,7 +88,7 @@
         }
         button:hover { background: #e53935; box-shadow: 0 0 12px rgba(198, 40, 40, 0.6); }
         
-        /* Bada Captcha Display */
+        /* Captcha Display */
         #captcha-display { 
             font-size: 22px; 
             font-weight: bold; 
@@ -105,7 +102,7 @@
             user-select: none;
         }
 
-        /* Checkbox Text Size */
+        /* Checkbox */
         .checkbox-container {
             display: flex;
             align-items: center;
@@ -124,7 +121,7 @@
             accent-color: var(--up-gold);
         }
 
-        /* Top Bar with Clock & AI Status */
+        /* Top Bar Container */
         .top-bar-container {
             position: absolute;
             top: 15px;
@@ -165,7 +162,6 @@
             50% { opacity: 0.2; }
         }
 
-        /* Police Theme Live Clock Styling */
         .top-police-clock {
             font-size: 13px; 
             font-weight: bold; 
@@ -178,7 +174,6 @@
             white-space: nowrap;
         }
 
-        /* Mobile Screens ke liye Scaling settings */
         @media (max-width: 480px) {
             .login-card { width: 100%; padding: 20px 15px; }
             .top-bar-container { flex-direction: column; gap: 8px; align-items: center; top: 8px; }
@@ -252,12 +247,14 @@
     </div>
 
     <script>
-        // === 1. AUTOMATIC BACKGROUND IMAGE SLIDER (Har 6 Second me Badlega) ===
+        // === 1. UP POLICE ECOSYSTEM BACKGROUND IMAGE SLIDER ===
+        // Isme wahi files set hain jo aap apne GitHub par upload karenge
         const backgroundImages = [
-            'hq.jpg', // Aapki original image
-            'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=1920&q=80', // Police/Justice Theme 1
-            'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=1920&q=80', // Legal/Shield Theme 2
-            'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1920&q=80'  // Dark Cyber Security Theme 3
+            'hq.jpg',          // UP Police Headquarters Photo
+            'dial112.jpg',     // UP Dial 112 Image
+            'wpl1090.jpg',     // 1090 Women Power Line Image
+            'yaksh.jpg',       // YAKSH Portal Image
+            'conviction.jpg'   // Conviction Portal Image
         ];
         
         let currentBgIndex = 0;
@@ -265,9 +262,9 @@
             setInterval(() => {
                 currentBgIndex = (currentBgIndex + 1) % backgroundImages.length;
                 const nextImage = backgroundImages[currentBgIndex];
-                // Linear gradient overlay wahi rahega, sirf image URL badlega
+                // Background change logic with existing dark overlay tint
                 document.body.style.backgroundImage = `linear-gradient(rgba(10, 15, 29, 0.88), rgba(10, 15, 29, 0.88)), url('${nextImage}')`;
-            }, 6000); // 6000 miliseconds = 6 Seconds
+            }, 6000); // Har 6 second me image slide hogi
         }
 
         // === 2. CAPTCHA GENERATION ===
@@ -278,7 +275,7 @@
             document.getElementById('captcha-display').innerText = captcha;
         }
 
-        // === 3. LOGIN VALIDATION (With Department Check) ===
+        // === 3. LOGIN VALIDATION ===
         function checkLogin() {
             const id = document.getElementById('officer-id').value.trim();
             const dept = document.getElementById('officer-dept').value;
@@ -333,7 +330,7 @@
         window.addEventListener("DOMContentLoaded", () => {
             generateCaptcha();
             startLiveClock();
-            startBackgroundSlider(); // Background slider ko chalu karne ke liye
+            startBackgroundSlider();
         });
     </script>
 </body>
