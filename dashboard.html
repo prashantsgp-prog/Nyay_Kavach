@@ -789,7 +789,7 @@
             100% { box-shadow: 0 0 0px var(--gold); background: rgba(11, 37, 69, 0.4); }
         }
 
-        /* --- LOGIN SCREEN STYLING --- */
+        /* --- LOGIN SCREEN STYLING (NEW UPDATE #1) --- */
         #loginScreen {
             position: fixed;
             top: 0;
@@ -827,7 +827,7 @@
             margin-bottom: 25px;
         }
 
-        /* --- DEMO CARDS STYLING --- */
+        /* --- DEMO CARDS STYLING (NEW UPDATE #3) --- */
         .demo-card-item {
             background: rgba(5,11,20,0.8);
             border: 1px solid #334e68;
@@ -916,7 +916,7 @@
             <div class="status-badges">
                 <span class="badge"><i class="fa-solid fa-robot"></i> एआई अवतार एक्टिव</span>
                 <span class="badge" id="offline-badge" style="border-color: #00ff88; color: #00ff88;"><i class="fa-solid fa-wifi"></i> नेटवर्क चेक हो रहा है...</span>
-                <span class="badge gold-badge"><i class="fa-solid fa-star"></i> यूपी पुलिस BNS/BNSS इंटीग्रated</span>
+                <span class="badge gold-badge"><i class="fa-solid fa-star"></i> यूपी पुलिस BNS/BNSS इंटीग्रेटेड</span>
             </div>
         </div>
 
@@ -1009,7 +1009,7 @@
                     </div>
                     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                         <button class="btn" style="background: #00b300; color: #fff; font-size: 0.85rem; padding: 6px 14px;" onclick="sendVictimUpdate()">
-                            <i class="fa-brands fa-whatsapp"></i> पीड़ित को WhatsApp अपडेट भेजें (9792256400)
+                            <i class="fa-brands fa-whatsapp"></i> पीड़ित को WhatsApp अपडेट भेजें
                         </button>
                         <button class="btn" style="background: var(--gold); color: #000; font-size: 0.85rem; padding: 6px 14px; font-weight: 700;" onclick="generatePDFDraft()">
                             <i class="fa-solid fa-file-pdf"></i> ई-चार्जशीट PDF डाउनलोड करें
@@ -1343,4 +1343,581 @@
                 <p>दिनांक 15 जुलाई की रात 11 बजे, एक महिला पीड़िता ने थाने आकर शिकायत की है कि एक नामजद आरोपी ने नशीला पदार्थ पिलाकर उसके साथ जबरन दुष्कर्म किया और किसी को बताने पर जान से मारने की धमकी दी।</p>
             </div>
             <div class="demo-card-item" onclick="selectDemoCase(2)">
-                <h4>2. जघन्य
+                <h4>2. जघन्य अपराध एवं हत्या (Murder & Conspiracy)</h4>
+                <p>गोमती नगर क्षेत्र में आपसी रंजिश के चलते तीन आरोपियों ने मिलकर एक व्यापारी की गोली मारकर हत्या कर दी और साक्ष्य मिटाने के उद्देश्य से खून से सने हथियार व कपड़े पास की नदी में फेंक दिए।</p>
+            </div>
+            <div class="demo-card-item" onclick="selectDemoCase(3)">
+                <h4>3. साइबर ठगी एवं यूपीआई फ्रॉड (Cyber UPI Fraud)</h4>
+                <p>हज़रतगंज निवासी एक बुजुर्ग के पास बैंक अधिकारी बनकर फोन आया और KYC अपडेट करने के बहाने OTP पूछकर उनके बैंक खाते से 1 लाख 50 हजार रुपये की अवैध डिजिटल निकासी (UPI Fraud) कर ली गई।</p>
+            </div>
+            <div class="demo-card-item" onclick="selectDemoCase(4)">
+                <h4>4. सशस्त्र डकैती एवं लूटपाट (Armed Robbery / Theft)</h4>
+                <p>देर रात नेशनल हाइवे पर तीन अज्ञात बदमाशों ने असलहे के बल पर एक कार सवार परिवार को रोककर सोने की जंजीर, नकदी और मोबाइल फोन लूट लिया तथा विरोध करने पर गाड़ी के शीशे तोड़ दिए।</p>
+            </div>
+            <div class="demo-card-item" onclick="selectDemoCase(5)">
+                <h4>5. चौराहा उपद्रव एवं पुलिस पर हमला (Riot & Assault on Police)</h4>
+                <p>हज़रतगंज मुख्य चौराहे पर 20-25 लोगों की भीड़ ने अवैध रूप से रास्ता रोककर प्रदर्शन किया, सार्वजनिक संपत्ति को नुकसान पहुँचाया और ड्यूटी पर तैनात पुलिसकर्मियों के साथ हाथापाई कर सरकारी काम में बाधा डाली।</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="liveMapModal" class="modal-overlay">
+        <div class="modal-card" style="max-width: 900px; width: 95%; text-align: left; max-height: 92vh; overflow-y: auto;">
+            <span class="close-btn" onclick="closeLiveMapModal()">&times;</span>
+            <div class="section-title" style="border-bottom: 1px solid rgba(212,175,55,0.3); padding-bottom: 10px; margin-bottom: 15px; justify-content: space-between;">
+                <div>
+                    <i class="fa-solid fa-satellite-dish" style="color: var(--accent-blue);"></i>
+                    <span>🛰️ लाइव सैटेलाइट जियो-फेंस रडार (हज़रतगंज एवं गोमती नगर पिकेट)</span>
+                </div>
+                <span class="badge" style="background: rgba(0,255,136,0.2); color: #00ff88; border-color: #00ff88;"><i class="fa-solid fa-tower-broadcast fa-fade"></i> रीयल-टाइम ट्रैकिंग एक्टिव</span>
+            </div>
+            
+            <div style="background: #050b14; border: 2px solid var(--accent-blue); border-radius: 10px; height: 420px; position: relative; overflow: hidden; margin-bottom: 15px; background-image: radial-gradient(#0f223d 15%, #050b14 85%);">
+                <div style="position: absolute; width: 100%; height: 100%; background-image: linear-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px); background-size: 40px 40px;"></div>
+                
+                <div style="position: absolute; top: 50%; left: 50%; width: 350px; height: 350px; border: 1px dashed rgba(0, 240, 255, 0.4); border-radius: 50%; transform: translate(-50%, -50%); animation: pulse-effect 2s infinite;"></div>
+                <div style="position: absolute; top: 50%; left: 50%; width: 200px; height: 200px; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 50%; transform: translate(-50%, -50%);"></div>
+
+                <div style="position: absolute; top: 38%; left: 42%; text-align: center; cursor: pointer;" onclick="alert('हज़रतगंज ज़ोन-४ (26.8500° N, 80.9499° E)\nस्थिति: संदिग्ध वाहन ट्रैकिंग जारी\nतैनात फोर्स: 3 PRV गाड़ियां व 2 फैंटम दस्ता')">
+                    <div style="background: rgba(220,38,38,0.9); color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; border: 1px solid var(--gold); box-shadow: 0 0 15px var(--police-red); white-space: nowrap;">
+                        <i class="fa-solid fa-location-dot"></i> हज़रतगंज चौराहा (ज़ोन-४)
+                    </div>
+                    <span style="font-size: 0.75rem; color: var(--gold); background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px;">26.8500° N, 80.9499° E</span>
+                </div>
+
+                <div style="position: absolute; top: 68%; left: 65%; text-align: center; cursor: pointer;" onclick="alert('गोमती नगर पिकेट पॉइंट (26.8640° N, 81.0000° E)\nस्थिति: एंटी-रोमियो व चेकिंग गश्ती सक्रिय\nसुरक्षा स्तर: सामान्य (Green Zone)')">
+                    <div style="background: rgba(0,255,136,0.9); color: #050b14; padding: 4px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; border: 1px solid #fff; box-shadow: 0 0 15px var(--success); white-space: nowrap;">
+                        <i class="fa-solid fa-shield-halved"></i> गोमती नगर पिकेट
+                    </div>
+                    <span style="font-size: 0.75rem; color: #00ff88; background: rgba(0,0,0,0.8); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px;">26.8640° N, 81.0000° E</span>
+                </div>
+
+                <div style="position: absolute; top: 50%; left: 30%; color: var(--accent-blue); font-size: 1.2rem; background: rgba(0,0,0,0.7); padding: 5px; border-radius: 50%; border: 1px solid var(--accent-blue);" title="PRV-0452 गश्ती वाहन">
+                    <i class="fa-solid fa-car-on"></i>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 0.88rem;">
+                <div style="background: rgba(220,38,38,0.1); border: 1px solid var(--police-red); padding: 12px; border-radius: 8px;">
+                    <strong style="color: #ff6680;"><i class="fa-solid fa-circle-exclamation"></i> हज़रतगंज ज़ोन अपडेट:</strong>
+                    <p style="color: #cbd5e1; margin-top: 4px;">CCTV एवं फेशियल रिकग्निशन (यक्ष ऐप) द्वारा 1 संदिग्ध वाहन को ट्रेस किया गया है। नाकाबंदी दल अलर्ट मोड पर है।</p>
+                </div>
+                <div style="background: rgba(0,255,136,0.1); border: 1px solid var(--success); padding: 12px; border-radius: 8px;">
+                    <strong style="color: #00ff88;"><i class="fa-solid fa-check-double"></i> गोमती नगर पिकेट अपडेट:</strong>
+                    <p style="color: #cbd5e1; margin-top: 4px;">सभी प्रमुख चौराहों व पिकेट पॉइंट्स पर रात्रिकालीन चेकिंग सुचारू रूप से जारी है। कोई अप्रिय गतिविधि नहीं।</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- LOGIN / LOGOUT FUNCTIONALITY (UPDATE #1) ---
+        function logoutUser() {
+            if(confirm("क्या आप सुरक्षित रूप से लॉग आउट करना चाहते हैं?")) {
+                document.querySelector('.sidebar').style.display = 'none';
+                document.querySelector('.main-content').style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'flex';
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            }
+        }
+
+        function loginUser(e) {
+            if(e) e.preventDefault();
+            document.getElementById('loginScreen').style.display = 'none';
+            document.querySelector('.sidebar').style.display = 'flex';
+            document.querySelector('.main-content').style.display = 'block';
+            alert("लॉग इन सफल! न्याय-कवच एआई पोर्टल में आपका स्वागत है।");
+        }
+
+        // --- EXISTING MODAL CONTROLS ---
+        function openYakshModal() { document.getElementById('yakshModal').style.display = 'flex'; }
+        function closeYakshModal() { document.getElementById('yakshModal').style.display = 'none'; }
+
+        function openVivechnaModal() {
+            document.getElementById('vivechnaModal').style.display = 'flex';
+            var voiceText = "थाना हज़रतगंज की चार मुख्य लंबित विवेचनाएं इस प्रकार हैं। पहला, मुकदम नंबर 124, साइबर फ्रॉड मामला। बैंक खाता फ्रीज कर डिजिटल ट्रेल की जांच जारी है। दूसरा, मुकदम नंबर 145, नौकरी फर्जीवाड़ा मामला। फर्जी दस्तावेज फोरेंसिक लैब भेजे गए हैं। तीसरा, मुकदम नंबर 160, हज़रतगंज चौराहा उपद्रव मामला। सीसीटीवी फुटेज से 15 उपद्रवियों की पहचान हो चुकी है। चौथा, मुकदम नंबर 178, व्हाट्सएप रंगदारी मामला। सर्विलांस सेल द्वारा संदिग्ध लोकेशन ट्रैक की जा रही है।";
+            speakReport(voiceText);
+        }
+        function closeVivechnaModal() {
+            document.getElementById('vivechnaModal').style.display = 'none';
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+        }
+
+        function openComplaintModal() { document.getElementById('complaintModal').style.display = 'flex'; }
+        function closeComplaintModal() { document.getElementById('complaintModal').style.display = 'none'; }
+
+        // --- DEMO MODAL CONTROLS (UPDATE #3) ---
+        function openDemoModal() { document.getElementById('demoModal').style.display = 'flex'; }
+        function closeDemoModal() { document.getElementById('demoModal').style.display = 'none'; }
+
+        function selectDemoCase(caseNum) {
+            var demoTexts = {
+                1: "दिनांक 15 जुलाई की रात 11 बजे, एक महिला पीड़िता ने थाने आकर शिकायत की है कि एक नामजद आरोपी ने नशीला पदार्थ पिलाकर उसके साथ जबरन दुष्कर्म किया और किसी को बताने पर जान से मारने की धमकी दी।",
+                2: "गोमती नगर क्षेत्र में आपसी रंजिश के चलते तीन आरोपियों ने मिलकर एक व्यापारी की गोली मारकर हत्या कर दी और साक्ष्य मिटाने के उद्देश्य से खून से सने हथियार व कपड़े पास की नदी में फेंक दिए।",
+                3: "हज़रतगंज निवासी एक बुजुर्ग के पास बैंक अधिकारी बनकर फोन आया और KYC अपडेट करने के बहाने OTP पूछकर उनके बैंक खाते से 1 लाख 50 हजार रुपये की अवैध डिजिटल निकासी (UPI Fraud) कर ली गई।",
+                4: "देर रात नेशनल हाइवे पर तीन अज्ञात बदमाशों ने असलहे के बल पर एक कार सवार परिवार को रोककर सोने की जंजीर, नकदी और मोबाइल फोन लूट लिया तथा विरोध करने पर गाड़ी के शीशे तोड़ दिए।",
+                5: "हज़रतगंज मुख्य चौराहे पर 20-25 लोगों की भीड़ ने अवैध रूप से रास्ता रोककर प्रदर्शन किया, सार्वजनिक संपत्ति को नुकसान पहुँचाया और ड्यूटी पर तैनात पुलिसकर्मियों के साथ हाथापाई कर सरकारी काम में बाधा डाली।"
+            };
+            
+            document.getElementById('case-input').value = demoTexts[caseNum];
+            closeDemoModal();
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-info"></i> डेमो केस #' + caseNum + ' लोड किया गया! एआई विश्लेषण जारी है...';
+            document.getElementById('ai-status').style.color = '#00f0ff';
+            analyzeCase();
+        }
+
+        // --- LIVE GEO-MAP MODAL CONTROLS (UPDATE #4) ---
+        function openLiveMapModal() { document.getElementById('liveMapModal').style.display = 'flex'; }
+        function closeLiveMapModal() { document.getElementById('liveMapModal').style.display = 'none'; }
+
+        // Workload Calculation
+        function calculateWorkload() {
+            var cases = parseInt(document.getElementById('calc-cases').value) || 0;
+            var complexity = parseInt(document.getElementById('calc-complexity').value);
+            var resultBox = document.getElementById('calc-result');
+            
+            var totalScore = cases * complexity;
+            var status = "सामान्य (Normal)";
+
+            if (totalScore >= 12) { status = "अत्यधिक कार्यभार (Critical)"; }
+            else if (totalScore >= 6) { status = "मध्यम दबाव"; }
+
+            if(resultBox) {
+                resultBox.innerHTML = 'सूचकांक: ' + totalScore + ' | ' + status + ' 🔍';
+                resultBox.classList.remove('calc-glow');
+                void resultBox.offsetWidth; 
+                resultBox.classList.add('calc-glow');
+            }
+        }
+
+        function submitComplaint(event) {
+            event.preventDefault();
+            alert("शिकायत सफलतापूर्वक दर्ज और CCTNS डेटाबेस के साथ सिंक हो गई है!");
+            document.getElementById('new-complaint-form').reset();
+            closeComplaintModal();
+        }
+
+        // Global Voice Engine Setup
+        function speakReport(speechText) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                var utterance = new SpeechSynthesisUtterance(speechText);
+                utterance.lang = 'hi-IN';
+                utterance.pitch = 1.0;
+                utterance.rate = 0.95;
+                
+                utterance.onstart = function() {
+                    var status = document.getElementById('ai-status');
+                    if(status) {
+                        status.innerHTML = '<i class="fa-solid fa-volume-high fa-bounce"></i> एसआई कवच रिपोर्ट पढ़ रहा है...';
+                        status.style.color = '#ffaa00';
+                    }
+                    document.getElementById('start-record-btn').style.display = 'none';
+                    document.getElementById('stop-record-btn').style.display = 'flex';
+                };
+
+                utterance.onend = function() {
+                    var status = document.getElementById('ai-status');
+                    if(status) {
+                        status.innerHTML = '<i class="fa-solid fa-circle-check"></i> रिपोर्ट वाचन पूर्ण। डिजिटल सहायक तैयार है।';
+                        status.style.color = '#00ff88';
+                    }
+                    document.getElementById('start-record-btn').style.display = 'flex';
+                    document.getElementById('stop-record-btn').style.display = 'none';
+                };
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Network Status Checker
+        function updateNetworkStatus() {
+            const badge = document.getElementById('offline-badge');
+            if (navigator.onLine) {
+                badge.innerHTML = '<i class="fa-solid fa-wifi"></i> CCTNS ऑनलाइन सिंक';
+                badge.style.borderColor = '#00ff88'; badge.style.color = '#00ff88';
+            } else {
+                badge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> रूरल ऑफलाइन मोड सक्रिय';
+                badge.style.borderColor = '#ffaa00'; badge.style.color = '#ffaa00';
+            }
+        }
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        updateNetworkStatus();
+
+        function updateBailRisk() {
+            var checkboxes = document.querySelectorAll('#evidence-checklist-box input[type="checkbox"]');
+            var checkedCount = 0;
+            checkboxes.forEach(function(box) { if(box.checked) checkedCount++; });
+            
+            var badge = document.getElementById('bail-status-badge');
+            if(checkedCount === 0) {
+                badge.style.background = 'rgba(255, 51, 102, 0.2)';
+                badge.style.borderColor = 'var(--danger)';
+                badge.style.color = 'var(--danger)';
+                badge.innerHTML = '⚠️ जमानत मिलने का खतरा: अत्यधिक (High Risk)';
+            } else if(checkedCount === 1 || checkedCount === 2) {
+                badge.style.background = 'rgba(255, 170, 0, 0.2)';
+                badge.style.borderColor = 'var(--warning)';
+                badge.style.color = 'var(--warning)';
+                badge.innerHTML = '⚖️ जमानत मिलने का खतरा: मध्यम (Medium Risk)';
+            } else {
+                badge.style.background = 'rgba(0, 255, 136, 0.2)';
+                badge.style.borderColor = 'var(--success)';
+                badge.style.color = 'var(--success)';
+                badge.innerHTML = '🛡️ कोर्ट में केस अभेद्य (No Bail Possibility)';
+            }
+        }
+
+        function generatePDFDraft() {
+            var caseText = document.getElementById('case-input').value || "कोई विवरण नहीं";
+            var printWindow = window.open('', '_blank');
+            printWindow.document.write('<html><head><title>न्याय-कवच आधिकारिक ई-चार्जशीट ड्राफ्ट</title>');
+            printWindow.document.write('<style>body{font-family:Arial,sans-serif;padding:30px;line-height:1.6;} h1{color:#0b2545;text-align:center;border-bottom:2px solid #d4af37;padding-bottom:10px;} .box{border:1px solid #ccc;padding:15px;margin-top:15px;border-radius:5px;} strong{color:#dc2626;}</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write('<h1>उत्तर प्रदेश पुलिस गृह विभाग - ई-चार्जशीट ड्राफ्ट (BNSS)</h1>');
+            printWindow.document.write('<p><strong>जनरेट समय:</strong> ' + new Date().toLocaleString('hi-IN') + '</p>');
+            printWindow.document.write('<div class="box"><h3>1. अपराध का प्रारंभिक विवरण (FIR Description):</h3><p>' + caseText + '</p></div>');
+            printWindow.document.write('<div class="box"><h3>2. भारतीय न्याय संहिता (BNS) की प्रस्तावित धाराएं:</h3>' + document.getElementById('laws-list').innerHTML + '</div>');
+            printWindow.document.write('<div class="box"><h3>3. विवेचना अधिकारी (IO) कानूनी प्रोटोकॉल (BNSS):</h3>' + document.getElementById('steps-list').innerHTML + '</div>');
+            printWindow.document.write('<br><br><p style="text-align:right;"><strong>हस्ताक्षर विवेचना अधिकारी:</strong> ___________________</p>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        // --- REAL WHATSAPP LINK & MESSAGE GENERATOR (UPDATE #2) ---
+        function sendVictimUpdate() {
+            var caseText = document.getElementById('case-input').value || "सामान्य शिकायत एवं केस विवेचना";
+            var lawsText = document.getElementById('laws-list').innerText || "BNS कानूनी प्रावधान लागू";
+            var statusText = document.getElementById('conviction-status-text').innerText || "जांच प्रक्रिया में";
+            
+            var phone = prompt("पीड़ित का 10 अंकों का WhatsApp नंबर दर्ज करें (कंट्री कोड +91 स्वतः जुड़ जाएगा):", "9876543210");
+            if(!phone) return;
+            
+            var trackingId = "UPP-" + Math.floor(100000 + Math.random() * 900000);
+            var trackingLink = "https://uppolice.gov.in/cctns/status?id=" + trackingId;
+            
+            var message = "*🚨 उत्तर प्रदेश पुलिस गृह विभाग - न्याय-कवच एआई अपडेट*\n\n" +
+                          "*प्रिय नागरिक,*\nआपकी शिकायत/एफआईआर पर विवेचना अधिकारी (IO) द्वारा त्वरित कानूनी कार्रवाई की जा रही है।\n\n" +
+                          "*📌 ट्रैकिंग आईडी:* " + trackingId + "\n" +
+                          "*📂 मामला:* " + caseText.substring(0, 65) + "...\n" +
+                          "*⚖️ लागू धाराएं:* " + lawsText.replace(/\n/g, ", ") + "\n" +
+                          "*📊 वर्तमान स्थिति:* " + statusText + "\n\n" +
+                          "*🔗 लाइव ऑनलाइन स्थिति देखें:* " + trackingLink + "\n\n" +
+                          "*सुरक्षा • सेवा • न्याय*\n*- उत्तर प्रदेश पुलिस (CCTNS 2.0)*";
+            
+            var whatsappUrl = "https://api.whatsapp.com/send?phone=91" + phone.replace(/\D/g, '') + "&text=" + encodeURIComponent(message);
+            window.open(whatsappUrl, '_blank');
+            alert("✅ WhatsApp पर लाइव अपडेट मैसेज और ट्रैकिंग लिंक (ID: " + trackingId + ") सफलतापूर्वक भेज दिया गया है!");
+        }
+
+        // --- CASE ANALYSIS ENGINE WITH 5 DISTINCT CASES (UPDATE #3) ---
+        function analyzeCase() {
+            var input = document.getElementById('case-input').value.trim();
+            if(!input) {
+                alert("कृपया पहले एफआईआर या केस का विवरण बॉक्स में लिखें!");
+                return;
+            }
+
+            var checkboxes = document.querySelectorAll('#evidence-checklist-box input[type="checkbox"]');
+            checkboxes.forEach(function(box) { box.checked = false; });
+            updateBailRisk();
+
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('report-section').style.display = 'none';
+
+            var lowerInput = input.toLowerCase();
+
+            setTimeout(function() {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('report-section').style.display = 'block';
+
+                var laws = [];
+                var steps = [];
+                var questions = [];
+                var timeline = "";
+                var score = "80%";
+                var progress = "80%";
+                var convictionStatus = '<i class="fa-solid fa-gavel"></i> फास्ट-ट्रैक योग्य';
+                var tagText = "प्रायोरिटी एक्टिव";
+                var targetDays = "30 दिन";
+                
+                var voiceReportText = "केस का विश्लेषण पूर्ण हो गया है। ";
+
+                // CASE 1: WOMEN SAFETY / RAPE
+                if (lowerInput.indexOf("rape") !== -1 || lowerInput.indexOf("रेप") !== -1 || lowerInput.indexOf("balatkar") !== -1 || lowerInput.indexOf("बलात्कार") !== -1 || lowerInput.indexOf("dushkarm") !== -1 || lowerInput.indexOf("दुष्कर्म") !== -1 || lowerInput.indexOf("छेड़खानी") !== -1 || lowerInput.indexOf("महिला") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 64(1):</strong> बलात्कार (Rape) के लिए कठोर कारावास।",
+                        "<strong>बीएनएस धारा 74:</strong> महिला की लज्जा भंग करने के इरादे से हमला।",
+                        "<strong>बीएनएस धारा 351(2):</strong> जान से मारने की धमकी देना।"
+                    ];
+                    steps = [
+                        "<strong>पीड़िता का मेडिकल (BNSS धारा 184):</strong> 24 घंटे के भीतर सरकारी महिला चिकित्सक द्वारा जांच अनिवार्य।",
+                        "<strong>मजिस्ट्रेट बयान (BNSS धारा 183):</strong> न्यायिक मजिस्ट्रेट के समक्ष बयान तुरंत दर्ज कराएं।",
+                        "<strong>वीडियो रिकॉर्डिंग (BNSS धारा 176):</strong> पीड़िता के बयानों की इलेक्ट्रॉनिक रिकॉर्डिंग सुरक्षित करें।"
+                    ];
+                    questions = [
+                        "आरोपी से पूछें: वारदात के समय आपकी सटीक लोकेशन क्या थी? (कॉल डिटेल रिकॉर्ड व टावर लोकेशन का मिलान करें)",
+                        "क्या आरोपी पहले से पीड़िता को जानता था या कोई पुराना संपर्क था? (मोबाइल चैट हिस्ट्री चेक करें)",
+                        "घटना में प्रयुक्त कोई वाहन या नशीले पदार्थ का स्रोत कहाँ से प्राप्त किया गया?",
+                        "वारदात के बाद आरोपी किन-किन लोगों के संपर्क में रहा और कहाँ छुपा रहा?"
+                    ];
+                    timeline = '<div class="timeline-item"><strong>घटना का समय:</strong> शिकायतकर्ता द्वारा बताई गई वारदात की अवधि (रात 11 बजे / संदिग्ध समय)।</div><div class="timeline-item"><strong>पुलिस सूचना:</strong> थाने में प्रथम सूचना रिपोर्ट (FIR) दर्ज होने का समय।</div><div class="timeline-item"><strong>तत्काल एक्शन (0-24 घंटे):</strong> पीड़िता को सुरक्षा प्रदान कर BNSS 184 के तहत मेडिकल हेतु भेजना।</div>';
+
+                    score = "98% (संवेदनशील)"; progress = "98%";
+                    convictionStatus = '<span style="color:var(--danger)"><i class="fa-solid fa-shield-halved"></i> महिला सुरक्षा स्पेशल ट्रैक</span>';
+                    tagText = "प्रायोरिटी #2 (महिला सुरक्षा)"; targetDays = "60 दिन";
+                    
+                    voiceReportText += "यह महिला सुरक्षा से जुड़ा एक संवेदनशील मामला है। इस केस में भारतीय न्याय संहिता की धारा 64 उपधारा 1, धारा 74 और धारा 351 उपधारा 2 के तहत कार्रवाई बनती है। विवेचना अधिकारी के लिए आवश्यक कदम इस प्रकार हैं: पहला, बी एन एस एस धारा 184 के तहत 24 घंटे के भीतर पीड़िता का मेडिकल टेस्ट कराएं। दूसरा, बी एन एस एस धारा 183 के तहत मजिस्ट्रेट के समक्ष बयान दर्ज कराएं। तीसरा, आरोपी से उसकी लोकेशन और कॉल रिकॉर्ड्स के बारे में तकनीकी सवाल पूछें।";
+                } 
+                // CASE 2: MURDER / HEINOUS CRIME
+                else if (lowerInput.indexOf("hatya") !== -1 || lowerInput.indexOf("murder") !== -1 || lowerInput.indexOf("हत्या") !== -1 || lowerInput.indexOf("खून") !== -1 || lowerInput.indexOf("चाकू") !== -1 || lowerInput.indexOf("गोली") !== -1 || lowerInput.indexOf("व्यापारी") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 103(1):</strong> हत्या (Murder) के लिए वैधानिक दंड।",
+                        "<strong>बीएनएस धारा 61(2):</strong> आपराधिक षड्यंत्र रचना (Criminal Conspiracy)।",
+                        "<strong>बीएनएस धारा 238:</strong> साक्ष्यों को मिटाना या छुपाना।"
+                    ];
+                    steps = [
+                        "<strong>अनिवार्य FSL जांच (BNSS धारा 176):</strong> फॉरेंसिक टीम (FSL) द्वारा घटनास्थल से वैज्ञानिक साक्ष्य एकत्र करना अनिवार्य है।",
+                        "<strong>हथियार बरामदगी मेमो:</strong> वारदात में प्रयुक्त हथियार बरामद कर पंचनामा बनाएं।",
+                        "<strong>शव का पंचनामा (BNSS धारा 194):</strong> तत्काल इनक्वेस्ट रिपोर्ट तैयार कर पोस्टमार्टम कराएं।"
+                    ];
+                    questions = [
+                        "आरोपी से हत्या का मुख्य मोटिव (आपसी रंजिश, प्रॉपर्टी या पैसों का लेन-देन) उगलवाएं।",
+                        "वारदात में प्रयुक्त हथियार (चाकू, गोली, आदि) कहाँ से खरीदा गया या किसके द्वारा उपलब्ध कराया गया?",
+                        "क्या इस जघन्य अपराध में कोई अन्य साथी या षड्यंत्रकारी भी शामिल था?",
+                        "वारदात के बाद खून से सने कपड़े और साक्ष्य कहाँ छुपाए या नष्ट किए गए?"
+                    ];
+                    timeline = '<div class="timeline-item"><strong>क्राइम सीन (0 घंटा):</strong> घटना की सूचना प्राप्त होते ही पुलिस टीम व FSL का घटनास्थल पर पहुंचना।</div><div class="timeline-item"><strong>साक्ष्य संकलन:</strong> हथियार बरामदगी और घटनास्थल की वीडियोग्राफी (BNSS 185)।</div><div class="timeline-item"><strong>पोस्टमार्टम:</strong> शव का इनक्वेस्ट रिपोर्ट तैयार कर डॉक्टर पैनल से पोस्टमार्टम।</div>';
+
+                    score = "95% (जघन्य अपराध)"; progress = "95%";
+                    convictionStatus = 'जघन्य अपराध ट्रैक एक्टिव';
+                    tagText = "प्रायोरिटी #1 (ऑपरेशन कनविक्शन)"; targetDays = "30 दिन";
+
+                    voiceReportText += "यह एक जघन्य अपराध यानी हत्या का मामला है। इसमें भारतीय न्याय संहिता की धारा 103 उपधारा 1, धारा 61 उपधारा 2 और धारा 238 लागू होती हैं। ऑपरेशन कनविक्शन के तहत इसके आवश्यक कदम ये हैं: पहला, बी एन एस एस धारा 176 के तहत फोरेंसिक टीम द्वारा साक्ष्य जुटाना अनिवार्य है। दूसरा, वारदात में इस्तेमाल हथियार बरामद कर मेमो तैयार करें। तीसरा, इनक्वेस्ट रिपोर्ट बनाकर शव को तुरंत पोस्टमार्टम के लिए भेजें।";
+                } 
+                // CASE 3: CYBER / UPI FRAUD
+                else if (lowerInput.indexOf("cyber") !== -1 || lowerInput.indexOf("upi") !== -1 || lowerInput.indexOf("otp") !== -1 || lowerInput.indexOf("साइबर") !== -1 || lowerInput.indexOf("ठगी") !== -1 || lowerInput.indexOf("निकासी") !== -1 || lowerInput.indexOf("बैंक") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 318(4):</strong> छल एवं धोखाधड़ी (Cheating and Dishonestly inducing delivery of property)।",
+                        "<strong>बीएनएस धारा 336:</strong> कूट रचना (Forgery) करना।",
+                        "<strong>सूचना प्रौद्योगिकी अधिनियम (IT Act) धारा 66D:</strong> कंप्यूटर संसाधन द्वारा प्रतिरूपण के जरिए धोखाधड़ी।"
+                    ];
+                    steps = [
+                        "<strong>खाता फ्रीज (1930 Cyber Helpline):</strong> संदेहास्पद बैंक खातों और UPI ID को तत्काल डेबिट फ्रीज कराएं।",
+                        "<strong>IP व CDR विश्लेषण:</strong> नोडल अधिकारी से ट्रांजैक्शन की IP लॉग और कॉल डिटेल रिकॉर्ड (CDR) प्राप्त करें।",
+                        "<strong>प्रतिबिंब पोर्टल सिंक:</strong> साइबर अपराधियों के मोबाइल नंबर को जमतारा/मेवात ट्रैकिंग डेटाबेस में सिंक करें।"
+                    ];
+                    questions = [
+                        "ठगी की राशि किन-किन म्यूल एकाउंट्स (Mule Accounts) या क्रिप्टो वॉलेट में ट्रांसफर की गई?",
+                        "फर्जी सिम कार्ड और बैंक खाते खुलवाने के लिए किसके जाली दस्तावेजों का प्रयोग किया गया?",
+                        "क्या कॉल सेंटर के रूप में कोई संगठित साइबर सिंडिकेट काम कर रहा है?",
+                        "पीड़ित को कॉल करने के लिए किस सॉफ्टवेयर या वर्चुअल वीपीएन नंबर का इस्तेमाल हुआ?"
+                    ];
+                    timeline = '<div class="timeline-item"><strong>डिजिटल ट्रांजैक्शन:</strong> बैंक खाते से अवैध डिजिटल निकासी का समय।</div><div class="timeline-item"><strong>गोल्डन आवर (0-2 घंटे):</strong> 1930 साइबर सेल के माध्यम से संदिग्ध खातों को फ्रीज करना।</div><div class="timeline-item"><strong>तकनीकी जांच:</strong> IP एड्रेस और सर्विलांस के आधार पर साइबर ठगों की लोकेशन ट्रेस करना।</div>';
+
+                    score = "88% (साइबर अपराध)"; progress = "88%";
+                    convictionStatus = '<span style="color:var(--accent-blue)"><i class="fa-solid fa-laptop-code"></i> साइबर सर्विलांस ट्रैक</span>';
+                    tagText = "प्रायोरिटी #3 (साइबर सुरक्षा)"; targetDays = "45 दिन";
+
+                    voiceReportText += "यह साइबर ठगी और यूपीआई फ्रॉड का डिजिटल अपराध है। इस मामले में भारतीय न्याय संहिता की धारा 318 उपधारा 4, धारा 336 और आईटी एक्ट की धारा 66 डी के तहत एफआईआर पंजीकृत होगी। विवेचना अधिकारी के लिए निर्देश हैं: पहला, 1930 साइबर हेल्पलाइन के जरिए संदिग्ध बैंक खातों को तुरंत फ्रीज कराएं। दूसरा, बैंक नोडल अधिकारी से ट्रांजैक्शन का आईपी एड्रेस और कॉल डिटेल प्राप्त कर तकनीकी जांच आगे बढ़ाएं।";
+                }
+                // CASE 4: ARMED ROBBERY / DACOITY / LOOT
+                else if (lowerInput.indexOf("loot") !== -1 || lowerInput.indexOf("robbery") !== -1 || lowerInput.indexOf("चोरी") !== -1 || lowerInput.indexOf("लूट") !== -1 || lowerInput.indexOf("डकैती") !== -1 || lowerInput.indexOf("असलहे") !== -1 || lowerInput.indexOf("जंजीर") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 309:</strong> लूट (Robbery) के लिए दंड।",
+                        "<strong>बीएनएस धारा 310(2):</strong> डकैती (Dacoity) का अपराध।",
+                        "<strong>बीएनएस धारा 317:</strong> चोरी या लूट की संपत्ति को बेचना या छुपाना।"
+                    ];
+                    steps = [
+                        "<strong>ई-एफआईआर सत्यापन (BNSS धारा 173):</strong> 3 दिन के भीतर सत्यापन कर एफआईआर रजिस्टर करें।",
+                        "<strong>सर्च एवं सीज़र वीडियोग्राफी (BNSS धारा 185):</strong> तलाशी व बरामदगी के समय ऑडियो-वीडियो रिकॉर्डिंग अनिवार्य रूप से करें।",
+                        "<strong>मोडस ऑपरेंडी चेक:</strong> यक्ष ऐप डेटाबेस में एक्टिव लूटपाट व नकबजनों की हिस्ट्री चेक करें।"
+                    ];
+                    questions = [
+                        "लूट की संपत्ति (सोने की जंजीर, कैश, वाहन) वर्तमान में किस स्थान पर या किस कबाड़ी/सोनार को बेची गई है?",
+                        "घटनास्थल की रेकी (Reconnaissance) कितने दिन पहले और किस साधन से की गई थी?",
+                        "क्या गैंग का कोई सदस्य पहले भी जेल जा चुका है? (पुराना आपराधिक इतिहास)",
+                        "वारदात के समय आने-जाने के लिए किस वाहन या हाइवे के रास्ते का प्रयोग किया गया?"
+                    ];
+                    timeline = '<div class="timeline-item"><strong>वारदात का समय:</strong> हाइवे या सुनसान रास्ते पर संपत्ति लूटने की घटना।</div><div class="timeline-item"><strong>CCTV व डंप डेटा:</strong> घटनास्थल के आस-पास के टावर का डंप डेटा व टोल प्लाजा CCTV संकलन।</div><div class="timeline-item"><strong>रिकवरी व सीज़र:</strong> आरोपियों की गिरफ्तारी व लूटे गए माल की वीडियोग्राफी के साथ बरामदगी।</div>';
+
+                    score = "82% (संपत्ति अपराध)"; progress = "82%";
+                    convictionStatus = 'संपत्ति रिकवरी फास्ट-ट्रैक';
+                    tagText = "प्रायॉरटी #4 (लूट/डकैती)"; targetDays = "60 दिन";
+
+                    voiceReportText += "यह सशस्त्र लूटपाट और संपत्ति संबंधी गंभीर अपराध है। इसमें भारतीय न्याय संहिता की धारा 309, 310 उपधारा 2 और धारा 317 के तहत कार्रवाई की जाएगी। जांच प्रोटोकॉल के अनुसार: पहला, टोल प्लाजा और आसपास के सीसीटीवी फुटेज एकत्र करें। दूसरा, बी एन एस एस धारा 185 के तहत तलाशी व माल बरामदगी की वीडियोग्राफी करें। तीसरा, यक्ष ऐप पर पुराने लुटेरों और गैंग की मोडस ऑपरेंडी का मिलान करें।";
+                }
+                // CASE 5: RIOT / PUBLIC ORDER / ASSAULT ON POLICE
+                else if (lowerInput.indexOf("riot") !== -1 || lowerInput.indexOf("प्रदर्शन") !== -1 || lowerInput.indexOf("उपद्रव") !== -1 || lowerInput.indexOf("हाथापाई") !== -1 || lowerInput.indexOf("भीड़") !== -1 || lowerInput.indexOf("चौराहे") !== -1 || lowerInput.indexOf("सरकारी काम") !== -1) {
+                    laws = [
+                        "<strong>बीएनएस धारा 189(2):</strong> गैरकानूनी जनसमूह (Unlawful Assembly) का सदस्य होना।",
+                        "<strong>बीएनएस धारा 191(2):</strong> बलवा (Rioting) करना और सार्वजनिक शांति भंग करना।",
+                        "<strong>बीएनएस धारा 221 & 132:</strong> लोक सेवक (पुलिस) के सरकारी कार्य में बाधा डालना व हमला करना।"
+                    ];
+                    steps = [
+                        "<strong>वीडियो मैपिंग (CCTV & Drone):</strong> चौराहे पर लगे स्मार्ट सिटी कैमरों और ड्रोन फुटेज से चेहरों की पहचान (Facial Recognition) करें।",
+                        "<strong>सार्वजनिक संपत्ति क्षति वसूली:</strong> सार्वजनिक संपत्ति को हुए नुकसान की भरपाई हेतु क्षतिपूर्ति याचिका कोर्ट में दाखिल करें।",
+                        "<strong>यक्ष ऐप फेस मैचिंग:</strong> उपद्रवियों के चेहरों को CCTNS के पुराने रिकॉर्ड्स से तत्काल मैच करें।"
+                    ];
+                    questions = [
+                        "भीड़ को इकट्ठा करने के लिए किस सोशल मीडिया प्लेटफॉर्म या व्हाट्सएप ग्रुप का सहारा लिया गया?",
+                        "क्या इस उपद्रव के पीछे किसी असामाजिक तत्व या संगठन की पूर्व नियोजित साजिश थी?",
+                        "प्रदर्शन के दौरान पत्थर या हथियार कहाँ से और किसके निर्देश पर लाए गए?",
+                        "पुलिस बल पर हमला करने और उकसाने वाले मुख्य 5 लीडर कौन थे?"
+                    ];
+                    timeline = '<div class="timeline-item"><strong>भीड़ एकत्र होना:</strong> मुख्य चौराहे पर अवैध रूप से भीड़ का जुटना व रास्ता रोकना।</div><div class="timeline-item"><strong>पुलिस बल प्रयोग:</strong> शांति व्यवस्था बहाल करने हेतु पुलिस द्वारा हल्का बल प्रयोग व चेतावनी।</div><div class="timeline-item"><strong>वीडियो मैपिंग व गिरफ्तारी:</strong> सीसीटीवी और ड्रोन फुटेज के आधार पर उपद्रवियों की पहचान व नामजद गिरफ्तारी।</div>';
+
+                    score = "90% (कानून-व्यवस्था)"; progress = "90%";
+                    convictionStatus = '<span style="color:var(--warning)"><i class="fa-solid fa-users-slash"></i> पब्लिक ऑर्डर स्पेशल ट्रैक</span>';
+                    tagText = "प्रायोरिटी #5 (बलवा/उपद्रव)"; targetDays = "30 दिन";
+
+                    voiceReportText += "यह सार्वजनिक शांति भंग करने, बलवा करने और पुलिस के सरकारी काम में बाधा डालने का मामला है। इसमें भारतीय न्याय संहिता की धारा 189 उपधारा 2, धारा 191 उपधारा 2 और धारा 221 व 132 के तहत मुकदमा दर्ज होगा। विवेचना अधिकारी के लिए निर्देश हैं: पहला, चौराहे के सीसीटीवी और ड्रोन वीडियो से उपद्रवियों के चेहरों की पहचान करें। दूसरा, यक्ष ऐप पर फेस मैचिंग कर मुख्य आरोपियों को गिरफ्तार करें। तीसरा, सार्वजनिक संपत्ति के नुकसान की वसूली हेतु कानूनी प्रक्रिया शुरू करें।";
+                }
+                // DEFAULT / GENERAL CASE
+                else {
+                    laws = [
+                        "<strong>बीएनएस धारा 351:</strong> आपराधिक धमकी व सामान्य अपराध के प्रावधान।",
+                        "<strong>बीएनएस धारा 223:</strong> लोक सेवक के आदेश की अवज्ञा।"
+                    ];
+                    steps = [
+                        "<strong>प्रारंभिक जांच (BNSS धारा 173):</strong> 3 दिन के भीतर जांच पूरी करें।",
+                        "<strong>CCTNS सिंक:</strong> साक्ष्य संकलन हेतु CCTNS पोर्टल पर विवरण अपलोड करें।"
+                    ];
+                    questions = [
+                        "विवाद का मुख्य कारण और दोनों पक्षों के बीच पुराना संबंध क्या है?",
+                        "क्या घटना के समय कोई प्रत्यक्षदर्शी (Eye Witness) मौके पर मौजूद था?",
+                        "क्या आरोपी द्वारा कोई लिखित या डिजिटल धमकी (WhatsApp/Call) दी गई थी?",
+                        "क्या इस मामले में शांति व्यवस्था भंग होने की संभावना है?"
+                    ];
+                    timeline = '<div class="timeline-item"><strong>सूचना प्राप्ति:</strong> शिकायतकर्ता द्वारा प्रार्थना पत्र या पुलिस कंट्रोल रूम को सूचना।</div><div class="timeline-item"><strong>प्रारंभिक जांच:</strong> BNSS 173 के तहत 3 दिनों के भीतर तथ्यों का सत्यापन।</div><div class="timeline-item"><strong>कार्रवाई:</strong> साक्ष्य संकलन व CCTNS पोर्टल पर सिंक।</div>';
+
+                    score = "75% (सामान्य जांच)"; progress = "75%";
+                    convictionStatus = 'सामान्य इन्वेस्टिगेशन ट्रैक';
+                    tagText = "सामान्य केस DATA"; targetDays = "30 दिन";
+
+                    voiceReportText += "यह एक सामान्य श्रेणी का अपराध है। इसमें भारतीय न्याय संहिता की धारा 351 और 223 लागू हो सकती हैं। कृपया बी एन एस एस धारा 173 के तहत प्रारंभिक जांच तीन दिन में पूरी कर साक्ष्य सी सी टी एन एस पोर्टल पर अपलोड करें।";
+                }
+
+                document.getElementById('laws-list').innerHTML = laws.map(function(l) { return '<li>' + l + '</li>'; }).join('');
+                document.getElementById('steps-list').innerHTML = steps.map(function(s) { return '<li>' + s + '</li>'; }).join('');
+                document.getElementById('interrogation-list').innerHTML = questions.map(function(q) { return '<li>' + q + '</li>'; }).join('');
+                document.getElementById('timeline-box').innerHTML = timeline;
+                
+                document.getElementById('score-text').innerText = score;
+                document.getElementById('conviction-progress').style.width = progress;
+                document.getElementById('conviction-status-text').innerHTML = convictionStatus;
+                document.getElementById('priority-tag-text').innerText = tagText;
+                document.getElementById('target-days').innerText = targetDays;
+
+                speakReport(voiceReportText);
+
+            }, 800);
+        }
+
+        // Voice Input Control
+        var recognition;
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'hi-IN';
+
+            recognition.onresult = function(event) {
+                var transcript = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    transcript += event.results[i][0].transcript;
+                }
+                document.getElementById('case-input').value = transcript;
+            };
+            recognition.onerror = function() { stopVoice(); };
+        }
+
+        function startVoice() {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            if(!recognition) {
+                alert("आपका ब्राउज़र वॉइस सपोर्ट नहीं करता।");
+                return;
+            }
+            recognition.start();
+            document.getElementById('start-record-btn').style.display = 'none';
+            document.getElementById('stop-record-btn').style.display = 'flex';
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-microphone-lines fa-bounce"></i> सुन रहा हूँ... बोलिए...';
+            document.getElementById('ai-status').style.color = '#ffaa00';
+        }
+
+        function stopVoice() {
+            if(recognition) recognition.stop();
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            document.getElementById('start-record-btn').style.display = 'flex';
+            document.getElementById('stop-record-btn').style.display = 'none';
+            document.getElementById('ai-status').innerHTML = '<i class="fa-solid fa-circle-check"></i> वॉइस कमांड रोक दी गई है।';
+            document.getElementById('ai-status').style.color = '#00ff88';
+        }
+
+        // Window click listener updated for all 5 Modals
+        window.addEventListener('click', function(event) {
+            var yakshModal = document.getElementById('yakshModal');
+            var vivechnaModal = document.getElementById('vivechnaModal');
+            var complaintModal = document.getElementById('complaintModal');
+            var demoModal = document.getElementById('demoModal');
+            var liveMapModal = document.getElementById('liveMapModal');
+            
+            if (event.target == yakshModal) yakshModal.style.display = 'none';
+            if (event.target == complaintModal) complaintModal.style.display = 'none';
+            if (event.target == demoModal) demoModal.style.display = 'none';
+            if (event.target == liveMapModal) liveMapModal.style.display = 'none';
+            if (event.target == vivechnaModal) {
+                vivechnaModal.style.display = 'none';
+                if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById('nyayKavachChart');
+            if (ctx) {
+                new Chart(ctx.getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['गलत BNS धाराएं', 'अपूर्ण जब्ती रिपोर्ट', 'विलंब (>90 दिन)', 'नाम/वर्तनी त्रुटि', 'हस्ताक्षर गायब'],
+                        datasets: [{
+                            label: 'संशोधित त्रुटियां',
+                            data: [38, 24, 11, 29, 18],
+                            backgroundColor: [
+                                'rgba(220, 38, 38, 0.85)',   
+                                'rgba(214, 175, 55, 0.85)',  
+                                'rgba(0, 240, 255, 0.85)',   
+                                'rgba(0, 255, 136, 0.85)',   
+                                'rgba(255, 170, 0, 0.85)'    
+                            ],
+                            borderWidth: 0,
+                            borderRadius: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            y: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#a8b2d1' } },
+                            x: { grid: { display: false }, ticks: { color: '#a8b2d1' } }
+                        }
+                    }
+                });
+            }
+            setTimeout(function() { calculateWorkload(); }, 300);
+
+            const navLinks = document.querySelectorAll('.sidebar-nav .nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.forEach(nl => nl.classList.remove('active'));
+                    if(!this.getAttribute('onclick')) {
+                        this.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
