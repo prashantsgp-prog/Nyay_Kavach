@@ -39,14 +39,18 @@
         .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); padding: 20px 30px; }
         
         /* HEADER & BADGES */
-        .header { display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; background: var(--police-blue); border: 2px solid var(--gold); border-radius: 12px; margin-bottom: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.4); flex-wrap: wrap; gap: 15px; }
-        .header h1 { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; color: #fff; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; background: var(--police-blue); border: 2px solid var(--gold); border-radius: 12px; margin-bottom: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.4); flex-wrap: wrap; gap: 15px; }
+        .header h1 { font-family: 'Rajdhani', sans-serif; font-size: 1.7rem; color: #fff; }
         .badge { background: rgba(0, 240, 255, 0.15); border: 1px solid var(--accent-blue); color: var(--accent-blue); padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
         
+        /* LOGOUT BUTTON */
+        .btn-logout { background: rgba(220, 38, 38, 0.2); border: 1px solid var(--danger); color: var(--danger); padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; }
+        .btn-logout:hover { background: var(--danger); color: #fff; transform: scale(1.05); }
+
         /* POP-UP TRIGGER BANNER */
-        .action-banner { background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(15, 34, 61, 0.8)); border: 1px dashed var(--police-red); padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 25px; }
-        .btn-popup-trigger { background: var(--police-red); color: #fff; padding: 14px 28px; font-size: 1.1rem; font-weight: 600; border: 2px solid var(--gold); border-radius: 30px; cursor: pointer; box-shadow: 0 0 15px rgba(220, 38, 38, 0.5); transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; }
-        .btn-popup-trigger:hover { background: #b91c1c; transform: scale(1.03); box-shadow: 0 0 25px rgba(220, 38, 38, 0.8); }
+        .action-banner { background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(15, 34, 61, 0.8)); border: 1px dashed var(--police-red); padding: 18px; border-radius: 12px; text-align: center; margin-bottom: 25px; }
+        .btn-popup-trigger { background: var(--police-red); color: #fff; padding: 12px 26px; font-size: 1.05rem; font-weight: 600; border: 2px solid var(--gold); border-radius: 30px; cursor: pointer; box-shadow: 0 0 15px rgba(220, 38, 38, 0.5); transition: 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+        .btn-popup-trigger:hover { background: #b91c1c; transform: scale(1.03); }
 
         /* GRID LAYOUTS */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
@@ -56,7 +60,7 @@
         .stat-card p { color: #a8b2d1; font-size: 0.85rem; }
 
         .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 25px; margin-bottom: 25px; }
-        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 22px; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 22px; position: relative; }
         .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
         .card-header h3 { font-size: 1.2rem; color: var(--gold); font-family: 'Rajdhani', sans-serif; display: flex; align-items: center; gap: 10px; }
 
@@ -70,36 +74,52 @@
         input, textarea, select { width: 100%; background: #050b14; border: 1px solid #334e68; color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 12px; font-size: 0.95rem; }
         input:focus, textarea:focus { border-color: var(--accent-blue); outline: none; }
 
-        /* 4 VIVECHNA (INVESTIGATION) STYLES */
+        /* AI ASSISTANT IN UNIFORM STYLES */
+        .ai-officer-banner { display: flex; align-items: center; gap: 15px; background: rgba(0,0,0,0.5); border: 1px solid var(--accent-blue); padding: 12px; border-radius: 8px; margin-bottom: 15px; }
+        .ai-avatar { width: 55px; height: 55px; background: var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #0b2545; border: 2px solid #fff; box-shadow: 0 0 10px var(--gold); }
+        .ai-info h4 { color: var(--accent-blue); font-size: 0.95rem; margin-bottom: 2px; }
+        .ai-info p { color: #a8b2d1; font-size: 0.75rem; }
+        .btn-voice { background: var(--success); color: #050b14; padding: 5px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; margin-top: 5px; }
+        
+        .chat-box { background: rgba(0,0,0,0.4); border: 1px solid #243b55; border-radius: 8px; height: 200px; overflow-y: auto; padding: 15px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px; }
+        .chat-msg { max-width: 85%; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; line-height: 1.4; }
+        .msg-ai { background: #0b2545; border-left: 3px solid var(--accent-blue); align-self: flex-start; color: #fff; }
+        .msg-user { background: var(--gold); color: #050b14; align-self: flex-end; font-weight: 600; }
+
+        /* 4 VIVECHNA (INVESTIGATION) INTERACTIVE STYLES */
         .vivechna-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .vivechna-box { background: rgba(0,0,0,0.3); border: 1px solid #243b55; padding: 15px; border-radius: 8px; position: relative; }
+        .vivechna-box { background: rgba(0,0,0,0.4); border: 1px solid #243b55; padding: 15px; border-radius: 8px; position: relative; cursor: pointer; transition: 0.3s; }
+        .vivechna-box:hover { border-color: var(--accent-blue); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 240, 255, 0.2); }
         .vivechna-title { color: var(--accent-blue); font-weight: 600; font-size: 0.95rem; margin-bottom: 5px; display: flex; justify-content: space-between; }
         .progress-bar-bg { background: #0b2545; height: 8px; border-radius: 4px; overflow: hidden; margin: 10px 0; }
         .progress-bar-fill { height: 100%; background: var(--success); }
+        .click-hint { font-size: 0.7rem; color: var(--gold); display: block; margin-top: 8px; text-align: right; font-weight: 600; }
 
-        /* AI ASSISTANT CHAT STYLES */
-        .chat-box { background: rgba(0,0,0,0.4); border: 1px solid #243b55; border-radius: 8px; height: 220px; overflow-y: auto; padding: 15px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 10px; }
-        .chat-msg { max-width: 80%; padding: 10px 14px; border-radius: 8px; font-size: 0.85rem; line-height: 1.4; }
-        .msg-ai { background: #0b2545; border-left: 3px solid var(--accent-blue); align-self: flex-start; color: #fff; }
-        .msg-user { background: var(--gold); color: #050b14; align-self: flex-end; font-weight: 500; }
+        /* YAKSH AI CRIMINALS CARDS */
+        .criminals-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .criminal-card { background: rgba(220, 38, 38, 0.1); border: 1px solid var(--danger); padding: 12px; border-radius: 8px; display: flex; align-items: center; gap: 12px; }
+        .criminal-img { width: 50px; height: 50px; background: #0b2545; border: 2px solid var(--danger); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--danger); }
+        .criminal-info h4 { font-size: 0.95rem; color: #fff; margin-bottom: 2px; }
+        .criminal-info p { font-size: 0.75rem; color: #a8b2d1; }
+        .match-tag { font-size: 0.7rem; background: var(--danger); color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: 600; display: inline-block; margin-top: 4px; }
 
-        /* YAKSH CRIMINALS GRID */
-        .yaksh-criminals { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-        .criminal-card { padding: 12px; border-radius: 8px; background: rgba(0,0,0,0.4); position: relative; }
-
-        /* POP-UP MODAL (NEW COMPLAINT) */
+        /* MODALS (GENERAL & CASE DETAIL) */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(5, 11, 20, 0.85); backdrop-filter: blur(6px); align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
         .modal.show { display: flex; opacity: 1; }
-        .modal-content { background-color: var(--card-bg); border: 2px solid var(--gold); border-radius: 15px; padding: 30px; width: 90%; max-width: 550px; position: relative; box-shadow: 0 10px 35px rgba(0,0,0,0.8); transform: scale(0.8); transition: transform 0.3s ease; }
+        .modal-content { background-color: var(--card-bg); border: 2px solid var(--gold); border-radius: 15px; padding: 25px; width: 90%; max-width: 600px; position: relative; box-shadow: 0 10px 35px rgba(0,0,0,0.8); transform: scale(0.8); transition: transform 0.3s ease; max-height: 90vh; overflow-y: auto; }
         .modal.show .modal-content { transform: scale(1); }
         .close-btn { position: absolute; right: 20px; top: 15px; font-size: 1.8rem; color: #a8b2d1; cursor: pointer; transition: 0.3s; }
         .close-btn:hover { color: var(--danger); }
 
-        /* MODULE SPECIFIC STYLES */
+        /* LEGAL NEXT STEP BOX IN POPUP */
+        .legal-box { background: rgba(0, 240, 255, 0.1); border-left: 4px solid var(--accent-blue); padding: 12px; margin: 15px 0; border-radius: 4px; }
+        .legal-box h5 { color: var(--gold); font-size: 0.9rem; margin-bottom: 5px; }
+        .legal-box p { font-size: 0.85rem; color: #fff; line-height: 1.4; }
+
         .alert-box { background: rgba(255, 51, 102, 0.15); border-left: 4px solid var(--danger); padding: 10px 15px; border-radius: 4px; margin-bottom: 10px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center; }
         .feature-box { background: rgba(0,0,0,0.3); border: 1px solid #243b55; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
 
-        @media(max-width: 992px) { .sidebar { display: none; } .main-content { margin-left: 0; width: 100%; } .dashboard-grid, .vivechna-grid, .yaksh-criminals { grid-template-columns: 1fr; } }
+        @media(max-width: 992px) { .sidebar { display: none; } .main-content { margin-left: 0; width: 100%; } .dashboard-grid, .vivechna-grid, .criminals-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -127,13 +147,14 @@
                 <h1>स्मार्ट पुलिस इन्वेस्टिगेशन एवं मॉनिटरिंग सिस्टम</h1>
                 <p style="color: #a8b2d1; font-size: 0.85rem;">भारतीय न्याय संहिता (BNS) एवं नागरिक सुरक्षा संहिता (BNSS) आधारित</p>
             </div>
-            <div>
+            <div style="display: flex; align-items: center; gap: 15px;">
                 <span class="badge" id="offline-badge"><i class="fa-solid fa-wifi"></i> ऑनलाइन - CCTNS सिंक एक्टिव</span>
+                <button class="btn-logout" onclick="logoutSystem()"><i class="fa-solid fa-right-from-bracket"></i> लॉग-आउट</button>
             </div>
         </div>
 
         <div class="action-banner">
-            <h3 style="color: #fff; margin-bottom: 10px; font-family: 'Rajdhani', sans-serif;">नागरिक एवं FIR त्वरित पंजीकरण मॉड्यूल</h3>
+            <h3 style="color: #fff; margin-bottom: 8px; font-family: 'Rajdhani', sans-serif;">नागरिक एवं FIR त्वरित पंजीकरण मॉड्यूल</h3>
             <button id="openModalBtn" class="btn-popup-trigger">
                 <i class="fa-solid fa-file-circle-plus"></i> ऑनलाइन शिकायत दर्ज करें (CCTNS Form)
             </button>
@@ -161,48 +182,61 @@
         <div class="dashboard-grid">
             <div class="card" id="ai-assistant-section">
                 <div class="card-header">
-                    <h3><i class="fa-solid fa-robot"></i> 'न्याय-सहायक' AI लीगल असिस्टेंट</h3>
+                    <h3><i class="fa-solid fa-robot"></i> 'न्याय-सहायक' AI (वर्दी वॉयस असिस्टेंट)</h3>
                     <span class="badge" style="border-color: var(--gold); color: var(--gold);">BNS/BNSS Ready</span>
                 </div>
+                <div class="ai-officer-banner">
+                    <div class="ai-avatar"><i class="fa-solid fa-user-police"></i></div>
+                    <div class="ai-info">
+                        <h4>इंस्पेक्टर न्याय-सहायक (AI लीगल गाइड)</h4>
+                        <p>BNS धाराएं और IO के लिए अगला कदम तुरंत जानें</p>
+                        <button class="btn-voice" onclick="speakLastAIResponse()"><i class="fa-solid fa-volume-high"></i> वर्दी में सुनें (Voice Play)</button>
+                    </div>
+                </div>
                 <div class="chat-box" id="chatWindow">
-                    <div class="chat-msg msg-ai">
-                        नमस्ते सर! मैं न्याय-कवच का AI असिस्टेंट हूँ। आप BNS की धाराएँ, रिमांड नियम, या विवेचना से जुड़ा कोई भी कानूनी सवाल पूछ सकते हैं।
+                    <div class="chat-msg msg-ai" id="lastAiMsg">
+                        जय हिंद सर! मैं इंस्पेक्टर न्याय-सहायक हूँ। आप कोई भी अपराध लिखें, मैं तुरंत लागू BNS धारा और BNSS के तहत IO को ली जाने वाली अगली कानूनी कार्रवाई बताऊंगा।
                     </div>
                 </div>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="aiInput" placeholder="जैसे: चोरी के मामले में BNS की कौन सी धारा लगेगी?" style="margin-bottom: 0;">
+                    <input type="text" id="aiInput" placeholder="जैसे: चोरी या साइबर फ्रॉड में IO का नेक्स्ट स्टेप क्या है?" style="margin-bottom: 0;">
                     <button class="btn btn-primary" onclick="askAI()"><i class="fa-solid fa-paper-plane"></i></button>
                 </div>
             </div>
 
             <div class="card" id="vivechna-section">
                 <div class="card-header">
-                    <h3><i class="fa-solid fa-magnifying-glass-chart"></i> 4 प्रमुख लाइव विवेचना (Active Investigations)</h3>
+                    <h3><i class="fa-solid fa-magnifying-glass-chart"></i> 4 प्रमुख लाइव विवेचना (पॉप-अप & PDF)</h3>
+                    <span style="font-size: 0.75rem; color: var(--accent-blue);">क्लिक करके विवरण देखें</span>
                 </div>
                 <div class="vivechna-grid">
-                    <div class="vivechna-box">
-                        <div class="vivechna-title"><span>#101: हाई-प्रोफाइल साइबर फ्रॉड</span> <span>BNS 318(4)</span></div>
-                        <p style="font-size: 0.75rem; color: #a8b2d1;">IO: इंस्पेक्टर राजेश | स्थिति: डिजिटल साक्ष्य संकलन</p>
+                    <div class="vivechna-box" onclick="openCaseModal('101', 'हाई-प्रोफाइल साइबर फ्रॉड', 'BNS 318(4), 319', 'इंस्पेक्टर राजेश', '75%', 'डिजिटल साक्ष्य (बैंक ट्रेल व IP लॉग) संकलित कर लिए गए हैं। आरोपी के खाते फ्रीज हैं।', 'BNSS धारा 175 के तहत इलेक्ट्रॉनिक साक्ष्यों की हैश वैल्यू (SHA-256) के साथ 60 दिन के भीतर न्यायालय में चार्जशीट (क्लोजर रिपोर्ट) दाखिल करें।')">
+                        <div class="vivechna-title"><span>#101: साइबर फ्रॉड</span> <span>BNS 318(4)</span></div>
+                        <p style="font-size: 0.75rem; color: #a8b2d1;">IO: इंस्पेक्टर राजेश | स्थिति: साक्ष्य संकलन</p>
                         <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 75%;"></div></div>
                         <span style="font-size: 0.75rem; color: var(--success);">75% पूर्ण (चार्जशीट तैयारी में)</span>
+                        <span class="click-hint"><i class="fa-solid fa-arrow-up-right-from-square"></i> पॉप-अप & PDF डाउनलोड</span>
                     </div>
-                    <div class="vivechna-box">
-                        <div class="vivechna-title"><span>#102: गृह भेदन एवं चोरी</span> <span>BNS 305/309</span></div>
-                        <p style="font-size: 0.75rem; color: #a8b2d1;">IO: सब-इंस्पेक्टर पूजा | स्थिति: CCTV फुटेज विश्लेषण</p>
+                    <div class="vivechna-box" onclick="openCaseModal('102', 'गृह भेदन एवं भारी चोरी', 'BNS 305(a), 309', 'सब-इंस्पेक्टर पूजा', '50%', 'CCTV फुटेज से संदिग्ध का चेहरा मिला है। यक्ष AI द्वारा आदतन अपराधी विक्रम उर्फ विक्की के रूप में पहचान हुई है।', 'BNSS धारा 187 के तहत आरोपी की गिरफ्तारी कर 24 घंटे के भीतर मजिस्ट्रेट के समक्ष पेश करें और चोरी किए गए माल की बरामदगी हेतु रिमांड की मांग करें।')">
+                        <div class="vivechna-title"><span>#102: गृह भेदन व चोरी</span> <span>BNS 305/309</span></div>
+                        <p style="font-size: 0.75rem; color: #a8b2d1;">IO: सब-इंस्पेक्टर पूजा | स्थिति: CCTV विश्लेषण</p>
                         <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 50%; background: var(--warning);"></div></div>
-                        <span style="font-size: 0.75rem; color: var(--warning);">50% पूर्ण ('यक्ष' द्वारा चेहरा मिलान जारी)</span>
+                        <span style="font-size: 0.75rem; color: var(--warning);">50% पूर्ण ('यक्ष' फेस-मैच जारी)</span>
+                        <span class="click-hint"><i class="fa-solid fa-arrow-up-right-from-square"></i> पॉप-अप & PDF डाउनलोड</span>
                     </div>
-                    <div class="vivechna-box">
-                        <div class="vivechna-title"><span>#103: गंभीर मारपीट एवं बलवा</span> <span>BNS 115(2)</span></div>
+                    <div class="vivechna-box" onclick="openCaseModal('103', 'गंभीर मारपीट एवं बलवा', 'BNS 115(2), 190, 191', 'इंस्पेक्टर अमित', '90%', 'पीड़ित की मेडिकल रिपोर्ट (MLC) और 4 चश्मदीद गवाहों के बयान BNSS 180 के तहत दर्ज कर लिए गए हैं।', 'ऑपरेशन कनविक्शन के तहत फास्ट-ट्रैक कोर्ट में केस ऑपेन करें। लोक अभियोजक (Public Prosecutor) के साथ मिलकर गवाहों की समय पर गवाही सुनिश्चित करें।')">
+                        <div class="vivechna-title"><span>#103: गंभीर मारपीट</span> <span>BNS 115(2)</span></div>
                         <p style="font-size: 0.75rem; color: #a8b2d1;">IO: इंस्पेक्टर अमित | स्थिति: मेडिकल रिपोर्ट प्राप्त</p>
                         <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 90%;"></div></div>
-                        <span style="font-size: 0.75rem; color: var(--success);">90% पूर्ण (कोर्ट पेशी हेतु तैयार)</span>
+                        <span style="font-size: 0.75rem; color: var(--success);">90% पूर्ण (कोर्ट पेशी तैयार)</span>
+                        <span class="click-hint"><i class="fa-solid fa-arrow-up-right-from-square"></i> पॉप-अप & PDF डाउनलोड</span>
                     </div>
-                    <div class="vivechna-box">
-                        <div class="vivechna-title"><span>#104: अंतर्राज्यीय वाहन चोरी</span> <span>BNS 303(2)</span></div>
+                    <div class="vivechna-box" onclick="openCaseModal('104', 'अंतर्राज्यीय वाहन चोरी सिंडिकेट', 'BNS 303(2), 111 (संगठित अपराध)', 'सब-इंस्पेक्टर वर्मा', '35%', 'वाहन के इंजन नंबर और FASTag ट्रेल के आधार पर जियो-फेंसिंग अलर्ट एक्टिव किया गया है। मुख्य सरगना राज्य सीमा पार है।', 'BNSS धारा 84 के तहत फरार आरोपी के खिलाफ गैर-जमानती वारंट (NBW) और उद्घोषणा (Proclamation) जारी कराने हेतु न्यायालय में आवेदन करें।')">
+                        <div class="vivechna-title"><span>#104: वाहन चोरी गिरोह</span> <span>BNS 303(2)</span></div>
                         <p style="font-size: 0.75rem; color: #a8b2d1;">IO: सब-इंस्पेक्टर वर्मा | स्थिति: गैंग लीडर की तलाश</p>
                         <div class="progress-bar-bg"><div class="progress-bar-fill" style="width: 35%; background: var(--danger);"></div></div>
-                        <span style="font-size: 0.75rem; color: var(--danger);">35% पूर्ण (जियो-फेंसिंग अलर्ट एक्टिव)</span>
+                        <span style="font-size: 0.75rem; color: var(--danger);">35% पूर्ण (जियो-फेंसिंग अलर्ट)</span>
+                        <span class="click-hint"><i class="fa-solid fa-arrow-up-right-from-square"></i> पॉप-अप & PDF डाउनलोड</span>
                     </div>
                 </div>
             </div>
@@ -229,45 +263,32 @@
                     <h3><i class="fa-solid fa-user-shield"></i> 'यक्ष' (Yaksh) AI फेस-मैचिंग</h3>
                     <span class="badge" style="border-color: var(--gold); color: var(--gold);">Live CCTV Sync</span>
                 </div>
-                <div class="feature-box" style="margin-bottom: 10px;">
-                    <p style="font-size: 0.85rem; color: #a8b2d1; margin-bottom: 10px;">संदिग्ध का चेहरा या फोटो अपलोड करें। सिस्टम तुरंत CCTNS क्रिमिनल डेटाबेस से स्कैन करेगा।</p>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="file" style="padding: 8px; margin-bottom: 0;">
-                        <button class="btn btn-primary" onclick="alert('यक्ष AI: डेटाबेस से स्कैनिंग जारी... 94% मैच पाया गया (रिकॉर्ड: आदतन अपराधी)।')">
-                            <i class="fa-solid fa-crosshairs"></i> स्कैन करें
+                <div class="feature-box">
+                    <p style="font-size: 0.85rem; color: #a8b2d1; margin-bottom: 10px;">संदिग्ध का चेहरा स्कैन करें। सिस्टम CCTNS क्रिमिनल डेटाबेस से तुरंत मिलान करेगा:</p>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="file" style="padding: 6px; margin-bottom: 0;">
+                        <button class="btn btn-primary" onclick="alert('यक्ष AI: स्कैनिंग पूर्ण! क्रिमिनल डेटाबेस से मिलान सफल।')">
+                            <i class="fa-solid fa-crosshairs"></i> स्कैन
                         </button>
                     </div>
-                </div>
-
-                <h4 style="color: var(--accent-blue); font-size: 0.9rem; margin-top: 15px; border-bottom: 1px dashed #243b55; padding-bottom: 5px;">
-                    <i class="fa-solid fa-users-viewfinder"></i> यक्ष टारगेट: वांटेड क्रिमिनल प्रोफाइल्स (CCTNS Sync)
-                </h4>
-                <div class="yaksh-criminals">
-                    <div class="criminal-card" style="border: 1px solid var(--danger); background: rgba(220, 38, 38, 0.1);">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                            <i class="fa-solid fa-user-ninjas" style="font-size: 1.8rem; color: var(--danger);"></i>
-                            <div>
-                                <h4 style="color: #fff; font-size: 0.95rem; margin: 0;">क्रिमिनल #1: विक्रम उर्फ 'विक्की'</h4>
-                                <span style="font-size: 0.75rem; color: var(--danger); font-weight: bold;">CCTNS ID: YK-402 (वांटेड)</span>
+                    
+                    <div class="criminals-grid">
+                        <div class="criminal-card">
+                            <div class="criminal-img"><i class="fa-solid fa-user-secret"></i></div>
+                            <div class="criminal-info">
+                                <h4>विक्रम उर्फ 'विक्की'</h4>
+                                <p>BNS धारा 305(a), 309 (आदतन चोर)</p>
+                                <span class="match-tag"><i class="fa-solid fa-triangle-exclamation"></i> 98.4% Match</span>
                             </div>
                         </div>
-                        <p style="font-size: 0.75rem; color: #a8b2d1; margin-bottom: 10px;">अपराध: अंतर्राज्यीय वाहन चोरी व लूट (BNS 303/309)</p>
-                        <button class="btn" style="padding: 6px 10px; background: var(--danger); color: #fff; font-size: 0.8rem; width: 100%; justify-content: center;" onclick="alert('🚨 यक्ष फेस मैच अलर्ट: क्रिमिनल #1 (विक्रम उर्फ विक्की)\n\n• फेशियल मैच स्कोर: 98.4%\n• वर्तमान स्थिति: फरार (Wanted)\n• अंतिम CCTV लोकेशन: सेक्टर-12 टोल प्लाजा कैमरा #04')">
-                            <i class="fa-solid fa-expand"></i> फेस डेटाबेस मैच करें
-                        </button>
-                    </div>
-                    <div class="criminal-card" style="border: 1px solid var(--warning); background: rgba(255, 170, 0, 0.1);">
-                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                            <i class="fa-solid fa-user-secret" style="font-size: 1.8rem; color: var(--warning);"></i>
-                            <div>
-                                <h4 style="color: #fff; font-size: 0.95rem; margin: 0;">क्रिमिनल #2: सुल्तान 'साइबर'</h4>
-                                <span style="font-size: 0.75rem; color: var(--warning); font-weight: bold;">CCTNS ID: YK-509 (फरार)</span>
+                        <div class="criminal-card">
+                            <div class="criminal-img" style="border-color: var(--warning); color: var(--warning);"><i class="fa-solid fa-user-ninja"></i></div>
+                            <div class="criminal-info">
+                                <h4>राजन 'साइबर किंग'</h4>
+                                <p>BNS धारा 318(4), 319 (ठगी गिरोह)</p>
+                                <span class="match-tag" style="background: var(--warning); color: #050b14;"><i class="fa-solid fa-crosshairs"></i> 94.1% Match</span>
                             </div>
                         </div>
-                        <p style="font-size: 0.75rem; color: #a8b2d1; margin-bottom: 10px;">अपराध: संगठित डिजिटल फ्रॉड व उगाही (BNS 308/318)</p>
-                        <button class="btn" style="padding: 6px 10px; background: var(--warning); color: #050b14; font-size: 0.8rem; width: 100%; justify-content: center; font-weight: 700;" onclick="alert('⚠️ यक्ष फेस मैच अलर्ट: क्रिमिनल #2 (सुल्तान साइबर)\n\n• फेशियल मैच स्कोर: 94.1%\n• वर्तमान स्थिति: रेड कॉर्नर नोटिस एक्टिव\n• अंतिम डिजिटल ट्रेल: ATM फुटेज व IP एड्रेस ट्रैक जारी')">
-                            <i class="fa-solid fa-expand"></i> फेस डेटाबेस मैच करें
-                        </button>
                     </div>
                 </div>
             </div>
@@ -329,7 +350,7 @@
                 <div class="feature-box" style="text-align: center; padding: 20px;">
                     <i class="fa-solid fa-file-shield" style="font-size: 2.5rem; color: var(--success); margin-bottom: 10px;"></i>
                     <p style="font-size: 0.9rem; margin-bottom: 15px;">BNSS के तहत तय समयसीमा (60/90 दिन) में कोर्ट रेडी चार्जशीट और साक्ष्य संकलन रिपोर्ट जनरेट करें।</p>
-                    <button class="btn btn-success" onclick="generatePDF()">
+                    <button class="btn btn-success" onclick="generatePDF('जनरल चार्जशीट')">
                         <i class="fa-solid fa-file-arrow-down"></i> BNS कम्पलायंट PDF चार्जशीट डाउनलोड करें
                     </button>
                 </div>
@@ -348,8 +369,8 @@
                 <input type="text" id="comp-phone" placeholder="मोबाइल नंबर (OTP वेरिफिकेशन हेतु)" required>
                 <select style="color: #a8b2d1;">
                     <option>अपराध की श्रेणी चुनें (BNS)</option>
-                    <option>चोरी / लूटपाट</option>
-                    <option>साइबर अपराध / वित्तीय धोखाधड़ी</option>
+                    <option>चोरी / लूटपाट (BNS 303/305)</option>
+                    <option>साइबर अपराध / वित्तीय धोखाधड़ी (BNS 318)</option>
                     <option>महिला एवं बाल सुरक्षा से संबंधित</option>
                     <option>अन्य सामान्य शिकायत</option>
                 </select>
@@ -361,8 +382,41 @@
         </div>
     </div>
 
+    <div id="caseDetailModal" class="modal">
+        <div class="modal-content" style="border-color: var(--accent-blue);">
+            <span id="closeCaseModalBtn" class="close-btn">&times;</span>
+            <span class="badge" style="margin-bottom: 10px;">इन्वेस्टिगेशन रिपोर्ट</span>
+            <h3 id="case-modal-title" style="color: #fff; font-size: 1.4rem; font-family: 'Rajdhani', sans-serif; margin-bottom: 5px;"></h3>
+            <p id="case-modal-io" style="color: var(--gold); font-size: 0.9rem; margin-bottom: 15px;"></p>
+            
+            <div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+                <h5 style="color: #a8b2d1; font-size: 0.8rem; margin-bottom: 5px;">वर्तमान विवेचना स्थिति:</h5>
+                <p id="case-modal-status" style="font-size: 0.85rem; color: #fff;"></p>
+            </div>
+
+            <div class="legal-box">
+                <h5><i class="fa-solid fa-gavel"></i> लागू BNS धाराएं एवं सजा प्रावधान:</h5>
+                <p id="case-modal-bns" style="margin-bottom: 10px; font-weight: 600; color: var(--accent-blue);"></p>
+                <h5 style="color: var(--success);"><i class="fa-solid fa-shoe-prints"></i> IO के लिए अगला कानूनी कदम (Next Step under BNSS):</h5>
+                <p id="case-modal-nextstep"></p>
+            </div>
+
+            <button class="btn btn-success" id="downloadCasePdfBtn" style="background: var(--gold); color: #050b14; font-weight: bold; margin-top: 10px;">
+                <i class="fa-solid fa-file-pdf"></i> इस विवेचना की केस डायरी PDF डाउनलोड करें
+            </button>
+        </div>
+    </div>
+
     <script>
-        // 1. ONLINE / OFFLINE HYBRID ENGINE
+        // 1. LOGOUT FUNCTIONALITY
+        function logoutSystem() {
+            if(confirm("क्या आप न्याय-कवच CCTNS डैशबोर्ड से लॉग-आउट करना चाहते हैं?")) {
+                alert("🔒 सिस्टम सुरक्षित रूप से लॉग-आउट हो गया है।");
+                document.body.innerHTML = '<div style="display:flex; height:100vh; justify-content:center; align-items:center; flex-direction:column; background:#050b14; color:#d4af37; font-family:\'Rajdhani\',sans-serif;"><h1><i class="fa-solid fa-shield-halved"></i> न्याय-कवच एआई</h1><p style="color:#fff; margin-top:10px;">आप सफलतापूर्वक लॉग-आउट हो चुके हैं। पुनः प्रवेश हेतु रिफ्रेश करें।</p></div>';
+            }
+        }
+
+        // 2. ONLINE / OFFLINE HYBRID ENGINE
         function updateNetworkStatus() {
             const badge = document.getElementById('offline-badge');
             if (navigator.onLine) {
@@ -377,7 +431,9 @@
         window.addEventListener('offline', updateNetworkStatus);
         updateNetworkStatus();
 
-        // 2. AI ASSISTANT CHAT LOGIC
+        // 3. AI ASSISTANT IN UNIFORM (WITH VOICE & IO NEXT STEP GUIDE)
+        let lastAiText = "जय हिंद सर! मैं इंस्पेक्टर न्याय-सहायक हूँ। आप कोई भी अपराध लिखें, मैं तुरंत लागू BNS धारा और BNSS के तहत IO को ली जाने वाली अगली कानूनी कार्रवाई बताऊंगा।";
+
         function askAI() {
             const input = document.getElementById('aiInput');
             const chatWindow = document.getElementById('chatWindow');
@@ -395,16 +451,38 @@
             setTimeout(() => {
                 const aiMsg = document.createElement('div');
                 aiMsg.className = 'chat-msg msg-ai';
-                if (question.includes("चोरी") || question.includes("chori")) {
-                    aiMsg.innerText = "भारतीय न्याय संहिता (BNS) के तहत चोरी के लिए धारा 303 (साधारण चोरी) या धारा 305 (घर में चोरी) लगाई जाएगी। इसमें 3 से 7 साल तक की सजा का प्रावधान है।";
-                } else if (question.includes("रिमांड") || question.includes("remand")) {
-                    aiMsg.innerText = "BNSS की धारा 187 के तहत पुलिस रिमांड अधिकतम 15 दिनों के लिए ली जा सकती है, जिसे केस की गंभीरता के आधार पर टुकड़ों में लिया जा सकता है।";
+                
+                if (question.includes("चोरी") || question.includes("chori") || question.includes("लूट")) {
+                    lastAiText = "भारतीय न्याय संहिता (BNS) के तहत घर में चोरी के लिए धारा 305(a) लगेगी (सजा: 7 वर्ष तक कैद)। IO के लिए अगला कदम: BNSS धारा 187 के तहत आरोपी की रिमांड लें और साक्ष्य ब्लॉकचेन वॉल्ट में सुरक्षित करें।";
+                } else if (question.includes("साइबर") || question.includes("fraud") || question.includes("ठगी")) {
+                    lastAiText = "साइबर फ्रॉड में BNS की धारा 318(4) (छल/धोखाधड़ी) लगेगी। IO के लिए अगला कदम: तुरंत बैंक को 1930 पोर्टल के जरिए डेबिट फ्रीज का नोटिस भेजें और IP एड्रेस का टावर डंप निकालें।";
+                } else if (question.includes("मारपीट") || question.includes("लड़ाई") || question.includes("बलवा")) {
+                    lastAiText = "गंभीर चोट पहुंचाने पर BNS की धारा 115(2) और बलवा के लिए धारा 190 लगेगी। IO के लिए अगला कदम: 24 घंटे के भीतर सरकारी अस्पताल से मेडिकल लीगल सर्टिफिकेट (MLC) प्राप्त करें और गवाहों के बयान दर्ज करें।";
                 } else {
-                    aiMsg.innerText = "मैं आपके प्रश्न का विश्लेषण कर रहा हूँ। विवेचना अधिकारी के रूप में कृपया BNSS के अध्याय 13 (पुलिस द्वारा विवेचना की प्रक्रिया) का पालन करें।";
+                    lastAiText = "इस मामले में BNS की प्रासंगिक धाराओं के तहत FIR दर्ज की जानी चाहिए। IO के लिए अगला कदम: BNSS के अध्याय 13 के अनुसार घटनास्थल का वीडियोग्राफिक साक्ष्य संकलित करें और 60 दिनों के भीतर चार्जशीट तैयार करें।";
                 }
+                
+                aiMsg.innerText = lastAiText;
+                aiMsg.id = "lastAiMsg";
                 chatWindow.appendChild(aiMsg);
                 chatWindow.scrollTop = chatWindow.scrollHeight;
+                
+                // ऑटो वॉयस प्ले (अगर ब्राउज़र सपोर्ट करे)
+                speakLastAIResponse();
             }, 800);
+        }
+
+        function speakLastAIResponse() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // पुरानी आवाज बंद करें
+                const speech = new SpeechSynthesisUtterance(lastAiText);
+                speech.lang = 'hi-IN'; // हिंदी आवाज
+                speech.rate = 1.0;
+                speech.pitch = 1.0;
+                window.speechSynthesis.speak(speech);
+            } else {
+                alert("सर, आपके ब्राउज़र में वॉयस सपोर्ट उपलब्ध नहीं है, लेकिन टेक्स्ट स्क्रीन पर अपडेट है।");
+            }
         }
 
         document.getElementById("aiInput").addEventListener("keypress", function(event) {
@@ -414,23 +492,43 @@
             }
         });
 
-        // 3. POP-UP MODAL LOGIC
-        const modal = document.getElementById("complaintModal");
-        const openBtn = document.getElementById("openModalBtn");
-        const closeBtn = document.getElementById("closeModalBtn");
-
-        openBtn.onclick = () => modal.classList.add("show");
-        closeBtn.onclick = () => modal.classList.remove("show");
-        window.onclick = (e) => { if (e.target == modal) modal.classList.remove("show"); }
+        // 4. GENERAL ONLINE COMPLAINT POP-UP MODAL LOGIC
+        const complaintModal = document.getElementById("complaintModal");
+        document.getElementById("openModalBtn").onclick = () => complaintModal.classList.add("show");
+        document.getElementById("closeModalBtn").onclick = () => complaintModal.classList.remove("show");
 
         document.getElementById('new-complaint-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            modal.classList.remove("show");
-            alert("✅ शिकायत सफलतापूर्वक दर्ज की गई! (सिस्टम मोड: " + (navigator.onLine ? "ऑनलाइन CCTNS सिंक" : "ऑफलाइन लोकल सेव") + ")");
+            complaintModal.classList.remove("show");
+            alert("✅ शिकायत सफलतापूर्वक दर्ज की गई! CCTNS ट्रैकिंग ID: NYAY-" + Math.floor(100000 + Math.random() * 900000));
             this.reset();
         });
 
-        // 4. DEYTA WORKLOAD CALCULATOR LOGIC
+        // 5. 4 VIVECHNA CASE DETAIL POP-UP & PDF DOWNLOAD LOGIC
+        const caseModal = document.getElementById("caseDetailModal");
+        document.getElementById("closeCaseModalBtn").onclick = () => caseModal.classList.remove("show");
+        
+        window.onclick = (e) => { 
+            if (e.target == complaintModal) complaintModal.classList.remove("show");
+            if (e.target == caseModal) caseModal.classList.remove("show");
+        }
+
+        function openCaseModal(caseId, title, bns, io, progress, status, nextStep) {
+            document.getElementById("case-modal-title").innerText = `केस #${caseId}: ${title}`;
+            document.getElementById("case-modal-io").innerText = `विवेचना अधिकारी (IO): ${io} | प्रगति: ${progress}`;
+            document.getElementById("case-modal-status").innerText = status;
+            document.getElementById("case-modal-bns").innerText = bns;
+            document.getElementById("case-modal-nextstep").innerText = nextStep;
+            
+            // PDF डाउनलोड बटन के लिए एक्शन सेट करें
+            document.getElementById("downloadCasePdfBtn").onclick = function() {
+                generatePDF(`केस #${caseId} (${title}) - IO: ${io}`);
+            };
+            
+            caseModal.classList.add("show");
+        }
+
+        // 6. DEYTA WORKLOAD CALCULATOR LOGIC
         function calculateDeyta() {
             const cases = document.getElementById('pending-cases').value;
             const gravity = document.getElementById('case-gravity').value;
@@ -439,13 +537,35 @@
             document.getElementById('deyta-result').innerText = `Deyta स्कोर: ${score} | स्थिति: ${status}`;
         }
 
-        // 5. PDF GENERATOR SIMULATION
-        function generatePDF() {
-            alert("⏳ BNS एवं BNSS धाराओं के आधार पर डिजिटल साक्ष्य सहित PDF चार्जशीट जनरेट हो रही है...");
-            setTimeout(() => { alert("✅ 'State_vs_Accused_ChargeSheet_BNS.pdf' सफलतापूर्वक डाउनलोड हो गई!"); }, 1500);
+        // 7. REALISTIC PDF GENERATOR / PRINT SIMULATION
+        function generatePDF(docName = "BNS ChargeSheet") {
+            // प्रिंट/डाउनलोड सिमुलेशन
+            const printContent = `
+            ====================================================
+                       न्याय-कवच इन्वेस्टिगेशन रिपोर्ट (CCTNS)
+            ====================================================
+            दस्तावेज़ का नाम: ${docName}
+            दिनांक एवं समय: ${new Date().toLocaleString()}
+            कानूनी ढांचा: भारतीय न्याय संहिता (BNS) एवं BNSS
+            ----------------------------------------------------
+            स्थिति: डिजिटल साक्ष्य हैश (SHA-256) द्वारा प्रमाणित।
+            यह रिपोर्ट न्यायालय एवं विवेचना उपयोग हेतु जनरेट की गई है।
+            ====================================================
+            `;
+            
+            // एक छोटा वर्चुअल प्रिंट/डाउनलोड ट्रिगर
+            alert(`⏳ '${docName}.pdf' जनरेट हो रही है...\n(BNS धाराएं व IO नेक्स्ट स्टेप रिपोर्ट में शामिल हैं)`);
+            setTimeout(() => {
+                const blob = new Blob([printContent], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = `${docName.replace(/[^a-zA-Z0-9]/g, "_")}_Report.txt`; // डेमो में txt/pdf डाउनलोड ट्रिगर
+                link.click();
+                alert("✅ रिपोर्ट सफलतापूर्वक डाउनलोड हो गई!");
+            }, 1000);
         }
 
-        // 6. CHARTS INITIALIZATION (Chart.js)
+        // 8. CHARTS INITIALIZATION (Chart.js)
         const ctx1 = document.getElementById('crimeChart').getContext('2d');
         new Chart(ctx1, {
             type: 'bar',
